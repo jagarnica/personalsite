@@ -1,7 +1,6 @@
 import React from "react"
 import styled from "styled-components"
 import NavItem from "./navbaritem"
-
 /**
  * A roadlink is just a custom class used for the links in the navbar. Each one must 
  * have a name attached and also a color that is used to signify it is active.
@@ -28,16 +27,17 @@ class RoadLink {
 }
 
 function Navbar() {
-    let homeLink = new RoadLink("Home", "black","/");
-    let resumeLink = new RoadLink("Resume", "red");
-    let portfolioLink = new RoadLink("Portfolio", "blue");
-    const links: RoadLink[] = [homeLink, resumeLink, portfolioLink]
+    let homeLink:RoadLink = new RoadLink("Home", "#4700ff","/");
+    let aboutLink: RoadLink = new RoadLink("About", "purple", "/about/");
+    let resumeLink: RoadLink = new RoadLink("Resume", "red", "/comingsoon/");
+    let portfolioLink: RoadLink = new RoadLink("Portfolio", "blue", "/comingsoon/");
+    const links: RoadLink[] = [homeLink, aboutLink,resumeLink, portfolioLink]
     
     const NavTabs = links.map((roadObj: RoadLink)=>{
         let pathName = roadObj.getPathName();
         let linkName = roadObj.name;
         let activeColor = roadObj.activeColor;
-        return <NavItem activeColor={activeColor} linkName={linkName} key={linkName}></NavItem>
+        return <NavItem pathName={pathName} activeColor={activeColor} linkName={linkName} key={linkName}></NavItem>
     })
     return (
         <NavbarContainer>
@@ -57,7 +57,7 @@ const NavbarContainer = styled.div`
     font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     display:flex;
     align-content:center;
-    justify-content:space-between;
+    justify-content:center;
 `
 
 
