@@ -143,7 +143,9 @@ DropDownNav.defaultProps = {
   onRequestClose: function() {},
 }
 const ButtonRotate = keyframes`
-
+from {
+  transform: rotate(0deg);
+}
 to{
   transform: rotate(180deg);
 }
@@ -154,6 +156,7 @@ position:absolute;
 cursor: pointer;
 top:50px;
 right:10%;
+padding:10px;
 
 display:flex;
 justify-content:center;

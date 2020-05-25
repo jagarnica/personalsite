@@ -63,7 +63,6 @@ const Container = styled.div`
   height: auto;
   padding: 0px 20px;
   display: flex;
-  backdrop-filter: blur(20px);
   justify-content: flex-end;
   align-items: center;
 `
