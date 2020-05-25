@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import NavItem from "./navbaritem"
+import DrawerMenu from "./drawermenu/index"
 /**
  * A roadlink is just a custom class used for the links in the navbar. Each one must 
  * have a name attached and also a color that is used to signify it is active.
@@ -29,9 +30,10 @@ class RoadLink {
 function Navbar() {
     let homeLink:RoadLink = new RoadLink("Home", "#4700ff","/");
     let aboutLink: RoadLink = new RoadLink("About", "purple", "/about/");
+    let blogLink: RoadLink = new RoadLink("Blog", "red", "/comingsoon/");
     let resumeLink: RoadLink = new RoadLink("Resume", "red", "/comingsoon/");
     let portfolioLink: RoadLink = new RoadLink("Portfolio", "blue", "/comingsoon/");
-    const links: RoadLink[] = [homeLink, aboutLink,resumeLink, portfolioLink]
+    const links: RoadLink[] = [homeLink, aboutLink,blogLink, resumeLink, portfolioLink]
     
     const NavTabs = links.map((roadObj: RoadLink)=>{
         let pathName = roadObj.getPathName();
@@ -41,7 +43,14 @@ function Navbar() {
     })
     return (
         <NavbarContainer>
-            {NavTabs}
+            <TitleSpan>JESUS GARNICA</TitleSpan>
+            <DrawerMenu>
+                <TabsLayoutDiv>
+                {NavTabs}
+                </TabsLayoutDiv>
+               
+            </DrawerMenu>
+           
         </NavbarContainer>
     )
 }
@@ -54,10 +63,23 @@ const NavbarContainer = styled.div`
     margin: 0 auto;
     max-width:960px;
     background:white;
-    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     display:flex;
-    align-content:center;
-    justify-content:center;
+    font-family:'IBM Plex Mono',-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    align-items:center;
+    justify-content:space-between;
+`
+const TitleSpan = styled.span`
+line-height:1.2em;
+font-size:1.2em;
 `
 
-
+const TabsLayoutDiv = styled.div`
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+margin:auto 0;
+padding: 20px 0px;
+height:100%;
+max-height:100%;
+`

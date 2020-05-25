@@ -1,37 +1,38 @@
-import React, { Component } from "react"
+import React from "react"
 import styled from "styled-components"
-import PropTypes from 'prop-types'
+interface NavbarButtonProps {
+  width: number,
+  active: boolean,
+  height: number, 
+  onClick?: void,
+  iconColor: string
+}
 /**
- * @name NavbarAnimatedButton 
- * @description Updated November 3rd 2019, creates a simple button meant to be used 
+ * @name NavbarButton 
+ * @description Creates a simple button meant to be used 
  * in a nav. 
  * @prop {number} width Sets the total width for the button. 
  * @prop {boolean} active Sets if the icon should be in the "clicked" state.
  * @prop {number} height Sets the total height for the button 
- * @prop {function} onClick This is fired after the user clicks on the icon. EVENT is passed in. 
+ * @prop {void} onClick This is fired after the user clicks on the icon. EVENT is passed in. 
  * @prop {string} iconColor Sets the color for the icon. The default is black.
  * 
  */
-class NavbarAnimatedButton extends Component {
-  constructor(props) {
-    super(props)
-    this._isMounted = false
-
+const  NavbarButton: React.FC<NavbarButtonProps> = ({width, active, height, onClick, iconColor}) => {
+  let barClassName = ""
+  if (active) {
+    barClassName += "clicked"
   }
-  render() {
-    let barClassName = ""
-    if (this.props.active && this.props.active === true) {
-      barClassName += "clicked"
-    }
-    let iconHeight = this.props.height || 15
-    let transformAmount = Math.round(iconHeight/1.15384615385) /2
+  let iconHeight = height || 15
+  let transformAmount = Math.round(iconHeight/1.15384615385) /2
+   
     return (
       <>
         <Container
-        onClick={this.props.onClick}
-        width={this.props.width}
+        onClick={onClick? onClick: ()=>{}} // If there is an onClick func passed in, do it!
+        width={ width}
         height={iconHeight}
-        iconColor={this.props.iconColor}
+        iconColor={ iconColor}
         >
           <BarElement 
           translateY={transformAmount}
@@ -43,21 +44,20 @@ class NavbarAnimatedButton extends Component {
         </Container>
       </>
     )
-  }
+  
 }
-export default NavbarAnimatedButton
-NavbarAnimatedButton.defaultProps = {
-    height: 15,
-    width: 20,
-    onClick:function(){},
+export default NavbarButton
+interface ContainerProps {
+  width?: number,
+  height?: number,
+  iconColor?: string
 }
-NavbarAnimatedButton.propTypes = {
-    height: PropTypes.number,
-    width: PropTypes.number,
-    iconColor: PropTypes.string,
-    onClick: PropTypes.func,
+interface BarElementProps {
+  translateY?: number,
+  iconColor?: string,
+  className?: string
 }
-const Container = styled.div`
+const Container = styled.div<ContainerProps>`
   width: ${props => (props.width ? props.width + `px` : `20px`)};
   height: ${props => (props.height ? props.height + `px` : `15px`)};
   cursor: pointer;
@@ -67,7 +67,7 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
 `
-const BarElement = styled.div`
+const BarElement = styled.div<BarElementProps>`
   width: 100%;
 
   height: 2px;

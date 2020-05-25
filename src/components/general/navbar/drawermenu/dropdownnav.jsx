@@ -2,8 +2,9 @@ import React, { Component } from "react"
 import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
 import styled, { keyframes } from "styled-components"
+import ExitButton from "./exitbutton"
 /**
- * @name SideDrawer
+ * @name DropDownNav
  * @description Updated December 29, 2019. Presents a simple drawer that comes in from the 
  * side. 
  * @prop {boolean} isVisible Determines if the drawer is visible
@@ -13,7 +14,7 @@ import styled, { keyframes } from "styled-components"
  * @prop {function} onRequestClose Sets the actions when the mask or outside is clicked.
  * @prop {function} onRequestOpen This will be called whenever the drawer is opening.
  */
-class SideDrawer extends Component {
+class DropDownNav extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -88,13 +89,11 @@ class SideDrawer extends Component {
         <ModelMask
         direction={this.props.direction}
           className={drawerClassName}
-          // width={this.state.width + `px`}
-          //   height={this.state.height + `px`}
         >
           <ModalWrapper onClick={this.onMaskClick}>
             <ModalContainer
-                direction={this.props.direction}
-                onAnimationEnd={this.handleAnimationEnd}
+              direction={this.props.direction}
+              onAnimationEnd={this.handleAnimationEnd}
               className={drawerClassName}
               onClick={e => {
                 // We are simply preventing the e based function up above from misfiring
@@ -105,7 +104,11 @@ class SideDrawer extends Component {
               , 
               }}
             >
-              <ModalBody>{this.props.children}</ModalBody>
+              <ExitButtonContainer onClick={this.onMaskClick}>
+              <ExitButton/>
+              </ExitButtonContainer>
+             
+             {this.props.children}
             </ModalContainer>
           </ModalWrapper>
         </ModelMask>,
@@ -116,37 +119,15 @@ class SideDrawer extends Component {
         console.log(e)
       }
       return (
-        <ModelMask>
-          <ModalWrapper onClick={this.onMaskClick}>
-            <ModalContainer
-              onClick={e => {
-                // We are simply preventing the e based function up above from misfiring
-                e.stopPropagation()
-              }}
-            >
-              <ModalHeader>
-                <ModalHeaderCenterItem>Oops</ModalHeaderCenterItem>
-              </ModalHeader>
-              <ModalBody>Something went wrong here.</ModalBody>
-              <ModalHeader>
-                <ModalDefaultButton />
-                <ModalHeaderCenterButton>
-                  <div onClick={this.onRequestClose}>Okay</div>
-                </ModalHeaderCenterButton>
-
-                <ModalDefaultButton />
-              </ModalHeader>
-            </ModalContainer>
-          </ModalWrapper>
-        </ModelMask>
+        null
       )
     }
   }
 }
 
-export default SideDrawer
+export default DropDownNav
 
-SideDrawer.propTypes = {
+DropDownNav.propTypes = {
   isVisible: PropTypes.bool,
   onRequestOpen: PropTypes.func,
   onRequestClose: PropTypes.func,
@@ -154,46 +135,69 @@ SideDrawer.propTypes = {
   width: PropTypes.string,
   direction: PropTypes.string,
 }
-SideDrawer.defaultProps = {
+DropDownNav.defaultProps = {
   isVisible: false,
   width: `300px`,
   direction:"left",
   onRequestOpen: function() {},
   onRequestClose: function() {},
 }
+const ButtonRotate = keyframes`
 
+to{
+  transform: rotate(180deg);
+}
+
+`
+const ExitButtonContainer = styled.div`
+position:absolute;
+cursor: pointer;
+top:50px;
+right:10%;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+width:32px;
+height:32px;
+
+&:hover{
+  animation: 0.3s ${ButtonRotate} ease; 
+}
+`
 // Styling for the Modal Components **********
 const FromLeftSide = keyframes`
 from {
-  transform: translateX(-100%);
+  transform: translateY(-100%);
 }
 to{
-    transform: translateX(0%);
+    transform: translateY(0%);
 }
 `
 const FromRightSide = keyframes`
 from {
-  transform: translateX(100%);
+  transform: translateY(100%);
 }
 to{
-    transform: translateX(0%);
+    transform: translateY(0%);
 }
 
 `
 const ToLeftOutside = keyframes`
 from{
-    transform: translateX(0%);
+    transform: translateY(0%);
 }
 to{
-    transform: translateX(-100%);
+    transform: translateY(-100%);
 }
 `
 const ToRightOutside = keyframes`
 from{
-    transform: translateX(0%);
+    transform: translateY(0%);
 }
 to{
-    transform: translateX(100%);
+    transform: translateY(100%);
 }
 `
 const FadeIn = keyframes`
@@ -242,7 +246,6 @@ const ModelMask = styled.div`
 const ModalDefaultButton = styled.a`
   flex: 0 0 12px;
   cursor: pointer;
-  font-weight: normal !important;
 `
 const ModalWrapper = styled.div`
   position: relative;
@@ -269,8 +272,7 @@ const ModalContainer = styled.div`
   max-width:${props=>(props.maxWidth? props.maxWidth : '')};
   box-shadow: 0 7px 14px 0 rgba(60,66,87, 0.12), 0 3px 6px 0 rgba(0,0,0, 0.12);
 
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif !important;
+ 
   transition: width, height 0.3s ease;
   transform: translate3d(0,0,0);
 
@@ -280,7 +282,7 @@ const ModalContainer = styled.div`
 
       animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
 
-      animation-duration: 0.8s;
+      animation-duration: 0.4s;
   }
   &.show{
    
@@ -290,29 +292,28 @@ const ModalContainer = styled.div`
    
     transform: translate3d(0,0,0);
 
-    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
-  animation-duration: 0.8s;
-  
-  }
- 
+animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+animation-duration: 0.4s;
+
+}
+
 `
 const ModalHeaderCenterItem = styled.div`
-  flex-grow: 1;
-  text-align: center;
-  position: relative;
-  z-index: 999 !important;
+flex-grow: 1;
+text-align: center;
+position: relative;
+z-index: 999 !important;
 `
 const ModalHeaderCenterButton = styled.div`
-  flex-grow: 1;
-  text-align: center;
-  position: relative;
-  z-index: 999 !important;
+flex-grow: 1;
+text-align: center;
+position: relative;
+z-index: 999 !important;
 
   cursor: pointer;
 `
 const ModalHeader = styled.h3`
   margin-top: 0;
-  font-weight: bold;
   display: flex;
   position: relative;
   z-index: 999 !important;
