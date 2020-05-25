@@ -7,32 +7,18 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
 import Navbar from "./general/navbar/navbar"
-import Header from "./header"
 import styled from "styled-components"
 const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
 
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata.title} />
       <Navbar></Navbar>
       <PageContainerDiv
       >
         <main>{children}</main>
         <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
+          © {new Date().getFullYear()} 
         </footer>
       </PageContainerDiv>
     </>
@@ -48,5 +34,6 @@ export default Layout
 const PageContainerDiv = styled.div`
 margin: 0 auto;
 max-width: 960px;
+font-family:'IBM Plex Mono',-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 padding: 0 1.0875rem 1.45rem;
 `
