@@ -12,4 +12,4 @@
       "allowJs": true
     },
     "exclude": ["node_modules", "public", ".cache"]
-  }
+}
