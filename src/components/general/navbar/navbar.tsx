@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import NavItem from "./navbaritem"
 import DrawerMenu from "./drawermenu/index"
+import {Link} from "gatsby"
 /**
  * A roadlink is just a custom class used for the links in the navbar. Each one must
  * have a name attached and also a color that is used to signify it is active.
@@ -43,7 +44,9 @@ function Navbar() {
     })
     return (
         <NavbarContainer>
-            <TitleSpan>JESUS GARNICA</TitleSpan>
+            <TitleSpan to="/" activeStyle={{textDecoration:"none"}}>
+                JESUS GARNICA
+                </TitleSpan>
             <DrawerMenu>
                 <TabsLayoutDiv>
                 {NavTabs}
@@ -73,10 +76,11 @@ const NavbarContainer = styled.div`
 
 
 `
-const TitleSpan = styled.span`
+const TitleSpan = styled(Link)`
 line-height:1.2em;
 font-size:1.2em;
-
+text-decoration:none;
+color:black;
 `
 
 const TabsLayoutDiv = styled.div`
