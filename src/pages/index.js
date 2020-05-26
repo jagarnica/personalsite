@@ -2,7 +2,7 @@ import React from "react"
 import TypedInEffect from "../components/texteffects/typedindev"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-
+import SkillCard from "../components/skillcard/skillcard"
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
@@ -16,6 +16,11 @@ const IndexPage = () => (
     <p>
       I just graduated from San Francisco State University with a B.S. in
       Computer Science. I have experience with a wide variety of technologies.
+    </p>
+    <p>
+      <SkillCard skill="C++" details="Software Development"/>
+      <SkillCard skill="ReactJS" details="Front End Web Development"/>
+      <SkillCard skill="Apollo GraphQl" details="Front End Web Development"/>
     </p>
   </Layout>
 )
