@@ -61,9 +61,8 @@ export default MobileNavBar
 const Container = styled.div`
   max-width: 100%;
   height: auto;
-  padding: 0px 20px;
+  
   display: flex;
-  backdrop-filter: blur(20px);
   justify-content: flex-end;
   align-items: center;
 `

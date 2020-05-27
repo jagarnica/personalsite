@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
+import * as globalStyleConst from "../../../styles/styles";
 
 interface Props {
   linkName: string // This is the name of the link shown to the user
@@ -32,8 +33,6 @@ export default NavbarItem
 const NavLinkDiv = styled(Link)`
   font-size: 2.8em;
   height: 2.8em;
-  font-family: "IBM Plex Mono", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: bold;
   margin-bottom: 4px;
   color: black;
@@ -44,4 +43,5 @@ const NavLinkDiv = styled(Link)`
   border: 0px solid transparent;
   margin-left: 10px;
   margin-right: 10px;
+  font-family: ${globalStyleConst.FONT_FAMILY};
 `
