@@ -2,6 +2,8 @@ import React from "react"
 import styled from "styled-components"
 import NavItem from "./navbaritem"
 import DrawerMenu from "./drawermenu/index"
+import "../../layout.css"
+import * as globalStyles from "../../../styles/styles"
 import {Link} from "gatsby"
 /**
  * A roadlink is just a custom class used for the links in the navbar. Each one must
@@ -64,11 +66,10 @@ const NavbarContainer = styled.div`
     
     height:69px;
     margin: 0 auto;
-
+    font-family: ${globalStyles.FONT_FAMILY};
     max-width:960px;
     background:white;
     display:flex;
-    font-family:'IBM Plex Mono',-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     align-items:center;
     justify-content:space-between;
     padding-left: 1.0875rem;

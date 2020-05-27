@@ -9,6 +9,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import Navbar from "./general/navbar/navbar"
 import styled from "styled-components"
+import "./layout.css"
 const Layout = ({ children }) => {
 
   return (
@@ -34,6 +35,6 @@ export default Layout
 const PageContainerDiv = styled.div`
 margin: 0 auto;
 max-width: 960px;
-font-family:'IBM Plex Mono',-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+font-family:'Source Sans Pro',-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 padding: 0 1.0875rem 1.45rem;
 `

@@ -5,33 +5,36 @@ import styled, { keyframes } from "styled-components"
 import ExitButton from "./exitbutton"
 /**
  * @name DropDownNav
- * @description Updated December 29, 2019. Presents a simple drawer that comes in from the 
- * side. 
+ * @description Updated December 29, 2019. Presents a simple drawer that comes in from the
+ * side.
  * @prop {boolean} isVisible Determines if the drawer is visible
- * @prop {string} direction Sets the direction the drawer will be set on. The default is left. 
+ * @prop {string} direction Sets the direction the drawer will be set on. The default is left.
  * @prop {string} width Sets the width of the drawer
- * @prop {string} maxWidth Sets the max width for the drawer. 
+ * @prop {string} maxWidth Sets the max width for the drawer.
  * @prop {function} onRequestClose Sets the actions when the mask or outside is clicked.
  * @prop {function} onRequestOpen This will be called whenever the drawer is opening.
  */
 class DropDownNav extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            inDOM: false,
-        }
-        this.handleAnimationEnd = this.handleAnimationEnd.bind(this)
+  constructor(props) {
+    super(props)
+    this.state = {
+      inDOM: false,
     }
+    this.handleAnimationEnd = this.handleAnimationEnd.bind(this)
+  }
   componentDidUpdate(prevProps) {
     //Lets check to see if we are visible or not
     if (this.props.isVisible !== prevProps.isVisible) {
       //Check to see if we should do this check.
       if (this.props.isVisible === true) {
-        if(this.props.onRequestOpen&&typeof(this.props.onRequestOpen)==="function"){
-            this.props.onRequestOpen()
+        if (
+          this.props.onRequestOpen &&
+          typeof this.props.onRequestOpen === "function"
+        ) {
+          this.props.onRequestOpen()
         }
         this.setState({
-            inDOM:true,
+          inDOM: true,
         })
         //Since we are opening the modal, lets block scrolling.
         document.documentElement.style.overflow = "hidden"
@@ -51,76 +54,76 @@ class DropDownNav extends Component {
     document.body.scroll = "yes"
     this.props.onRequestClose()
   }
-  componentWillUnmount(){
+  componentWillUnmount() {
     document.documentElement.style.overflow = "scroll"
     document.body.scroll = "yes"
   }
   componentDidMount() {
     //Lets check to see if we are visible or not
     if (this.props.isVisible === true) {
-        if(this.props.onRequestOpen&&typeof(this.props.onRequestOpen)==="function"){
-            this.props.onRequestOpen()
-        }
-        this.setState({
-            inDOM:true,
-        })
+      if (
+        this.props.onRequestOpen &&
+        typeof this.props.onRequestOpen === "function"
+      ) {
+        this.props.onRequestOpen()
+      }
+      this.setState({
+        inDOM: true,
+      })
       //If we are already visible, lets block scrolling.
       document.documentElement.style.overflow = "hidden"
       document.body.scroll = "no"
     }
     // This needs to be added to block scroll events.
   }
-  handleAnimationEnd(event){
-      event.preventDefault()
-      event.stopPropagation()
-      if(this.props.isVisible===false){
-        this.setState({
-            inDOM: false,
-        })
-      }
-     
+  handleAnimationEnd(event) {
+    event.preventDefault()
+    event.stopPropagation()
+    if (this.props.isVisible === false) {
+      this.setState({
+        inDOM: false,
+      })
+    }
   }
 
   render() {
     try {
       let drawerClassName = this.props.isVisible ? "show" : "hide"
-   
-      return this.state.inDOM? ReactDOM.createPortal(
-        <ModelMask
-        direction={this.props.direction}
-          className={drawerClassName}
-        >
-          <ModalWrapper onClick={this.onMaskClick}>
-            <ModalContainer
+
+      return this.state.inDOM
+        ? ReactDOM.createPortal(
+            <ModelMask
               direction={this.props.direction}
-              onAnimationEnd={this.handleAnimationEnd}
               className={drawerClassName}
-              onClick={e => {
-                // We are simply preventing the e based function up above from misfiring
-                e.stopPropagation()
-              }}
-              maxWidth={this.props.maxWidth}
-              style={{ width: this.props.width
-              , 
-              }}
             >
-              <ExitButtonContainer onClick={this.onMaskClick}>
-              <ExitButton/>
-              </ExitButtonContainer>
-             
-             {this.props.children}
-            </ModalContainer>
-          </ModalWrapper>
-        </ModelMask>,
-        document.body
-      ): null
+              <ModalWrapper onClick={this.onMaskClick}>
+                <ModalContainer
+                  direction={this.props.direction}
+                  onAnimationEnd={this.handleAnimationEnd}
+                  className={drawerClassName}
+                  onClick={e => {
+                    // We are simply preventing the e based function up above from misfiring
+                    e.stopPropagation()
+                  }}
+                  maxWidth={this.props.maxWidth}
+                  style={{ width: this.props.width }}
+                >
+                  <ExitButtonContainer onClick={this.onMaskClick}>
+                    <ExitButton />
+                  </ExitButtonContainer>
+
+                  {this.props.children}
+                </ModalContainer>
+              </ModalWrapper>
+            </ModelMask>,
+            document.body
+          )
+        : null
     } catch (e) {
       if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
         console.log(e)
       }
-      return (
-        null
-      )
+      return null
     }
   }
 }
@@ -138,9 +141,9 @@ DropDownNav.propTypes = {
 DropDownNav.defaultProps = {
   isVisible: false,
   width: `300px`,
-  direction:"left",
-  onRequestOpen: function() {},
-  onRequestClose: function() {},
+  direction: "left",
+  onRequestOpen: function () {},
+  onRequestClose: function () {},
 }
 const ButtonRotate = keyframes`
 from {
@@ -152,22 +155,22 @@ to{
 
 `
 const ExitButtonContainer = styled.div`
-position:absolute;
-cursor: pointer;
-top:50px;
-right:10%;
-padding:10px;
+  position: absolute;
+  cursor: pointer;
+  top: 50px;
+  right: 10%;
+  padding: 10px;
 
-display:flex;
-justify-content:center;
-align-items:center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-width:32px;
-height:32px;
+  width: 32px;
+  height: 32px;
 
-&:hover{
-  animation: 0.3s ${ButtonRotate} ease; 
-}
+  &:hover {
+    animation: 0.3s ${ButtonRotate} ease;
+  }
 `
 // Styling for the Modal Components **********
 const FromLeftSide = keyframes`
@@ -246,10 +249,6 @@ const ModelMask = styled.div`
 
 /* This styling is for the corner buttons containing the content */
 
-const ModalDefaultButton = styled.a`
-  flex: 0 0 12px;
-  cursor: pointer;
-`
 const ModalWrapper = styled.div`
   position: relative;
   top: 0;
@@ -261,73 +260,47 @@ const ModalWrapper = styled.div`
 `
 /* This styling is for the actual border containing the content */
 const ModalContainer = styled.div`
-  
   position: absolute;
   z-index: 500 !important;
   transform: translateX(-100%);
   background-color: #fff;
   border-radius: 4px;
   top: 0;
-  ${props => (props.direction==="left" || props.direction==="Left"? 'left:0;': 'right:0;')};
-  
-  
-  height:100%;
-  max-width:${props=>(props.maxWidth? props.maxWidth : '')};
-  box-shadow: 0 7px 14px 0 rgba(60,66,87, 0.12), 0 3px 6px 0 rgba(0,0,0, 0.12);
+  ${props =>
+    props.direction === "left" || props.direction === "Left"
+      ? "left:0;"
+      : "right:0;"};
 
- 
+  height: 100%;
+  max-width: ${props => (props.maxWidth ? props.maxWidth : "")};
+  box-shadow: 0 7px 14px 0 rgba(60, 66, 87, 0.12),
+    0 3px 6px 0 rgba(0, 0, 0, 0.12);
+
   transition: width, height 0.3s ease;
-  transform: translate3d(0,0,0);
+  transform: translate3d(0, 0, 0);
 
-  &.hide{
-      animation: ${props=>(props.direction==="left" || props.direction==="Left"? ToLeftOutside : ToRightOutside)} forwards;
-      transform: translate3d(0,0,0);
+  &.hide {
+    animation: ${props =>
+        props.direction === "left" || props.direction === "Left"
+          ? ToLeftOutside
+          : ToRightOutside}
+      forwards;
+    transform: translate3d(0, 0, 0);
 
-      animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
 
-      animation-duration: 0.4s;
+    animation-duration: 0.4s;
   }
-  &.show{
-   
+  &.show {
+    animation: ${props =>
+        props.direction === "left" || props.direction === "Left"
+          ? FromLeftSide
+          : FromRightSide}
+      forwards;
 
-      animation: ${props=>(props.direction==="left" || props.direction==="Left"? FromLeftSide : FromRightSide)} forwards;
-    
-   
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
 
-animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
-animation-duration: 0.4s;
-
-}
-
-`
-const ModalHeaderCenterItem = styled.div`
-flex-grow: 1;
-text-align: center;
-position: relative;
-z-index: 999 !important;
-`
-const ModalHeaderCenterButton = styled.div`
-flex-grow: 1;
-text-align: center;
-position: relative;
-z-index: 999 !important;
-
-  cursor: pointer;
-`
-const ModalHeader = styled.h3`
-  margin-top: 0;
-  display: flex;
-  position: relative;
-  z-index: 999 !important;
-
-  align-items: center;
-  justify-content: center;
-`
-const ModalBody = styled.div`
-  position: relative;
-
-  max-height: 100%;
-  overflow: auto;
-  z-index: 999 !important;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+    animation-duration: 0.4s;
+  }
 `
