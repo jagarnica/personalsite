@@ -1,10 +1,10 @@
-import React from "react"
-import styled from "styled-components"
-import NavItem from "./navbaritem"
-import DrawerMenu from "./drawermenu/index"
-import "../../layout.css"
-import * as globalStyles from "../../../styles/styles"
-import {Link} from "gatsby"
+import React from "react";
+import styled from "styled-components";
+import NavItem from "./navbaritem";
+import DrawerMenu from "./drawermenu/index";
+import "../../layout.css";
+import * as globalStyles from "../../../styles/styles";
+import { Link } from "gatsby";
 /**
  * A roadlink is just a custom class used for the links in the navbar. Each one must
  * have a name attached and also a color that is used to signify it is active.
@@ -16,81 +16,103 @@ import {Link} from "gatsby"
  *
  */
 class RoadLink {
-    name: string;
-    activeColor: string;
-    altPathName: string;
-    constructor(name: string, activeColor: string, altPathName? : string) {
-        this.name = name;
-        this.activeColor = activeColor;
-        this.altPathName = altPathName? altPathName : name;
-      }
+  name: string;
+  activeColor: string;
+  altPathName: string;
+  constructor(name: string, activeColor: string, altPathName?: string) {
+    this.name = name;
+    this.activeColor = activeColor;
+    this.altPathName = altPathName ? altPathName : name;
+  }
 
-    getPathName(){
-        return this.altPathName.toLocaleLowerCase();
-    }
+  getPathName() {
+    return this.altPathName.toLocaleLowerCase();
+  }
 }
 
 function Navbar() {
-    let homeLink:RoadLink = new RoadLink("Home", "#4700ff","/");
-    let aboutLink: RoadLink = new RoadLink("About", "purple", "/about/");
-    let blogLink: RoadLink = new RoadLink("Blog", "red", "/comingsoon/");
-    let resumeLink: RoadLink = new RoadLink("Resume", "red", "/comingsoon/");
-    let portfolioLink: RoadLink = new RoadLink("Portfolio", "blue", "/comingsoon/");
-    const links: RoadLink[] = [homeLink, aboutLink,blogLink, resumeLink, portfolioLink]
+  let homeLink: RoadLink = new RoadLink("Home", "#4700ff", "/");
+  let aboutLink: RoadLink = new RoadLink("About", "purple", "/about/");
+  let blogLink: RoadLink = new RoadLink("Blog", "red", "/comingsoon/");
+  let resumeLink: RoadLink = new RoadLink("Resume", "red", "/comingsoon/");
+  let portfolioLink: RoadLink = new RoadLink(
+    "Portfolio",
+    "blue",
+    "/comingsoon/"
+  );
+  const links: RoadLink[] = [
+    homeLink,
+    aboutLink,
+    blogLink,
+    resumeLink,
+    portfolioLink,
+  ];
 
-    const NavTabs = links.map((roadObj: RoadLink)=>{
-        let pathName = roadObj.getPathName();
-        let linkName = roadObj.name;
-        let activeColor = roadObj.activeColor;
-        return <NavItem pathName={pathName} activeColor={activeColor} linkName={linkName} key={linkName}></NavItem>
-    })
+  const NavTabs = links.map((roadObj: RoadLink) => {
+    let pathName = roadObj.getPathName();
+    let linkName = roadObj.name;
+    let activeColor = roadObj.activeColor;
     return (
-        <NavbarContainer>
-            <TitleSpan to="/" activeStyle={{textDecoration:"none"}}>
-                JESUS GARNICA
-                </TitleSpan>
-            <DrawerMenu>
-                <TabsLayoutDiv>
-                {NavTabs}
-                </TabsLayoutDiv>
-
-            </DrawerMenu>
-
-        </NavbarContainer>
-    )
+      <NavItem
+        pathName={pathName}
+        activeColor={activeColor}
+        linkName={linkName}
+        key={linkName}
+      ></NavItem>
+    );
+  });
+  return (
+    <OuterContainer>
+      <NavbarContainer>
+        <TitleSpan to="/" activeStyle={{ textDecoration: "none" }}>
+          JESUS GARNICA
+        </TitleSpan>
+        <DrawerMenu>
+          <TabsLayoutDiv>{NavTabs}</TabsLayoutDiv>
+        </DrawerMenu>
+      </NavbarContainer>
+    </OuterContainer>
+  );
 }
 
-export default Navbar
-
+export default Navbar;
+const OuterContainer = styled.div`
+  position: fixed;
+  z-index: 10;
+  background: white;
+  display: flex;
+  top:0;
+  left:0;
+  justify-content:center;
+  width: 100vw;
+`;
 const NavbarContainer = styled.div`
-    
-    height:69px;
-    margin: 0 auto;
-    font-family: ${globalStyles.FONT_FAMILY};
-    max-width:960px;
-    background:white;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding-left: 1.0875rem;
-    padding-right: 1.0875rem;    
-
-
-`
+  height: 69px;
+  margin: 0 auto;
+  font-family: ${globalStyles.FONT_FAMILY};
+  max-width: 960px;
+  background: white;
+  width:100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 1.0875rem;
+  padding-right: 1.0875rem;
+`;
 const TitleSpan = styled(Link)`
-line-height:1.2em;
-font-size:1.2em;
-text-decoration:none;
-color:black;
-`
+  line-height: 1.2em;
+  font-size: 1.2em;
+  text-decoration: none;
+  color: black;
+`;
 
 const TabsLayoutDiv = styled.div`
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-margin:auto 0;
-padding: 20px 0px;
-height:100%;
-max-height:100%;
-`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto 0;
+  padding: 20px 0px;
+  height: 100%;
+  max-height: 100%;
+`;

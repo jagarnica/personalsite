@@ -4,7 +4,7 @@ import TypedInEffect from "../components/texteffects/typedindev";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import SkillCard from "../components/skillcard/skillcard";
-
+import WireframeVideo from "../components/threejs/wireframevideo"
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
@@ -19,6 +19,7 @@ const IndexPage = () => (
       I just graduated from San Francisco State University with a B.S. in
       Computer Science. I have experience with a wide variety of technologies.
     </p>
+    <WireframeVideo/>
     <CardsContainer>{GenerateSkillCards()}</CardsContainer>
   </Layout>
 );
