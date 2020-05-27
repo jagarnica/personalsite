@@ -165,8 +165,8 @@ const ExitButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
 
-  width: 32px;
-  height: 32px;
+  width: 52px;
+  height: 52px;
 
   &:hover {
     animation: 0.3s ${ButtonRotate} ease;
