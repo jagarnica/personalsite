@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
-import styled, { keyframes } from "styled-components"
-import ExitButton from "./exitbutton"
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import styled, { keyframes } from "styled-components";
+import ExitButton from "./exitbutton";
 /**
  * @name DropDownNav
  * @description Updated December 29, 2019. Presents a simple drawer that comes in from the
@@ -16,11 +16,29 @@ import ExitButton from "./exitbutton"
  */
 class DropDownNav extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       inDOM: false,
-    }
-    this.handleAnimationEnd = this.handleAnimationEnd.bind(this)
+    };
+  }
+  restoreScrolling = () =>{
+    //document.documentElement.style.overflow = "scroll";
+    //document.body.scroll = "yes"
+    
+    const body = document.body;
+    const scrollY = body.style.top;
+    body.style.position = '';
+    body.style.top = '';
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);;
+  }
+  preventScrolling = () =>{
+    //document.documentElement.style.overflow = "hidden";
+    //document.body.scroll = "no";
+
+    const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
+    const body = document.body;
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}`;
   }
   componentDidUpdate(prevProps) {
     //Lets check to see if we are visible or not
@@ -31,32 +49,29 @@ class DropDownNav extends Component {
           this.props.onRequestOpen &&
           typeof this.props.onRequestOpen === "function"
         ) {
-          this.props.onRequestOpen()
+          this.props.onRequestOpen();
         }
         this.setState({
           inDOM: true,
-        })
+        });
         //Since we are opening the modal, lets block scrolling.
-        document.documentElement.style.overflow = "hidden"
-        document.body.scroll = "no"
+        this.preventScrolling()
       } else {
-        document.documentElement.style.overflow = "scroll"
-        document.body.scroll = "yes"
+        this.restoreScrolling();
       }
     }
   }
-
+  
+  
   onMaskClick = event => {
-    event.preventDefault()
-    event.stopPropagation()
+    event.preventDefault();
+    event.stopPropagation();
     //Undo the scrolling event blocking now that the modal is closed.
-    document.documentElement.style.overflow = "scroll"
-    document.body.scroll = "yes"
-    this.props.onRequestClose()
-  }
+    this.restoreScrolling();
+    this.props.onRequestClose();
+  };
   componentWillUnmount() {
-    document.documentElement.style.overflow = "scroll"
-    document.body.scroll = "yes"
+    this.restoreScrolling();
   }
   componentDidMount() {
     //Lets check to see if we are visible or not
@@ -65,30 +80,29 @@ class DropDownNav extends Component {
         this.props.onRequestOpen &&
         typeof this.props.onRequestOpen === "function"
       ) {
-        this.props.onRequestOpen()
+        this.props.onRequestOpen();
       }
       this.setState({
         inDOM: true,
-      })
+      });
       //If we are already visible, lets block scrolling.
-      document.documentElement.style.overflow = "hidden"
-      document.body.scroll = "no"
+      this.preventScrolling();
     }
     // This needs to be added to block scroll events.
   }
-  handleAnimationEnd(event) {
-    event.preventDefault()
-    event.stopPropagation()
+  handleAnimationEnd = event => {
+    event.preventDefault();
+    event.stopPropagation();
     if (this.props.isVisible === false) {
       this.setState({
         inDOM: false,
-      })
+      });
     }
-  }
+  };
 
   render() {
     try {
-      let drawerClassName = this.props.isVisible ? "show" : "hide"
+      let drawerClassName = this.props.isVisible ? "show" : "hide";
 
       return this.state.inDOM
         ? ReactDOM.createPortal(
@@ -103,7 +117,7 @@ class DropDownNav extends Component {
                   className={drawerClassName}
                   onClick={e => {
                     // We are simply preventing the e based function up above from misfiring
-                    e.stopPropagation()
+                    e.stopPropagation();
                   }}
                   maxWidth={this.props.maxWidth}
                   style={{ width: this.props.width }}
@@ -118,17 +132,17 @@ class DropDownNav extends Component {
             </ModelMask>,
             document.body
           )
-        : null
+        : null;
     } catch (e) {
       if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
-        console.log(e)
+        console.log(e);
       }
-      return null
+      return null;
     }
   }
 }
 
-export default DropDownNav
+export default DropDownNav;
 
 DropDownNav.propTypes = {
   isVisible: PropTypes.bool,
@@ -137,14 +151,14 @@ DropDownNav.propTypes = {
   maxWidth: PropTypes.string,
   width: PropTypes.string,
   direction: PropTypes.string,
-}
+};
 DropDownNav.defaultProps = {
   isVisible: false,
   width: `300px`,
   direction: "left",
   onRequestOpen: function () {},
   onRequestClose: function () {},
-}
+};
 const ButtonRotate = keyframes`
 from {
   transform: rotate(0deg);
@@ -153,7 +167,7 @@ to{
   transform: rotate(180deg);
 }
 
-`
+`;
 const ExitButtonContainer = styled.div`
   position: absolute;
   cursor: pointer;
@@ -171,7 +185,7 @@ const ExitButtonContainer = styled.div`
   &:hover {
     animation: 0.3s ${ButtonRotate} ease;
   }
-`
+`;
 // Styling for the Modal Components **********
 const FromLeftSide = keyframes`
 from {
@@ -180,7 +194,7 @@ from {
 to{
     transform: translateY(0%);
 }
-`
+`;
 const FromRightSide = keyframes`
 from {
   transform: translateY(100%);
@@ -189,7 +203,7 @@ to{
     transform: translateY(0%);
 }
 
-`
+`;
 const ToLeftOutside = keyframes`
 from{
     transform: translateY(0%);
@@ -197,7 +211,7 @@ from{
 to{
     transform: translateY(-100%);
 }
-`
+`;
 const ToRightOutside = keyframes`
 from{
     transform: translateY(0%);
@@ -205,7 +219,7 @@ from{
 to{
     transform: translateY(100%);
 }
-`
+`;
 const FadeIn = keyframes`
 from{
     opacity:0;
@@ -214,7 +228,7 @@ to{
     opacity:1;
 }
 
-`
+`;
 const FadeOut = keyframes`
 from{
     opacity: 1;
@@ -223,7 +237,7 @@ to{
     opacity: 0;
 }
 
-`
+`;
 
 const ModelMask = styled.div`
   position: fixed;
@@ -245,7 +259,7 @@ const ModelMask = styled.div`
     transform: translate3d(0, 0, 0);
     animation: ${FadeOut} 0.3s ease forwards;
   }
-`
+`;
 
 /* This styling is for the corner buttons containing the content */
 
@@ -257,11 +271,12 @@ const ModalWrapper = styled.div`
   height: 100%;
 
   z-index: 500 !important;
-`
+`;
 /* This styling is for the actual border containing the content */
 const ModalContainer = styled.div`
   position: absolute;
   z-index: 500 !important;
+  opacity:0;
   transform: translateX(-100%);
   background-color: #fff;
   border-radius: 4px;
@@ -303,4 +318,4 @@ const ModalContainer = styled.div`
     animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
     animation-duration: 0.4s;
   }
-`
+`;
