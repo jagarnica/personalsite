@@ -37,6 +37,7 @@ class DropDownNav extends Component {
 
     const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
     const body = document.body;
+    console.log("Trying to to prevent scrolling...", scrollY)
     body.style.position = 'fixed';
     body.style.top = `-${scrollY}`;
   }
@@ -276,7 +277,7 @@ const ModalWrapper = styled.div`
 const ModalContainer = styled.div`
   position: absolute;
   z-index: 500 !important;
-  opacity:0;
+  opacity:0; /* This sets the opacity for the entire container */
   transform: translateX(-100%);
   background-color: #fff;
   border-radius: 4px;
