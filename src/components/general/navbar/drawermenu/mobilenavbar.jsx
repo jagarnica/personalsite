@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import styled from "styled-components"
 import MobileNarBarButton from "./navbaranimatedbutton.tsx"
-import SideDrawer from "./dropdownnav"
+import SideDrawer from "./dropdownnav.tsx"
 class MobileNavBar extends Component {
   constructor(props) {
     super(props)
