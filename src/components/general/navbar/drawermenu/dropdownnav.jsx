@@ -5,10 +5,9 @@ import styled, { keyframes } from "styled-components";
 import ExitButton from "./exitbutton";
 /**
  * @name DropDownNav
- * @description Updated December 29, 2019. Presents a simple drawer that comes in from the
- * side.
+ * @description Presents a simple drawer that comes in from the
+ * top.
  * @prop {boolean} isVisible Determines if the drawer is visible
- * @prop {string} direction Sets the direction the drawer will be set on. The default is left.
  * @prop {string} width Sets the width of the drawer
  * @prop {string} maxWidth Sets the max width for the drawer.
  * @prop {function} onRequestClose Sets the actions when the mask or outside is clicked.
@@ -20,27 +19,20 @@ class DropDownNav extends Component {
     this.state = {
       inDOM: false,
     };
+    this.windowOffset = 0;
   }
-  restoreScrolling = () =>{
-    //document.documentElement.style.overflow = "scroll";
-    //document.body.scroll = "yes"
-    
-    const body = document.body;
-    const scrollY = body.style.top;
-    body.style.position = '';
-    body.style.top = '';
-    window.scrollTo(0, parseInt(scrollY || '0') * -1);;
-  }
-  preventScrolling = () =>{
-    //document.documentElement.style.overflow = "hidden";
-    //document.body.scroll = "no";
-
-    const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
-    const body = document.body;
-    console.log("Trying to to prevent scrolling...", scrollY)
-    body.style.position = 'fixed';
-    body.style.top = `-${scrollY}`;
-  }
+  restoreScrolling = () => {
+    document.body.setAttribute("style", ``);
+    window.scrollTo(0, this.windowOffset);
+  };
+  preventScrolling = () => {
+    this.windowOffset = window && window.scrollY ? window.scrollY : 0; // This extra check must be done because gatsby build will complain
+    console.log("Trying to to prevent scrolling...", this.windowOffset);
+    document.body.setAttribute(
+      "style",
+      `position: fixed; top: -${this.windowOffset}px;;left:0;right:0;`
+    );
+  };
   componentDidUpdate(prevProps) {
     //Lets check to see if we are visible or not
     if (this.props.isVisible !== prevProps.isVisible) {
@@ -56,14 +48,13 @@ class DropDownNav extends Component {
           inDOM: true,
         });
         //Since we are opening the modal, lets block scrolling.
-        this.preventScrolling()
+        this.preventScrolling();
       } else {
         this.restoreScrolling();
       }
     }
   }
-  
-  
+
   onMaskClick = event => {
     event.preventDefault();
     event.stopPropagation();
@@ -108,12 +99,10 @@ class DropDownNav extends Component {
       return this.state.inDOM
         ? ReactDOM.createPortal(
             <ModelMask
-              direction={this.props.direction}
               className={drawerClassName}
             >
               <ModalWrapper onClick={this.onMaskClick}>
                 <ModalContainer
-                  direction={this.props.direction}
                   onAnimationEnd={this.handleAnimationEnd}
                   className={drawerClassName}
                   onClick={e => {
@@ -126,7 +115,6 @@ class DropDownNav extends Component {
                   <ExitButtonContainer onClick={this.onMaskClick}>
                     <ExitButton />
                   </ExitButtonContainer>
-
                   {this.props.children}
                 </ModalContainer>
               </ModalWrapper>
@@ -151,16 +139,14 @@ DropDownNav.propTypes = {
   onRequestClose: PropTypes.func,
   maxWidth: PropTypes.string,
   width: PropTypes.string,
-  direction: PropTypes.string,
 };
 DropDownNav.defaultProps = {
   isVisible: false,
   width: `300px`,
-  direction: "left",
   onRequestOpen: function () {},
   onRequestClose: function () {},
 };
-const ButtonRotate = keyframes`
+const ButtonSpin = keyframes`
 from {
   transform: rotate(0deg);
 }
@@ -184,11 +170,11 @@ const ExitButtonContainer = styled.div`
   height: 52px;
 
   &:hover {
-    animation: 0.3s ${ButtonRotate} ease;
+    animation: 0.3s ${ButtonSpin} ease;
   }
 `;
 // Styling for the Modal Components **********
-const FromLeftSide = keyframes`
+const NavigationEnter = keyframes`
 from {
   transform: translateY(-100%);
 }
@@ -196,29 +182,12 @@ to{
     transform: translateY(0%);
 }
 `;
-const FromRightSide = keyframes`
-from {
-  transform: translateY(100%);
-}
-to{
-    transform: translateY(0%);
-}
-
-`;
-const ToLeftOutside = keyframes`
+const NavigationExit = keyframes`
 from{
     transform: translateY(0%);
 }
 to{
     transform: translateY(-100%);
-}
-`;
-const ToRightOutside = keyframes`
-from{
-    transform: translateY(0%);
-}
-to{
-    transform: translateY(100%);
 }
 `;
 const FadeIn = keyframes`
@@ -242,11 +211,11 @@ to{
 
 const ModelMask = styled.div`
   position: fixed;
-  z-index: 950 !important;
+  z-index: 950;
   top: 0;
   left: 0;
 
-  transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0); /* Keep this for optimization in firefox */
   width: ${props => props.width || "100%"};
   height: ${props => props.height || "100%"};
   background-color: rgba(82, 95, 127, 0.25);
@@ -271,21 +240,18 @@ const ModalWrapper = styled.div`
   bottom: 0;
   height: 100%;
 
-  z-index: 500 !important;
+  z-index: 500;
 `;
 /* This styling is for the actual border containing the content */
 const ModalContainer = styled.div`
   position: absolute;
-  z-index: 500 !important;
-  opacity:0; /* This sets the opacity for the entire container */
+  z-index: 500;
+  opacity: 1; /* This sets the opacity for the entire container */
   transform: translateX(-100%);
   background-color: #fff;
   border-radius: 4px;
   top: 0;
-  ${props =>
-    props.direction === "left" || props.direction === "Left"
-      ? "left:0;"
-      : "right:0;"};
+  left: 0;
 
   height: 100%;
   max-width: ${props => (props.maxWidth ? props.maxWidth : "")};
@@ -296,11 +262,8 @@ const ModalContainer = styled.div`
   transform: translate3d(0, 0, 0);
 
   &.hide {
-    animation: ${props =>
-        props.direction === "left" || props.direction === "Left"
-          ? ToLeftOutside
-          : ToRightOutside}
-      forwards;
+    animation: ${NavigationExit} forwards;
+
     transform: translate3d(0, 0, 0);
 
     animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -308,11 +271,7 @@ const ModalContainer = styled.div`
     animation-duration: 0.4s;
   }
   &.show {
-    animation: ${props =>
-        props.direction === "left" || props.direction === "Left"
-          ? FromLeftSide
-          : FromRightSide}
-      forwards;
+    animation: ${NavigationEnter} forwards;
 
     transform: translate3d(0, 0, 0);
 
