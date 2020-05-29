@@ -85,6 +85,7 @@ const OuterContainer = styled.div`
   left:0;
   justify-content:center;
   width: 100vw;
+  
 `;
 const NavbarContainer = styled.div`
   height: 69px;

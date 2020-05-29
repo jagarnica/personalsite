@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
       <Navbar></Navbar>
       <PageContainerDiv
       >
-        <main>{children}</main>
+        <MainContainer>{children}</MainContainer>
         <footer>
           © {new Date().getFullYear()} 
         </footer>
@@ -37,4 +37,7 @@ margin: 0 auto;
 max-width: 960px;
 font-family:'Source Sans Pro',-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 padding: 0 1.0875rem 1.45rem;
+`
+const MainContainer = styled.main`
+margin-top:calc(69px + 1.45rem);
 `
