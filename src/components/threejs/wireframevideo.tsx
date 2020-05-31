@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import styled from "styled-components";
 import * as THREE from "three"; // Import our three library
+import { debounce} from "lodash"
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
-import { SMAAPass } from "three/examples/jsm/postprocessing/SMAAPass";
 import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass";
 import { TAARenderPass } from "three/examples/jsm/postprocessing/TAARenderPass";
@@ -14,7 +14,6 @@ let camera: THREE.Camera,
   material: any,
   composer: EffectComposer,
   mesh: THREE.Mesh,
-  smaaPass: SMAAPass,
   taaRenderPass: TAARenderPass,
   fxaaPass: ShaderPass,
   copyPass: ShaderPass,
@@ -72,17 +71,16 @@ const threeJSSetup = function () {
 };
 const setupShaders = function () {
   // postprocessing
-  if (!scene || !camera || !renderer) {
+  if (!scene || !camera || !renderer || !window) {
     return;
   }
   if (!composer) {
     composer = new EffectComposer(renderer);
-    if (window) {
-      let renderScale: number = 0.89;
-      let width: number = window.innerWidth * renderScale;
-      let height: number = window.innerHeight * renderScale;
-      composer.setSize(width, height);
-    }
+
+    let renderScale: number = 0.89;
+    let width: number = window.innerWidth * renderScale;
+    let height: number = window.innerHeight * renderScale;
+    composer.setSize(width, height);
   }
 
   if (!taaRenderPass) {
@@ -101,12 +99,6 @@ const setupShaders = function () {
     fxaaPass.uniforms["resolution"].value.y =
       1 / (window.innerHeight * renderer.getPixelRatio() * 1);
   }
-  if (!smaaPass) {
-    smaaPass = new SMAAPass(
-      window.innerWidth * renderer.getPixelRatio(),
-      window.innerHeight * renderer.getPixelRatio()
-    );
-  }
 
   if (!copyPass) {
     copyPass = new ShaderPass(CopyShader);
@@ -114,7 +106,30 @@ const setupShaders = function () {
 
   composer.addPass(taaRenderPass);
   composer.addPass(copyPass);
+  
 };
+const onWindowResize = function () {
+  if (camera && renderer && composer && window) {
+    let renderScale: number = 0.89;
+    let width: number = window.innerWidth ;
+    let height: number = window.innerHeight;
+    camera.updateMatrixWorld();
+    renderer.setSize(width, height);
+    composer.setSize(width * renderScale, height *renderScale);
+  }
+};
+const addWindowListener = function () {
+  if (window) {
+    console.log("added listener")
+    window.addEventListener("resize", debounce(onWindowResize,60), false);
+  }
+};
+const removeWindowListener = function(){
+  if (window){
+    console.log("removed listener")
+    window.removeEventListener("resize", onWindowResize, false);
+  }
+}
 
 const animate = function () {
   requestAnimationFrame(animate);
@@ -124,28 +139,26 @@ const animate = function () {
     composer.render();
   }
 };
-function useHookWithRefCallback() {
-  const ref = useRef(null);
+function addThreeJs() {
+  const ref = useRef(null); // initially set the ref to null
   const setRef = useCallback(node => {
     if (ref.current) {
       // Make sure to cleanup any events/references added to the last instance
+      removeWindowListener();
     }
-
     if (node) {
       // document.body.appendChild( renderer.domElement );
       // use ref as a mount point of the Three.js scene instead of the document.body
       if (!renderer) {
         threeJSSetup();
       }
-
       if (renderer) {
         node.appendChild(renderer.domElement);
       }
-
       animate();
+      addWindowListener();
     }
-
-    // Save a reference to the node
+    // Save the reference to the node
     ref.current = node;
   }, []);
 
@@ -155,7 +168,7 @@ function useHookWithRefCallback() {
 const WireframeVideo: React.FC = ({ children }) => {
   // In your component you'll still recieve a `ref`, but it
   // will be a callback function instead of a Ref Object
-  const [ref] = useHookWithRefCallback();
+  const [ref] = addThreeJs();
 
   return (
     <OuterBackground>
