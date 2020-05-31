@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import styled from "styled-components";
 import * as THREE from "three"; // Import our three library
-
+import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer"
+import {SMAAPass} from "three/examples/jsm/postprocessing/SMAAPass"
+import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass"
 let camera: THREE.Camera,
   geometry: THREE.Geometry,
   scene: THREE.Scene,
@@ -46,16 +48,28 @@ function useHookWithRefCallback() {
       let cube: THREE.Mesh = new THREE.Mesh(geometry, matLine);
       //camera.position.z = window.innerWidth/4 * 1;
       scene.add(cube);
+      // Set camera positions
       camera.position.x = 2.2;
       camera.position.y = 0.3;
       camera.position.z = 6;
+      // postprocessing
+
+      let composer = new EffectComposer(renderer);
+      composer.addPass(new RenderPass(scene, camera));
+
+      let pass = new SMAAPass(
+        window.innerWidth * renderer.getPixelRatio(),
+        window.innerHeight * renderer.getPixelRatio()
+      );
+      composer.addPass(pass);
 
       let animate = function () {
         requestAnimationFrame(animate);
         cube.rotation.x += 0.0025;
         cube.rotation.y += 0.0025;
-        renderer.clearDepth(); // important!
-        renderer.render(scene, camera);
+        //renderer.clearDepth(); // important!
+        composer.render();
+        // renderer.render(scene, camera);
       };
       animate();
     }
