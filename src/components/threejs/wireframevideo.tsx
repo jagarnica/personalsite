@@ -3,17 +3,127 @@ import styled from "styled-components";
 import * as THREE from "three"; // Import our three library
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
 import { SMAAPass } from "three/examples/jsm/postprocessing/SMAAPass";
-import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
-import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass"
+import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader";
+import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass";
 import { TAARenderPass } from "three/examples/jsm/postprocessing/TAARenderPass";
 import { CopyShader } from "three/examples/jsm/shaders/CopyShader";
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
 let camera: THREE.Camera,
-  geometry: THREE.Geometry,
+  geometry: any,
   scene: THREE.Scene,
-  material,
+  material: any,
+  composer: EffectComposer,
   mesh: THREE.Mesh,
+  smaaPass: SMAAPass,
+  taaRenderPass: TAARenderPass,
+  fxaaPass: ShaderPass,
+  copyPass: ShaderPass,
+  renderPass: RenderPass,
   renderer: THREE.WebGLRenderer;
+const threeJSSetup = function () {
+  // This is just for setting up the variables
+  if (!scene) {
+    // Set up the scene info
+    scene = new THREE.Scene();
+    //scene.background = new THREE.Color(0x20252f);
+    scene.background = new THREE.Color(0xffffff);
+  }
+  // set the renderer
+  if (!renderer) {
+    renderer = new THREE.WebGLRenderer();
+    let width: number = 0;
+    let height: number = 0;
+    if (window) {
+      width = window.innerWidth;
+      height = window.innerHeight;
+    }
+    renderer.setSize(width, height);
+    if (window) {
+      renderer.setPixelRatio(window.devicePixelRatio); // Retina screens have different ratios
+    }
+  }
+  if (!camera) {
+    camera = new THREE.PerspectiveCamera(
+      20,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+  }
+  if (!geometry) {
+    let geo = new THREE.IcosahedronBufferGeometry(1, 1);
+    geometry = new THREE.WireframeGeometry(geo);
+  }
+  if (!material) {
+    material = new THREE.MeshBasicMaterial({
+      color: 0x000000,
+      wireframe: true,
+    });
+  }
+  if (!mesh) {
+    mesh = new THREE.Mesh(geometry, material);
+  }
+  scene.add(mesh);
+  // Setup the camera
+  camera.position.x = 2.2;
+  camera.position.y = 0.3;
+  camera.position.z = 6;
+  setupShaders();
+};
+const setupShaders = function () {
+  // postprocessing
+  if (!scene || !camera || !renderer) {
+    return;
+  }
+  if (!composer) {
+    composer = new EffectComposer(renderer);
+    if (window) {
+      let renderScale: number = 0.89;
+      let width: number = window.innerWidth * renderScale;
+      let height: number = window.innerHeight * renderScale;
+      composer.setSize(width, height);
+    }
+  }
 
+  if (!taaRenderPass) {
+    taaRenderPass = new TAARenderPass(scene, camera, 0x000000, 0);
+    taaRenderPass.unbiased = false;
+    taaRenderPass.sampleLevel = 5;
+    taaRenderPass.accumulate = false;
+  }
+  if (!renderPass) {
+    renderPass = new RenderPass(scene, camera);
+  }
+  if (!fxaaPass) {
+    fxaaPass = new ShaderPass(FXAAShader);
+    fxaaPass.uniforms["resolution"].value.x =
+      1 / (window.innerWidth * renderer.getPixelRatio() * 1);
+    fxaaPass.uniforms["resolution"].value.y =
+      1 / (window.innerHeight * renderer.getPixelRatio() * 1);
+  }
+  if (!smaaPass) {
+    smaaPass = new SMAAPass(
+      window.innerWidth * renderer.getPixelRatio(),
+      window.innerHeight * renderer.getPixelRatio()
+    );
+  }
+
+  if (!copyPass) {
+    copyPass = new ShaderPass(CopyShader);
+  }
+
+  composer.addPass(taaRenderPass);
+  composer.addPass(copyPass);
+};
+
+const animate = function () {
+  requestAnimationFrame(animate);
+  if (mesh && composer) {
+    mesh.rotation.x += 0.0025;
+    mesh.rotation.y += 0.0025;
+    composer.render();
+  }
+};
 function useHookWithRefCallback() {
   const ref = useRef(null);
   const setRef = useCallback(node => {
@@ -22,74 +132,16 @@ function useHookWithRefCallback() {
     }
 
     if (node) {
-      // Check if a node is actually passed. Otherwise node would be null.
-      // You can now do what you need to, addEventListeners, measure, etc.
-      scene = new THREE.Scene();
-      // scene.background = new THREE.Color(0x20252f);
-      scene.background = new THREE.Color(0xffffff);
-      camera = new THREE.PerspectiveCamera(
-        20,
-        window.innerWidth / window.innerHeight,
-        0.1,
-        1000
-      );
-      renderer = new THREE.WebGLRenderer();
-      renderer.setClearColor(0x000000, 0.0);
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(window.devicePixelRatio); // Retina screens have different ratios
       // document.body.appendChild( renderer.domElement );
       // use ref as a mount point of the Three.js scene instead of the document.body
-      node.appendChild(renderer.domElement);
+      if (!renderer) {
+        threeJSSetup();
+      }
 
-      let geo = new THREE.IcosahedronGeometry(1, 1);
+      if (renderer) {
+        node.appendChild(renderer.domElement);
+      }
 
-      let matLine = new THREE.MeshBasicMaterial({
-        color: 0x000000,
-        wireframe: true,
-      });
-      let geometry = new THREE.WireframeGeometry(geo);
-      let cube: THREE.Mesh = new THREE.Mesh(geometry, matLine);
-      //camera.position.z = window.innerWidth/4 * 1;
-      scene.add(cube);
-      // Set camera positions
-      camera.position.x = 2.2;
-      camera.position.y = 0.3;
-      camera.position.z = 6;
-      // postprocessing
-      let composer = new EffectComposer(renderer);
-    
-    
-      let taaRenderPass = new TAARenderPass(scene, camera, 0x000000, 1);
-      taaRenderPass.unbiased = false;
-      taaRenderPass.sampleLevel = 5;
-      taaRenderPass.accumulate = false;
-    
-      let renderPass = new RenderPass(scene, camera);
-    
-
-      let smaaPass = new SMAAPass(
-        window.innerWidth * renderer.getPixelRatio(),
-        window.innerHeight * renderer.getPixelRatio()
-      );
-
-      let copyPass = new ShaderPass(CopyShader);
-
-     
-      composer.addPass(renderPass);
-      composer.addPass(taaRenderPass);
-      composer.addPass(smaaPass);
-      composer.addPass(copyPass);
-
-      let animate = function () {
-        requestAnimationFrame(animate);
-        if (taaRenderPass) {
-        }
-        cube.rotation.x += 0.0025;
-        cube.rotation.y += 0.0025;
-        //renderer.clearDepth(); // important!
-        composer.render();
-        // renderer.render(scene, camera);
-      };
       animate();
     }
 
