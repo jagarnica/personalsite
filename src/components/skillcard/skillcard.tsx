@@ -34,7 +34,7 @@ const CardContainer = styled.div<CardContainerProps>`
   cursor:default;
   border-radius: 4px;
   transition: 0.3s ease ;
- 
+  background: white;
   box-shadow: ${globalStyles.BOX_SHADOWS.shadow1};
   &:hover{
  

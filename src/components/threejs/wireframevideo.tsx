@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useCallback } from "react";
 import styled from "styled-components";
 import * as THREE from "three"; // Import our three library
 
-let camera: THREE.OrthographicCamera,
+let camera: THREE.Camera,
   geometry: THREE.Geometry,
   scene: THREE.Scene,
   material,
@@ -20,55 +20,40 @@ function useHookWithRefCallback() {
       // Check if a node is actually passed. Otherwise node would be null.
       // You can now do what you need to, addEventListeners, measure, etc.
       scene = new THREE.Scene();
-     // scene.background = new THREE.Color(0x20252f);
-      scene.background = new THREE.Color(0xffffff); 
-    //  camera = new THREE.PerspectiveCamera(
-    //     75,
-    //     window.innerWidth / window.innerHeight,
-    //     0.1,
-    //     1000
-    //   );
-      camera = new THREE.OrthographicCamera(window.innerWidth/ -2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, 1, 100000);
-      renderer = new THREE.WebGLRenderer({ antialias: true });
-      renderer.setClearColor( 0x000000, 0.0 );
+      // scene.background = new THREE.Color(0x20252f);
+      scene.background = new THREE.Color(0xffffff);
+      camera = new THREE.PerspectiveCamera(
+        20,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      renderer = new THREE.WebGLRenderer();
+      renderer.setClearColor(0x000000, 0.0);
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(window.devicePixelRatio); // Retina screens have different ratios
       // document.body.appendChild( renderer.domElement );
       // use ref as a mount point of the Three.js scene instead of the document.body
       node.appendChild(renderer.domElement);
 
-      let geo = new THREE.IcosahedronGeometry(200,1);
-      
-    
-      let matLine = new THREE.MeshBasicMaterial( {
+      let geo = new THREE.IcosahedronGeometry(1, 1);
+
+      let matLine = new THREE.MeshBasicMaterial({
         color: 0x000000,
-        wireframe:true
-
-      
-      } );
+        wireframe: true,
+      });
       let geometry = new THREE.WireframeGeometry(geo);
-      for (let i = 0; i < 1500; i++) {
-       
-        let wireframeObject = new THREE.Mesh( geometry, matLine );
-        wireframeObject.position.x = Math.random() * 800 - 600;
-        wireframeObject.position.y = Math.random() * 800 - 600;
-        wireframeObject.position.z = Math.random() * 800 - 600;
-        wireframeObject.scale.set( 1, 1, 1 );
-        
-        //scene.add(wireframeObject);
-      }
-
       let cube: THREE.Mesh = new THREE.Mesh(geometry, matLine);
       //camera.position.z = window.innerWidth/4 * 1;
       scene.add(cube);
-      camera.position.z = 5;
-      
-     
+      camera.position.x = 2.2;
+      camera.position.y = 0.3;
+      camera.position.z = 6;
 
       let animate = function () {
         requestAnimationFrame(animate);
-        cube.rotation.x += 0.005;
-        cube.rotation.y += 0.005;
+        cube.rotation.x += 0.0025;
+        cube.rotation.y += 0.0025;
         renderer.clearDepth(); // important!
         renderer.render(scene, camera);
       };
