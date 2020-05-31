@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import styled from "styled-components";
 import * as THREE from "three"; // Import our three library
-import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer"
-import {SMAAPass} from "three/examples/jsm/postprocessing/SMAAPass"
-import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass"
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
+import { SMAAPass } from "three/examples/jsm/postprocessing/SMAAPass";
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
+import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass"
+import { TAARenderPass } from "three/examples/jsm/postprocessing/TAARenderPass";
+import { CopyShader } from "three/examples/jsm/shaders/CopyShader";
 let camera: THREE.Camera,
   geometry: THREE.Geometry,
   scene: THREE.Scene,
@@ -53,18 +56,34 @@ function useHookWithRefCallback() {
       camera.position.y = 0.3;
       camera.position.z = 6;
       // postprocessing
-
       let composer = new EffectComposer(renderer);
-      composer.addPass(new RenderPass(scene, camera));
+    
+    
+      let taaRenderPass = new TAARenderPass(scene, camera, 0x000000, 1);
+      taaRenderPass.unbiased = false;
+      taaRenderPass.sampleLevel = 5;
+      taaRenderPass.accumulate = false;
+    
+      let renderPass = new RenderPass(scene, camera);
+    
 
-      let pass = new SMAAPass(
+      let smaaPass = new SMAAPass(
         window.innerWidth * renderer.getPixelRatio(),
         window.innerHeight * renderer.getPixelRatio()
       );
-      composer.addPass(pass);
+
+      let copyPass = new ShaderPass(CopyShader);
+
+     
+      composer.addPass(renderPass);
+      composer.addPass(taaRenderPass);
+      composer.addPass(smaaPass);
+      composer.addPass(copyPass);
 
       let animate = function () {
         requestAnimationFrame(animate);
+        if (taaRenderPass) {
+        }
         cube.rotation.x += 0.0025;
         cube.rotation.y += 0.0025;
         //renderer.clearDepth(); // important!
