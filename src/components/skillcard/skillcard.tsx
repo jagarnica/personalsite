@@ -27,7 +27,6 @@ interface CardContainerProps {
 }
 
 const CardContainer = styled.div<CardContainerProps>`
-  width: 250px;
   height: auto;
   overflow: hidden;
   border: 0px solid black;
