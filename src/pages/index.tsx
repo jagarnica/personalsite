@@ -9,7 +9,7 @@ import HeroContainer from "../components/general/herocontainer/herocontainer";
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
-    <HeroContainer minHeight={800}  heroBackground={<WireframeVideo/>}>
+    <HeroContainer minHeight={600}  heroBackground={<WireframeVideo/>}>
       <h1>
         <TypedInEffect speed={15} message="Developer For Hire." />
       </h1>

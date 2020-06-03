@@ -1,36 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { debounce } from "lodash";
 import styled from "styled-components";
 import NavItem from "./navbaritem";
 import DrawerMenu from "./drawermenu/index";
 import "../../layout.css";
 import * as globalStyles from "../../../styles/styles";
+import RoadLink from "./roadlink";
 import { Link } from "gatsby";
-/**
- * A roadlink is just a custom class used for the links in the navbar. Each one must
- * have a name attached and also a color that is used to signify it is active.
- *
- * @param {string} name This is the name displayed as the name of the link.
- * @param {string} activeColor This is the color used to signify that the nav item is currently being displayed.
- * @param {string} altPathName If the path name should be different from just using the name provided, this can be used.
- * @function getPathName Returns the path name for the link as a string.
- *
- */
-class RoadLink {
-  name: string;
-  activeColor: string;
-  altPathName: string;
-  constructor(name: string, activeColor: string, altPathName?: string) {
-    this.name = name;
-    this.activeColor = activeColor;
-    this.altPathName = altPathName ? altPathName : name;
-  }
 
-  getPathName() {
-    return this.altPathName.toLocaleLowerCase();
-  }
+const SCROLL_DELAY = 60;
+
+interface NavbarProps {
+  scrollThreshold?: number;
 }
-
-function Navbar() {
+const Navbar: React.FC<NavbarProps> = ({
+  scrollThreshold = 60,
+}: NavbarProps) => {
+  const [isScrolled, setIsScrolled] = useState(false);
   let homeLink: RoadLink = new RoadLink("Home", "#4700ff", "/");
   let aboutLink: RoadLink = new RoadLink("About", "purple", "/about/");
   let blogLink: RoadLink = new RoadLink("Blog", "red", "/comingsoon/");
@@ -47,7 +33,6 @@ function Navbar() {
     resumeLink,
     portfolioLink,
   ];
-
   const NavTabs = links.map((roadObj: RoadLink) => {
     let pathName = roadObj.getPathName();
     let linkName = roadObj.name;
@@ -61,8 +46,45 @@ function Navbar() {
       ></NavItem>
     );
   });
+  useEffect(() => {
+    addScrollListener();
+    return () => {
+      removeScrollListener();
+    };
+  });
+  function handleScrollEvent(event: Event): void {
+    if (!event.target) {
+      return;
+    }
+    let currentTarget = event.target as HTMLDocument;
+    let scrollingTarget = currentTarget.scrollingElement;
+    let userScrolledDown =
+      scrollingTarget && scrollingTarget.scrollTop > scrollThreshold
+        ? true
+        : false;
+   
+    if (userScrolledDown) {
+      setIsScrolled(true);
+    } else if (isScrolled) {
+      setIsScrolled(false);
+    }
+  }
+  function addScrollListener(): void {
+    if (window) {
+      window.addEventListener(
+        "scroll",
+        debounce(handleScrollEvent, SCROLL_DELAY),
+        false
+      );
+    }
+  }
+  function removeScrollListener(): void {
+    if (window) {
+      window.removeEventListener("scroll", handleScrollEvent, false);
+    }
+  }
   return (
-    <OuterContainer>
+    <OuterContainer className={isScrolled ? "onScroll" : ""}>
       <NavbarContainer>
         <TitleSpan to="/" activeStyle={{ textDecoration: "none" }}>
           JESUS GARNICA
@@ -73,7 +95,7 @@ function Navbar() {
       </NavbarContainer>
     </OuterContainer>
   );
-}
+};
 
 export default Navbar;
 const OuterContainer = styled.div`
@@ -81,11 +103,15 @@ const OuterContainer = styled.div`
   z-index: 10;
   background: white;
   display: flex;
-  top:0;
-  left:0;
-  justify-content:center;
+  top: 0;
+  left: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0);
+  transition: box-shadow 0.4s ease;
+  justify-content: center;
   width: 100vw;
-  
+  &.onScroll {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
 `;
 const NavbarContainer = styled.div`
   height: 69px;
@@ -93,7 +119,7 @@ const NavbarContainer = styled.div`
   font-family: ${globalStyles.FONT_FAMILY};
   max-width: 960px;
   background: white;
-  width:100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
