@@ -5,10 +5,11 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 import SkillCard from "../components/skillcard/skillcard";
 import WireframeVideo from "../components/threejs/wireframevideo";
+import HeroContainer from "../components/general/herocontainer/herocontainer";
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
-    <WireframeVideo>
+    <HeroContainer minHeight={800}  heroBackground={<WireframeVideo/>}>
       <h1>
         <TypedInEffect speed={15} message="Developer For Hire." />
       </h1>
@@ -20,8 +21,10 @@ const IndexPage = () => (
         I just graduated from San Francisco State University with a B.S. in
         Computer Science. I have experience with a wide variety of technologies.
       </p>
-    </WireframeVideo>
-    <CardsContainer>{GenerateSkillCards()}</CardsContainer>
+      <CardsContainer>{GenerateSkillCards()}</CardsContainer>
+    </HeroContainer>
+    
+    
   </Layout>
 );
 
@@ -49,6 +52,9 @@ export default IndexPage;
 
 const CardsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 25px;
+ 
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  align-items:center;
+  grid-gap: 1rem;
+  max-width:100%;
 `;

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import styled from "styled-components";
 import * as THREE from "three"; // Import our three library
-import { debounce} from "lodash"
+import { debounce } from "lodash";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
 import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass";
@@ -9,9 +9,7 @@ import { TAARenderPass } from "three/examples/jsm/postprocessing/TAARenderPass";
 import { CopyShader } from "three/examples/jsm/shaders/CopyShader";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
 let camera: THREE.Camera,
-  geometry: any,
   scene: THREE.Scene,
-  material: any,
   composer: EffectComposer,
   mesh: THREE.Mesh,
   taaRenderPass: TAARenderPass,
@@ -19,29 +17,32 @@ let camera: THREE.Camera,
   copyPass: ShaderPass,
   renderPass: RenderPass,
   renderer: THREE.WebGLRenderer;
+
+const RENDER_SCALE: number = 0.99;
+const TAA_SAMPLE_LEVEL: number = 5;
+const UPDATE_SIZE_WAIT: number = 10;
+const BACKGROUND_COLOR: number = 0xffffff; // 0x20252f is also an excellent color
 const threeJSSetup = function () {
   // This is just for setting up the variables
   if (!scene) {
     // Set up the scene info
     scene = new THREE.Scene();
-    //scene.background = new THREE.Color(0x20252f);
-    scene.background = new THREE.Color(0xffffff);
+    scene.background = new THREE.Color(BACKGROUND_COLOR);
   }
-  // set the renderer
-  if (!renderer) {
+  // set up the renderer
+  if (!renderer && window) {
     renderer = new THREE.WebGLRenderer();
     let width: number = 0;
     let height: number = 0;
-    if (window) {
-      width = window.innerWidth;
-      height = window.innerHeight;
-    }
+
+    width = window.innerWidth;
+    height = window.innerHeight;
+
     renderer.setSize(width, height);
-    if (window) {
-      renderer.setPixelRatio(window.devicePixelRatio); // Retina screens have different ratios
-    }
+
+    renderer.setPixelRatio(window.devicePixelRatio); // Retina screens have different ratios
   }
-  if (!camera) {
+  if (!camera && window) {
     camera = new THREE.PerspectiveCamera(
       20,
       window.innerWidth / window.innerHeight,
@@ -49,93 +50,134 @@ const threeJSSetup = function () {
       1000
     );
   }
-  if (!geometry) {
-    let geo = new THREE.IcosahedronBufferGeometry(1, 1);
-    geometry = new THREE.WireframeGeometry(geo);
-  }
-  if (!material) {
-    material = new THREE.MeshBasicMaterial({
-      color: 0x000000,
-      wireframe: true,
-    });
-  }
   if (!mesh) {
-    mesh = new THREE.Mesh(geometry, material);
+   // mesh = createTriangleLines(2, 2, 2, 1);;
   }
-  scene.add(mesh);
+  for (let i = 0; i < 8; i++) {
+    for(let j = 0; j< 50; j++){
+      let y = 0.9 - i * 0.4; // this is the row we are working on 
+      let x = -5 + 0.475 * j;
+      let z = 0;
+      let scale = 0.15;
+      let shape2 = createTriangleLines(x, y, z, scale);
+      scene.add(shape2);
+    }
+  }
+  console.log("Added shapes")
+  //scene.add(mesh);
   // Setup the camera
-  camera.position.x = 2.2;
-  camera.position.y = 0.3;
-  camera.position.z = 6;
+  camera.position.x = 0; //2.2;
+  camera.position.y = 0;
+  camera.position.z = 8;
   setupShaders();
 };
+
+const createTriangleLines: (
+  x: number,
+  y: number,
+  z: number,
+  s: number
+) => THREE.Line = (x, y, z, s) => {
+  let triangleShape: THREE.Shape = new THREE.Shape()
+    .moveTo(0, 0) // bottom 
+    .lineTo(-1.5, 1) // left 
+    .lineTo(0, 2) // top 
+    .lineTo(1.5,1) // right 
+    .lineTo(0,0) // back to bottom
+    //.lineTo(6, 6)
+    //.lineTo(10, 4)
+    //.lineTo(4, 0); // close path
+  let points = triangleShape.getPoints();
+  let geometryPoints = new THREE.BufferGeometry().setFromPoints(points);
+  // solid line
+  let line = new THREE.Line(
+    geometryPoints,
+    new THREE.LineBasicMaterial({ color: 0x000000 })
+  );
+  line.position.set(x, y, z);
+ // line.rotation.set(0, 0, 0);
+  line.scale.set(s, s, s);
+  return line;
+};
+
+
 const setupShaders = function () {
   // postprocessing
   if (!scene || !camera || !renderer || !window) {
     return;
   }
-  if (!composer) {
-    composer = new EffectComposer(renderer);
+  try {
+    if (!composer) {
+      composer = new EffectComposer(renderer);
+      let width: number = Math.floor(window.innerWidth * RENDER_SCALE);
+      let height: number = Math.floor(window.innerHeight * RENDER_SCALE);
 
-    let renderScale: number = 0.89;
-    let width: number = window.innerWidth * renderScale;
-    let height: number = window.innerHeight * renderScale;
-    composer.setSize(width, height);
-  }
+      composer.setSize(width, height);
+    }
 
-  if (!taaRenderPass) {
-    taaRenderPass = new TAARenderPass(scene, camera, 0x000000, 0);
-    taaRenderPass.unbiased = false;
-    taaRenderPass.sampleLevel = 5;
-    taaRenderPass.accumulate = false;
-  }
-  if (!renderPass) {
-    renderPass = new RenderPass(scene, camera);
-  }
-  if (!fxaaPass) {
-    fxaaPass = new ShaderPass(FXAAShader);
-    fxaaPass.uniforms["resolution"].value.x =
-      1 / (window.innerWidth * renderer.getPixelRatio() * 1);
-    fxaaPass.uniforms["resolution"].value.y =
-      1 / (window.innerHeight * renderer.getPixelRatio() * 1);
-  }
+    if (!taaRenderPass) {
+      taaRenderPass = new TAARenderPass(scene, camera, 0x000000, 0);
+      taaRenderPass.unbiased = false;
+      taaRenderPass.sampleLevel = TAA_SAMPLE_LEVEL;
+      taaRenderPass.accumulate = false;
+    }
+    if (!renderPass) {
+      renderPass = new RenderPass(scene, camera);
+    }
+    if (!fxaaPass) {
+      fxaaPass = new ShaderPass(FXAAShader);
+      fxaaPass.uniforms["resolution"].value.x =
+        1 / (window.innerWidth * renderer.getPixelRatio() * 1);
+      fxaaPass.uniforms["resolution"].value.y =
+        1 / (window.innerHeight * renderer.getPixelRatio() * 1);
+    }
 
-  if (!copyPass) {
-    copyPass = new ShaderPass(CopyShader);
-  }
+    if (!copyPass) {
+      copyPass = new ShaderPass(CopyShader);
+    }
 
-  composer.addPass(taaRenderPass);
-  composer.addPass(copyPass);
-  
+    composer.addPass(taaRenderPass);
+    composer.addPass(copyPass);
+  } catch (e) {
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+      console.error(e);
+    }
+    return;
+  }
 };
-const onWindowResize = function () {
+const onWindowResize = function (event?: Event) {
   if (camera && renderer && composer && window) {
-    let renderScale: number = 0.89;
-    let width: number = window.innerWidth ;
+    if (event) {
+      event.preventDefault();
+    }
+    let width: number = window.innerWidth;
     let height: number = window.innerHeight;
     camera.updateMatrixWorld();
     renderer.setSize(width, height);
-    composer.setSize(width * renderScale, height *renderScale);
+    composer.setSize(width * RENDER_SCALE, height * RENDER_SCALE);
   }
 };
 const addWindowListener = function () {
   if (window) {
-    console.log("added listener")
-    window.addEventListener("resize", debounce(onWindowResize,60), false);
+    window.addEventListener(
+      "resize",
+      debounce(onWindowResize, UPDATE_SIZE_WAIT),
+      false
+    );
   }
 };
-const removeWindowListener = function(){
-  if (window){
-    console.log("removed listener")
+const removeWindowListener = function () {
+  if (window) {
     window.removeEventListener("resize", onWindowResize, false);
   }
-}
+};
 
 const animate = function () {
   requestAnimationFrame(animate);
-  if (mesh && composer) {
-    mesh.rotation.x += 0.0025;
-    mesh.rotation.y += 0.0025;
+  if (composer) {
+  
+    //mesh.rotation.x += 0.0025;
+    //mesh.rotation.y += 0.0025;
     composer.render();
   }
 };
@@ -166,8 +208,6 @@ function addThreeJs() {
 }
 
 const WireframeVideo: React.FC = ({ children }) => {
-  // In your component you'll still recieve a `ref`, but it
-  // will be a callback function instead of a Ref Object
   const [ref] = addThreeJs();
 
   return (
@@ -183,7 +223,7 @@ export default WireframeVideo;
 const VideoContainer = styled.div`
   position: fixed;
   width: 100vw;
-  height: 100vh;
+  height: calc(69px - 100vh);
   top: 0;
   left: 0;
   z-index: -1;
