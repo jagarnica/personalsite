@@ -5,11 +5,17 @@ import NavItem from "./navbaritem";
 import DrawerMenu from "./drawermenu/index";
 import "../../layout.css";
 import * as globalStyles from "../../../styles/styles";
-import RoadLink from "./roadlink";
+import RoadLink from "./classes/roadlink";
 import { Link } from "gatsby";
 
 const SCROLL_DELAY = 60;
-
+const NAV_BAR_LINKS = [
+  new RoadLink("Home", "#4700ff", "/"),
+  new RoadLink("About", "purple", "/about/"),
+  new RoadLink("Blog", "red", "/comingsoon/"),
+  new RoadLink("Resume", "red", "/comingsoon/"),
+  new RoadLink("Portfolio", "blue", "/comingsoon/"),
+];
 interface NavbarProps {
   scrollThreshold?: number;
 }
@@ -17,23 +23,7 @@ const Navbar: React.FC<NavbarProps> = ({
   scrollThreshold = 60,
 }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  let homeLink: RoadLink = new RoadLink("Home", "#4700ff", "/");
-  let aboutLink: RoadLink = new RoadLink("About", "purple", "/about/");
-  let blogLink: RoadLink = new RoadLink("Blog", "red", "/comingsoon/");
-  let resumeLink: RoadLink = new RoadLink("Resume", "red", "/comingsoon/");
-  let portfolioLink: RoadLink = new RoadLink(
-    "Portfolio",
-    "blue",
-    "/comingsoon/"
-  );
-  const links: RoadLink[] = [
-    homeLink,
-    aboutLink,
-    blogLink,
-    resumeLink,
-    portfolioLink,
-  ];
-  const NavTabs = links.map((roadObj: RoadLink) => {
+  const NavTabs =  NAV_BAR_LINKS.map((roadObj: RoadLink) => {
     let pathName = roadObj.getPathName();
     let linkName = roadObj.name;
     let activeColor = roadObj.activeColor;
@@ -62,7 +52,6 @@ const Navbar: React.FC<NavbarProps> = ({
       scrollingTarget && scrollingTarget.scrollTop > scrollThreshold
         ? true
         : false;
-   
     if (userScrolledDown) {
       setIsScrolled(true);
     } else if (isScrolled) {
