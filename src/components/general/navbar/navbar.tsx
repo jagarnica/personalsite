@@ -23,10 +23,10 @@ const Navbar: React.FC<NavbarProps> = ({
   scrollThreshold = 60,
 }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const NavTabs =  NAV_BAR_LINKS.map((roadObj: RoadLink) => {
-    let pathName = roadObj.getPathName();
-    let linkName = roadObj.name;
-    let activeColor = roadObj.activeColor;
+  const NavTabs = NAV_BAR_LINKS.map((roadObj: RoadLink) => {
+    const pathName = roadObj.getPathName();
+    const linkName = roadObj.name;
+    const activeColor = roadObj.activeColor;
     return (
       <NavItem
         pathName={pathName}
@@ -46,9 +46,9 @@ const Navbar: React.FC<NavbarProps> = ({
     if (!event.target) {
       return;
     }
-    let currentTarget = event.target as HTMLDocument;
-    let scrollingTarget = currentTarget.scrollingElement;
-    let userScrolledDown =
+    const currentTarget = event.target as HTMLDocument;
+    const scrollingTarget = currentTarget.scrollingElement;
+    const userScrolledDown =
       scrollingTarget && scrollingTarget.scrollTop > scrollThreshold
         ? true
         : false;

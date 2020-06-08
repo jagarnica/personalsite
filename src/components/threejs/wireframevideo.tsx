@@ -18,10 +18,10 @@ let camera: THREE.Camera,
   renderPass: RenderPass,
   renderer: THREE.WebGLRenderer;
 
-const RENDER_SCALE: number = 0.99;
-const TAA_SAMPLE_LEVEL: number = 5;
-const UPDATE_SIZE_WAIT: number = 10;
-const BACKGROUND_COLOR: number = 0xffffff; // 0x20252f is also an excellent color
+const RENDER_SCALE = 0.99;
+const TAA_SAMPLE_LEVEL = 5;
+const UPDATE_SIZE_WAIT = 10;
+const BACKGROUND_COLOR = 0xffffff; // 0x20252f is also an excellent color
 const threeJSSetup = function () {
   // This is just for setting up the variables
   if (!scene) {
@@ -32,8 +32,8 @@ const threeJSSetup = function () {
   // set up the renderer
   if (!renderer && window) {
     renderer = new THREE.WebGLRenderer();
-    let width: number = 0;
-    let height: number = 0;
+    let width = 0;
+    let height = 0;
 
     width = window.innerWidth;
     height = window.innerHeight;
@@ -55,11 +55,11 @@ const threeJSSetup = function () {
   }
   for (let i = 0; i < 8; i++) {
     for (let j = 0; j < 50; j++) {
-      let y = 0.9 - i * 0.4; // this is the row we are working on
-      let x = -5 + 0.475 * j;
-      let z = 0;
-      let scale = 0.15;
-      let shape2 = createTriangleLines(x, y, z, scale);
+      const y = 0.9 - i * 0.4; // this is the row we are working on
+      const x = -5 + 0.475 * j;
+      const z = 0;
+      const scale = 0.15;
+      const shape2 = createTriangleLines(x, y, z, scale);
       scene.add(shape2);
     }
   }
@@ -79,7 +79,7 @@ const createTriangleLines: (
   z: number,
   s: number
 ) => THREE.Line = (x, y, z, s) => {
-  let triangleShape: THREE.Shape = new THREE.Shape()
+  const triangleShape: THREE.Shape = new THREE.Shape()
     .moveTo(0, 0) // bottom
     .lineTo(-1.5, 1) // left
     .lineTo(0, 2) // top
@@ -88,10 +88,10 @@ const createTriangleLines: (
   //.lineTo(6, 6)
   //.lineTo(10, 4)
   //.lineTo(4, 0); // close path
-  let points = triangleShape.getPoints();
-  let geometryPoints = new THREE.BufferGeometry().setFromPoints(points);
+  const points = triangleShape.getPoints();
+  const geometryPoints = new THREE.BufferGeometry().setFromPoints(points);
   // solid line
-  let line = new THREE.Line(
+  const line = new THREE.Line(
     geometryPoints,
     new THREE.LineBasicMaterial({ color: 0x000000 })
   );
@@ -109,8 +109,8 @@ const setupShaders = function () {
   try {
     if (!composer) {
       composer = new EffectComposer(renderer);
-      let width: number = Math.floor(window.innerWidth * RENDER_SCALE);
-      let height: number = Math.floor(window.innerHeight * RENDER_SCALE);
+      const width: number = Math.floor(window.innerWidth * RENDER_SCALE);
+      const height: number = Math.floor(window.innerHeight * RENDER_SCALE);
 
       composer.setSize(width, height);
     }
@@ -150,8 +150,8 @@ const onWindowResize = function (event?: Event) {
     if (event) {
       event.preventDefault();
     }
-    let width: number = window.innerWidth;
-    let height: number = window.innerHeight;
+    const width: number = window.innerWidth;
+    const height: number = window.innerHeight;
     camera.updateMatrixWorld();
     renderer.setSize(width, height);
     composer.setSize(width * RENDER_SCALE, height * RENDER_SCALE);

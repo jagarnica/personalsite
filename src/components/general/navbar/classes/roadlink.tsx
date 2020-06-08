@@ -9,17 +9,17 @@
  *
  */
 class RoadLink {
-    name: string;
-    activeColor: string;
-    altPathName: string;
-    constructor(name: string, activeColor: string, altPathName?: string) {
-      this.name = name;
-      this.activeColor = activeColor;
-      this.altPathName = altPathName ? altPathName : name;
-    }
-  
-    getPathName() {
-      return this.altPathName.toLocaleLowerCase();
-    }
+  name: string;
+  activeColor: string;
+  altPathName: string;
+  constructor(name: string, activeColor: string, altPathName?: string) {
+    this.name = name;
+    this.activeColor = activeColor;
+    this.altPathName = altPathName ? altPathName : name;
+  }
+
+  getPathName(): string {
+    return this.altPathName.toLocaleLowerCase();
+  }
 }
-export default RoadLink
+export default RoadLink;

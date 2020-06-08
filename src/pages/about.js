@@ -43,8 +43,8 @@ const AboutPage = () => (
         </p>
         <p>
           During my time at SFSU I worked with wide variety of technologies. I
-          used Swift and Google's Places API to create an iOS app. I worked with
-          React on two seperate projects with a team. One was to get an
+          used Swift and Google&apos;s Places API to create an iOS app. I worked
+          with React on two seperate projects with a team. One was to get an
           E-commerce website built for SFSU students. The latter was a web app
           built with ChessJS, NodeJS, AWS, and MongoDB to allow users to play
           games of chess with each other online.

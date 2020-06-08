@@ -28,7 +28,10 @@ const HeroDiv = styled.div`
   max-width: 100%;
 `;
 
-const HeroBackgroundDiv = styled.div<{minHeight?: number;maxHeight?: number;}>`
+const HeroBackgroundDiv = styled.div<{
+  minHeight?: number;
+  maxHeight?: number;
+}>`
   position: absolute;
   top: 0;
   left: 0;

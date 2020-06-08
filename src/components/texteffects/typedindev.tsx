@@ -17,7 +17,7 @@ const TypedInDev: React.FC<Props> = ({ message, speed }) => {
   let totalDelay = 0;
   const lettersGenerated = splitUpMessage.map((letter, index) => {
     const speedFactor = speed ? speed : 16; // This is the default setting
-    let delayTime: number = Number((index / speedFactor).toFixed(3)); // This sets the delay speed
+    const delayTime = Number((index / speedFactor).toFixed(3)); // This sets the delay speed
     totalDelay = delayTime;
     return (
       <SingleLetter delay={delayTime} key={index}>

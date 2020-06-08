@@ -1,12 +1,12 @@
-import React from "react"
-import styled from "styled-components"
-import { Link } from "gatsby"
+import React from "react";
+import styled from "styled-components";
+import { Link } from "gatsby";
 import * as globalStyleConst from "../../../styles/styles";
 
 interface Props {
-  linkName: string // This is the name of the link shown to the user
-  activeColor: string // This is color of the bottom of the bar when the tab is active
-  pathName: string // This is the pathname for the link
+  linkName: string; // This is the name of the link shown to the user
+  activeColor: string; // This is color of the bottom of the bar when the tab is active
+  pathName: string; // This is the pathname for the link
 }
 /**
  * @param {string} linkName  This is the name shown to the use as the name of nav item.
@@ -27,9 +27,9 @@ const NavbarItem: React.FC<Props> = ({ linkName, activeColor, pathName }) => {
     >
       {linkName}
     </NavLinkDiv>
-  )
-}
-export default NavbarItem
+  );
+};
+export default NavbarItem;
 const NavLinkDiv = styled(Link)`
   font-size: 2.8em;
   height: 2.8em;
@@ -44,4 +44,4 @@ const NavLinkDiv = styled(Link)`
   margin-left: 10px;
   margin-right: 10px;
   font-family: ${globalStyleConst.FONT_FAMILY};
-`
+`;

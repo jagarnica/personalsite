@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 import TypedInEffect from "../components/texteffects/typedindev";
 import Layout from "../components/layout";
@@ -6,7 +6,7 @@ import SEO from "../components/seo";
 import SkillCard from "../components/skillcard/skillcard";
 import WireframeVideo from "../components/threejs/wireframevideo";
 import HeroContainer from "../components/general/herocontainer/herocontainer";
-const IndexPage = () => (
+const IndexPage: ReactNode = () => (
   <Layout>
     <SEO title="Home" />
     <HeroContainer minHeight={600} heroBackground={<WireframeVideo />}>
@@ -27,8 +27,8 @@ const IndexPage = () => (
 );
 
 const GenerateSkillCards = (cardMargin?: string) => {
-  let displayMargins = cardMargin ? cardMargin : "";
-  let skills = [
+  const displayMargins = cardMargin ? cardMargin : "";
+  const skills = [
     { skill: "C++", details: "Software Development" },
     { skill: "ReactJS", details: "Front End Web Development" },
     { skill: "Apollo GraphQl", details: "Database Query" },

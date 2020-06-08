@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import ReactDOM from "react-dom";
 import styled, { keyframes } from "styled-components";
 import ExitButton from "./exitbutton";
@@ -24,12 +24,16 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
   static defaultProps = {
     isVisible: false,
     width: `100vw`,
-    onRequestOpen: function () {},
-    onRequestClose: () => {},
+    onRequestOpen: function (): void {
+      return;
+    },
+    onRequestClose: function (): void {
+      return;
+    },
   };
   windowOffset: number;
   previousAttributes: string;
-  constructor(props: DropDownNavProps, state: DropDownNavState) {
+  constructor(props: DropDownNavProps) {
     super(props);
     this.state = {
       inDOM: false,
@@ -37,11 +41,11 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
     this.windowOffset = 0;
     this.previousAttributes = "";
   }
-  restoreScrolling = () => {
+  restoreScrolling = (): void => {
     document.body.setAttribute("style", this.previousAttributes);
     window.scrollTo(0, this.windowOffset);
   };
-  preventScrolling = () => {
+  preventScrolling = (): void => {
     this.windowOffset = window && window.scrollY ? window.scrollY : 0; // This extra check must be done because gatsby build will complain
     this.previousAttributes = document.body.getAttribute("style")
       ? String(document.body.getAttribute("style"))
@@ -51,7 +55,7 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
       `position: fixed; top: -${this.windowOffset}px;;left:0;right:0;`
     );
   };
-  componentDidUpdate(prevProps: DropDownNavProps) {
+  componentDidUpdate(prevProps: DropDownNavProps): void {
     //Lets check to see if we are visible or not
     if (this.props.isVisible !== prevProps.isVisible) {
       //Check to see if we should do this check.
@@ -72,7 +76,7 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
       }
     }
   }
-  onMaskClick = (event: React.MouseEvent) => {
+  onMaskClick = (event: React.MouseEvent): void => {
     event.preventDefault();
     event.stopPropagation();
     //Undo the scrolling event blocking now that the modal is closed.
@@ -81,10 +85,10 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
       this.props.onRequestClose();
     }
   };
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     this.restoreScrolling();
   }
-  componentDidMount() {
+  componentDidMount(): void {
     //Lets check to see if we are visible or not
     if (this.props.isVisible === true) {
       if (
@@ -101,10 +105,10 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
     }
   }
   /**
-   * @function handleAnimationEnd When the animation is over, we will update our state, causing a rerender to remove it from the DOM. 
-   * @param event 
+   * @function handleAnimationEnd When the animation is over, we will update our state, causing a rerender to remove it from the DOM.
+   * @param event
    */
-  handleAnimationEnd = (event?: React.AnimationEvent) => {
+  handleAnimationEnd = (event?: React.AnimationEvent): void => {
     if (event) {
       event.preventDefault();
       event.stopPropagation();
@@ -116,9 +120,9 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
     }
   };
 
-  render() {
+  render(): ReactNode {
     try {
-      let drawerClassName = this.props.isVisible ? "show" : "hide";
+      const drawerClassName = this.props.isVisible ? "show" : "hide";
       return this.state.inDOM
         ? ReactDOM.createPortal(
             <ModelMask className={drawerClassName}>
@@ -214,7 +218,7 @@ to{
 }
 
 `;
-const ModelMask = styled.div<{width?: string, height?: string}>`
+const ModelMask = styled.div<{ width?: string; height?: string }>`
   position: fixed;
   z-index: 950;
   top: 0;

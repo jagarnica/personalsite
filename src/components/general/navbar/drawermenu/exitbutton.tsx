@@ -1,7 +1,7 @@
-import React from "react"
+import React from "react";
 
 interface ExitButtonProps {
-  size?: number
+  size?: number;
 }
 
 const ExitButton: React.FC<ExitButtonProps> = () => {
@@ -21,6 +21,6 @@ const ExitButton: React.FC<ExitButtonProps> = () => {
         </g>
       </g>
     </svg>
-  )
-}
-export default ExitButton
+  );
+};
+export default ExitButton;
