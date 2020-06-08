@@ -23,7 +23,7 @@ const SkillCard: React.FC<skillCardProps> = ({ skill, details, margin }) => {
 export default SkillCard
 
 interface CardContainerProps {
-  margin? : string 
+  margin?: string
 }
 
 const CardContainer = styled.div<CardContainerProps>`
@@ -43,7 +43,7 @@ const CardContainer = styled.div<CardContainerProps>`
   flex-direction: column;
   padding: 10px;
 
-  margin: ${props=>(props.margin? props.margin : "")};
+  margin: ${props => (props.margin ? props.margin : "")};
 `
 const SkillTitle = styled.span`
   font-size: 1.1em;

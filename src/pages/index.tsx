@@ -9,7 +9,7 @@ import HeroContainer from "../components/general/herocontainer/herocontainer";
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
-    <HeroContainer minHeight={600}  heroBackground={<WireframeVideo/>}>
+    <HeroContainer minHeight={600} heroBackground={<WireframeVideo />}>
       <h1>
         <TypedInEffect speed={15} message="Developer For Hire." />
       </h1>
@@ -23,8 +23,6 @@ const IndexPage = () => (
       </p>
       <CardsContainer>{GenerateSkillCards()}</CardsContainer>
     </HeroContainer>
-    
-    
   </Layout>
 );
 
@@ -52,9 +50,9 @@ export default IndexPage;
 
 const CardsContainer = styled.div`
   display: grid;
- 
+
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  align-items:center;
+  align-items: center;
   grid-gap: 1rem;
-  max-width:100%;
+  max-width: 100%;
 `;

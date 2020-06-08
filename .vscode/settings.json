@@ -11,7 +11,6 @@
   },
   "editor.rulers": [80],
   "editor.tabSize": 2,
-  "editor.formatOnSave": true,
   "eslint.autoFixOnSave": true,
   "eslint.validate": [
     {
@@ -33,5 +32,6 @@
   ],
   "tslint.enable": false,
   "typescript.tsdk": "./node_modules/typescript/lib",
-  "debug.node.autoAttach": "on"
+  "debug.node.autoAttach": "on",
+  "editor.formatOnSave": true
 }
