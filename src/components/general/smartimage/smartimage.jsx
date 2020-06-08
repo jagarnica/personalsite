@@ -1,56 +1,55 @@
-import React, { Component } from "react"
-import styled, { keyframes } from "styled-components"
-import PropTypes from "prop-types"
-import LazyLoad from "react-lazyload"
+import React, { Component } from "react";
+import styled, { keyframes } from "styled-components";
+import PropTypes from "prop-types";
+import LazyLoad from "react-lazyload";
 /**
  * @name SmartImg
- * @description Updated December 9 2019 Lazy Loads Images and presents a placeholder when they are loading. 
+ * @description Updated December 9 2019 Lazy Loads Images and presents a placeholder when they are loading.
  * @author Jesus Garnica
- * @prop {boolean} blurFade Enables a blur effect for images loading in. This does not speed up loading. 
- * @prop {function} onError This is called when the images faces an issue loading the image. 
- * @prop {function} onLoad This is called when the image successfully loads in. 
- * @prop {React.Node || string} src This is the src for the image. 
- * @prop {number} offset Sets how soon things should relative to the viewport. Default is 400. 
+ * @prop {boolean} blurFade Enables a blur effect for images loading in. This does not speed up loading.
+ * @prop {function} onError This is called when the images faces an issue loading the image.
+ * @prop {function} onLoad This is called when the image successfully loads in.
+ * @prop {React.Node || string} src This is the src for the image.
+ * @prop {number} offset Sets how soon things should relative to the viewport. Default is 400.
  * @prop {object} style Sets the appearance for the image. Ex: style={{objectFit:"contain"}}
  */
 const PlaceholderImg = props => {
-  return <Layout {...props} />
-}
+  return <Layout {...props} />;
+};
 class SmartImg extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       imageError: false,
       isLoaded: false,
-    }
-    this.disabledAnimationIntro = false
+    };
+    this.disabledAnimationIntro = false;
   }
-  handleSuccessfulLoad = event =>{
-    event.preventDefault()
-    event.stopPropagation()
-    this.disabledAnimationIntro = true
-  }
+  handleSuccessfulLoad = event => {
+    event.preventDefault();
+    event.stopPropagation();
+    this.disabledAnimationIntro = true;
+  };
   componentDidUpdate(prevProps) {
     if (prevProps.src !== this.props.src) {
       //new src has been set.
       this.setState({
         imageError: false,
         isLoaded: false,
-      })
+      });
     }
   }
   render() {
     try {
-      let className = ""
+      let className = "";
 
       if (this.state.isLoaded) {
         if (this.props.blurFade) {
-          className = "blurEnter "
+          className = "blurEnter ";
         } else {
-          className = "visible"
-          if(this.disabledAnimationIntro===true){
-           
-            className = 'noAnimationVisible'
+          className = "visible";
+          if (this.disabledAnimationIntro === true) {
+            className = "noAnimationVisible";
           }
         }
       }
@@ -71,13 +70,12 @@ class SmartImg extends Component {
                   onAnimationEnd={this.handleSuccessfulLoad}
                   {...this.props}
                   onError={() => {
-                    this.setState({ imageError: true })
-                    this.props.onError()
+                    this.setState({ imageError: true });
+                    this.props.onError();
                   }}
                   onLoad={() => {
-                  
-                    this.setState({ imageError: false, isLoaded: true })
-                    this.props.onLoad()
+                    this.setState({ imageError: false, isLoaded: true });
+                    this.props.onLoad();
                   }}
                   style={this.props.style}
                   src={this.props.src}
@@ -91,16 +89,16 @@ class SmartImg extends Component {
             </>
           )}
         </>
-      )
+      );
     } catch (e) {
       if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
-        console.log(e)
+        console.log(e);
       }
-      return null
+      return null;
     }
   }
 }
-export default SmartImg
+export default SmartImg;
 SmartImg.propTypes = {
   src: PropTypes.node,
   placeHeight: PropTypes.number,
@@ -108,13 +106,13 @@ SmartImg.propTypes = {
   onError: PropTypes.func,
   onLoad: PropTypes.func,
   offset: PropTypes.number,
-}
+};
 SmartImg.defaultProps = {
   blurFade: false,
-  onError: function() {},
-  onLoad: function() {},
+  onError: function () {},
+  onLoad: function () {},
   offset: 400,
-}
+};
 const BackgroundAnimation = keyframes`
 0%{
 
@@ -126,7 +124,7 @@ background: rgba(242, 242, 242, 1);
 100%{
   background: rgba(232, 232, 232, 1);
 }
-`
+`;
 const Layout = styled.div`
   content: "...";
 
@@ -134,7 +132,7 @@ const Layout = styled.div`
   animation: ${BackgroundAnimation}
     ${props => (props.animationTime ? props.animationTime + `s` : `1.3s`)}
     ease-in-out infinite;
-`
+`;
 const ImageEnter = keyframes`
 from{
     opacity:0;
@@ -144,13 +142,13 @@ to{
   opacity:1;
     filter:blur(0px);
 }
-`
+`;
 const FadeIntoView = keyframes`
 
 to{
   opacity:1;
 }
-`
+`;
 
 const BackgroundDiv = styled.div`
   position: relative;
@@ -162,7 +160,7 @@ const BackgroundDiv = styled.div`
     opacity: 1;
     background: rgba(232, 232, 232, 1);
   }
-`
+`;
 
 const ImageDiv = styled.img`
   overflow: hidden;
@@ -178,9 +176,9 @@ const ImageDiv = styled.img`
     animation: ${FadeIntoView} 0.1s ease-out forwards;
     /* transition: opacity 0.1s ease-out; */
   }
-  &.noAnimationVisible{
+  &.noAnimationVisible {
     transition: opacity 0s !important;
     animation: ${FadeIntoView} 0s linear forwards;
-    opacity:0;
+    opacity: 0;
   }
-`
+`;

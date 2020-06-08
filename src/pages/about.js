@@ -53,7 +53,8 @@ const AboutPage = () => (
           When I am not programming, I am usually busy restoring vintage hi-fi
           recievers or other electronics. I have spent a lot free time bringing
           an old Marantz 2230 back alive from the grave, making a La Pavoni
-          Espresso machine look better than ever, and restoring other various electronics.
+          Espresso machine look better than ever, and restoring other various
+          electronics.
         </p>
         <p>
           Want to build something great together? Feel free to contact me at{" "}

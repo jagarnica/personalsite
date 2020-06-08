@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useRef, useCallback } from "react";
 import styled from "styled-components";
 import * as THREE from "three"; // Import our three library
 import { debounce } from "lodash";
@@ -51,11 +51,11 @@ const threeJSSetup = function () {
     );
   }
   if (!mesh) {
-   // mesh = createTriangleLines(2, 2, 2, 1);;
+    // mesh = createTriangleLines(2, 2, 2, 1);;
   }
   for (let i = 0; i < 8; i++) {
-    for(let j = 0; j< 50; j++){
-      let y = 0.9 - i * 0.4; // this is the row we are working on 
+    for (let j = 0; j < 50; j++) {
+      let y = 0.9 - i * 0.4; // this is the row we are working on
       let x = -5 + 0.475 * j;
       let z = 0;
       let scale = 0.15;
@@ -63,12 +63,13 @@ const threeJSSetup = function () {
       scene.add(shape2);
     }
   }
-  console.log("Added shapes")
+  console.log("Added shapes");
   //scene.add(mesh);
   // Setup the camera
   camera.position.x = 0; //2.2;
   camera.position.y = 0;
   camera.position.z = 8;
+
   setupShaders();
 };
 
@@ -79,14 +80,14 @@ const createTriangleLines: (
   s: number
 ) => THREE.Line = (x, y, z, s) => {
   let triangleShape: THREE.Shape = new THREE.Shape()
-    .moveTo(0, 0) // bottom 
-    .lineTo(-1.5, 1) // left 
-    .lineTo(0, 2) // top 
-    .lineTo(1.5,1) // right 
-    .lineTo(0,0) // back to bottom
-    //.lineTo(6, 6)
-    //.lineTo(10, 4)
-    //.lineTo(4, 0); // close path
+    .moveTo(0, 0) // bottom
+    .lineTo(-1.5, 1) // left
+    .lineTo(0, 2) // top
+    .lineTo(1.5, 1) // right
+    .lineTo(0, 0); // back to bottom
+  //.lineTo(6, 6)
+  //.lineTo(10, 4)
+  //.lineTo(4, 0); // close path
   let points = triangleShape.getPoints();
   let geometryPoints = new THREE.BufferGeometry().setFromPoints(points);
   // solid line
@@ -95,11 +96,10 @@ const createTriangleLines: (
     new THREE.LineBasicMaterial({ color: 0x000000 })
   );
   line.position.set(x, y, z);
- // line.rotation.set(0, 0, 0);
+  // line.rotation.set(0, 0, 0);
   line.scale.set(s, s, s);
   return line;
 };
-
 
 const setupShaders = function () {
   // postprocessing
@@ -175,7 +175,6 @@ const removeWindowListener = function () {
 const animate = function () {
   requestAnimationFrame(animate);
   if (composer) {
-  
     //mesh.rotation.x += 0.0025;
     //mesh.rotation.y += 0.0025;
     composer.render();

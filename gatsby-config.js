@@ -19,10 +19,10 @@ module.exports = {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
         fonts: [
-          `Source Sans Pro` // you can also specify font weights and styles
+          `Source Sans Pro`, // you can also specify font weights and styles
         ],
-        display: 'swap'
-      }
+        display: "swap",
+      },
     },
     {
       resolve: `gatsby-plugin-styled-components`,
@@ -49,8 +49,15 @@ module.exports = {
         allExtensions: false,
       },
     },
+    {
+      resolve: 'gatsby-plugin-tslint',
+      options: {
+        test: /\.ts$|\.tsx$/,
+        exclude: /(node_modules|cache|public)/
+      }
+    }
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
   ],
-}
+};
