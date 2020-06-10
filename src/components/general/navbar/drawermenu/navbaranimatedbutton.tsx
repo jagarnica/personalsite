@@ -31,7 +31,7 @@ const NavbarButton: React.FC<NavbarButtonProps> = ({
   }
   const iconHeight = height || 15;
   const transformAmount = Math.round(iconHeight / 1.15384615385) / 2;
-
+  console.log("Color receieved", iconColor);
   return (
     <>
       <Container
@@ -47,11 +47,16 @@ const NavbarButton: React.FC<NavbarButtonProps> = ({
         iconColor={iconColor}
       >
         <BarElement
+          iconColor={iconColor}
           translateY={transformAmount}
           className={"top " + barClassName}
         />
-        <BarElement className={"center " + barClassName} />
         <BarElement
+          iconColor={iconColor}
+          className={"center " + barClassName}
+        />
+        <BarElement
+          iconColor={iconColor}
           translateY={transformAmount}
           className={"bottom " + barClassName}
         />

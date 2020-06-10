@@ -3,16 +3,18 @@ import styled, { keyframes } from "styled-components";
 interface Props {
   message: string; // This is the message that we will display
   speed?: number; // This sets how fast display the message. The higher the number the faster
+  cursorColor?: string;
 }
 
 /**
  * @name TypedInDev
  * @description Takes in a string and displays it as if it were being typed in.
  * @param {string} message This is what message will be displayed as it were being typed in.
+ * @param {string} cursorColor Optional element to set the cursor color.
  * @param {number} speed
  * @returns React Element
  */
-const TypedInDev: React.FC<Props> = ({ message, speed }) => {
+const TypedInDev: React.FC<Props> = ({ message, speed, cursorColor }) => {
   const splitUpMessage: string[] = message.split("");
   let totalDelay = 0;
   const lettersGenerated = splitUpMessage.map((letter, index) => {
@@ -28,7 +30,9 @@ const TypedInDev: React.FC<Props> = ({ message, speed }) => {
   return (
     <span>
       {lettersGenerated}
-      <CursorElement delay={totalDelay}>|</CursorElement>
+      <CursorElement cursorColor={cursorColor} delay={totalDelay}>
+        |
+      </CursorElement>
     </span>
   );
 };
@@ -46,6 +50,7 @@ const AppearAnimation = keyframes`
 `;
 interface SingleLetterProps {
   delay?: number;
+  cursorColor?: string;
 }
 const SingleLetter = styled.span<SingleLetterProps>`
   opacity: 0;
@@ -63,7 +68,7 @@ from, to {
 `;
 const CursorElement = styled.span<SingleLetterProps>`
   font-weight: 100;
-  color: black;
+  color: ${props => (props.cursorColor ? props.cursorColor : `black`)};
   opacity: 0;
   animation: ${BlinkAnimation} 1s step-end infinite;
   animation-delay: ${props => (props.delay ? props.delay + `s` : `0s`)};

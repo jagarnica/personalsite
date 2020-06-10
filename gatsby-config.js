@@ -30,9 +30,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [
-          `Source Sans Pro`, // you can also specify font weights and styles
-        ],
+        fonts: [`Source Sans Pro`, `IBM Plex Mono`],
         display: "swap",
       },
     },

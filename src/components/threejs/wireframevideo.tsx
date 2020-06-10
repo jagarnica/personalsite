@@ -6,6 +6,7 @@ import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer
 import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass";
 import { TAARenderPass } from "three/examples/jsm/postprocessing/TAARenderPass";
+import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass";
 import { CopyShader } from "three/examples/jsm/shaders/CopyShader";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
 let camera: THREE.Camera,
@@ -18,10 +19,11 @@ let camera: THREE.Camera,
   renderPass: RenderPass,
   renderer: THREE.WebGLRenderer;
 
-const RENDER_SCALE = 0.99;
+const RENDER_SCALE = 0.95;
 const TAA_SAMPLE_LEVEL = 5;
 const UPDATE_SIZE_WAIT = 10;
-const BACKGROUND_COLOR = 0xffffff; // 0x20252f is also an excellent color
+const SHAPE_COLOR = "#7E57C2";
+const BACKGROUND_COLOR = "#292D3E"; // 0x20252f is also an excellent color
 const threeJSSetup = function () {
   // This is just for setting up the variables
   if (!scene) {
@@ -78,7 +80,7 @@ const createTriangleLines: (
   y: number,
   z: number,
   s: number
-) => THREE.Line = (x, y, z, s) => {
+) => THREE.Mesh = (x, y, z, s) => {
   const triangleShape: THREE.Shape = new THREE.Shape()
     .moveTo(0, 0) // bottom
     .lineTo(-1.5, 1) // left
@@ -89,11 +91,17 @@ const createTriangleLines: (
   //.lineTo(10, 4)
   //.lineTo(4, 0); // close path
   const points = triangleShape.getPoints();
-  const geometryPoints = new THREE.BufferGeometry().setFromPoints(points);
+  //const geometryPoints = new THREE.BufferGeometry().setFromPoints(points);
+  //const geometryPoints = new THREE.CircleGeometry(0.5, 32, 0, 2 * Math.PI);
+  const geometryPoints = new THREE.TetrahedronBufferGeometry(1, 0);
+  //geometryPoints.vertices.shift();
   // solid line
-  const line = new THREE.Line(
+  const line = new THREE.Mesh(
     geometryPoints,
-    new THREE.LineBasicMaterial({ color: 0x000000 })
+    new THREE.MeshBasicMaterial({
+      wireframe: true,
+      color: SHAPE_COLOR,
+    })
   );
   line.position.set(x, y, z);
   // line.rotation.set(0, 0, 0);
@@ -177,6 +185,7 @@ const animate = function () {
   if (composer) {
     //mesh.rotation.x += 0.0025;
     //mesh.rotation.y += 0.0025;
+
     composer.render();
   }
 };

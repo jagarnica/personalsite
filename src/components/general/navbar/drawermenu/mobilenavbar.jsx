@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import MobileNarBarButton from "./navbaranimatedbutton.tsx";
 import SideDrawer from "./dropdownnav.tsx";
+/**
+ * @name MobileNavBar
+ * @param {React.Node} children This sets the content that will be shown in the menu.
+ * @param {string} iconColor This sets the color for the sandwhich icon.
+ *
+ */
 class MobileNavBar extends Component {
   constructor(props) {
     super(props);
@@ -46,6 +52,7 @@ class MobileNavBar extends Component {
           <DrawerContainer>{this.props.children}</DrawerContainer>
         </SideDrawer>
         <MobileNarBarButton
+          iconColor={this.props.iconColor}
           active={this.state.menuOpen}
           onClick={this.handleUserMenuButtonClick}
         />

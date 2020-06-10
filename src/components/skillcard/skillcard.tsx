@@ -32,6 +32,7 @@ const CardContainer = styled.div<CardContainerProps>`
   border: 0px solid black;
   cursor: default;
   border-radius: 4px;
+  color: black;
   transition: 0.3s ease;
   background: white;
   box-shadow: ${globalStyles.BOX_SHADOWS.shadow1};

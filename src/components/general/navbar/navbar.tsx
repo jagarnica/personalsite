@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { debounce } from "lodash";
 import styled from "styled-components";
-import NavItem from "./navbaritem";
+import NavItem from "./navigationitem";
 import DrawerMenu from "./drawermenu/index";
 import "../../layout.css";
 import * as globalStyles from "../../../styles/styles";
@@ -74,11 +74,11 @@ const Navbar: React.FC<NavbarProps> = ({
   }
   return (
     <OuterContainer className={isScrolled ? "onScroll" : ""}>
-      <NavbarContainer>
+      <NavbarContainer className={isScrolled ? "onScroll" : ""}>
         <TitleSpan to="/" activeStyle={{ textDecoration: "none" }}>
           JESUS GARNICA
         </TitleSpan>
-        <DrawerMenu>
+        <DrawerMenu iconColor={isScrolled ? `black` : "hsla(0, 0%, 100%, 0.8)"}>
           <TabsLayoutDiv>{NavTabs}</TabsLayoutDiv>
         </DrawerMenu>
       </NavbarContainer>
@@ -90,15 +90,18 @@ export default Navbar;
 const OuterContainer = styled.div`
   position: fixed;
   z-index: 10;
-  background: white;
   display: flex;
   top: 0;
   left: 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0);
-  transition: box-shadow 0.4s ease;
+  transition: box-shadow 0.4s ease, background-color 0.2s ease;
   justify-content: center;
   width: 100vw;
+  color: hsla(0, 0%, 100%, 0.8);
+  background-color: rgba(255, 255, 255, 0);
   &.onScroll {
+    color: black;
+    background-color: rgba(255, 255, 255, 1);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 `;
@@ -107,7 +110,6 @@ const NavbarContainer = styled.div`
   margin: 0 auto;
   font-family: ${globalStyles.FONT_FAMILY};
   max-width: 960px;
-  background: white;
   width: 100%;
   display: flex;
   align-items: center;
@@ -119,7 +121,7 @@ const TitleSpan = styled(Link)`
   line-height: 1.2em;
   font-size: 1.2em;
   text-decoration: none;
-  color: black;
+  color: inherit;
 `;
 
 const TabsLayoutDiv = styled.div`

@@ -16,14 +16,14 @@ const HeroContainer: React.FC<HeroContainerProps> = ({
       <HeroBackgroundDiv minHeight={minHeight}>
         {heroBackground}
       </HeroBackgroundDiv>
-      <HeroDiv>{children}</HeroDiv>
+      <TextDiv>{children}</TextDiv>
     </>
   );
 };
 
 export default HeroContainer;
 
-const HeroDiv = styled.div`
+const TextDiv = styled.div`
   position: relative;
   max-width: 100%;
 `;

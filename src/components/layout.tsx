@@ -10,13 +10,13 @@ import PropTypes from "prop-types";
 import Navbar from "./general/navbar/navbar";
 import styled from "styled-components";
 import "./layout.css";
-const Layout = ({ children }) => {
+const Layout: React.FC = ({ children }) => {
   return (
     <>
       <Navbar></Navbar>
       <PageContainerDiv>
         <MainContainer>{children}</MainContainer>
-        <footer>© {new Date().getFullYear()}</footer>
+        <footer></footer>
       </PageContainerDiv>
     </>
   );
