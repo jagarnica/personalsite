@@ -33,11 +33,13 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
   };
   windowOffset: number;
   previousAttributes: string;
+  _isMounted: boolean;
   constructor(props: DropDownNavProps) {
     super(props);
     this.state = {
       inDOM: false,
     };
+    this._isMounted = false;
     this.windowOffset = 0;
     this.previousAttributes = "";
   }
@@ -66,9 +68,12 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
         ) {
           this.props.onRequestOpen();
         }
-        this.setState({
-          inDOM: true,
-        });
+        if (this._isMounted) {
+          this.setState({
+            inDOM: true,
+          });
+        }
+
         //Since we are opening the modal, lets block scrolling.
         this.preventScrolling();
       } else {
@@ -86,10 +91,12 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
     }
   };
   componentWillUnmount(): void {
+    this._isMounted = false;
     this.restoreScrolling();
   }
   componentDidMount(): void {
     //Lets check to see if we are visible or not
+    this._isMounted = true;
     if (this.props.isVisible === true) {
       if (
         this.props.onRequestOpen &&
@@ -97,9 +104,12 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
       ) {
         this.props.onRequestOpen();
       }
-      this.setState({
-        inDOM: true,
-      });
+      if (this._isMounted) {
+        this.setState({
+          inDOM: true,
+        });
+      }
+
       //If we are already visible, lets block scrolling.
       this.preventScrolling();
     }
@@ -113,7 +123,7 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
       event.preventDefault();
       event.stopPropagation();
     }
-    if (!this.props.isVisible) {
+    if (!this.props.isVisible && this._isMounted) {
       this.setState({
         inDOM: false,
       });

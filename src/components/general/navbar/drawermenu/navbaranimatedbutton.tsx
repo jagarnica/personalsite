@@ -31,7 +31,6 @@ const NavbarButton: React.FC<NavbarButtonProps> = ({
   }
   const iconHeight = height || 15;
   const transformAmount = Math.round(iconHeight / 1.15384615385) / 2;
-  console.log("Color receieved", iconColor);
   return (
     <>
       <Container

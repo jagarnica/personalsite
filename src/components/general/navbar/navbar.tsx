@@ -37,9 +37,17 @@ const Navbar: React.FC<NavbarProps> = ({
     );
   });
   useEffect(() => {
-    addScrollListener();
-    return () => {
-      removeScrollListener();
+    if (window) {
+      window.addEventListener(
+        "scroll",
+        debounce(handleScrollEvent, SCROLL_DELAY),
+        false
+      );
+    }
+    return function () {
+      if (window) {
+        window.removeEventListener("scroll", handleScrollEvent, false);
+      }
     };
   });
   function handleScrollEvent(event: Event): void {
@@ -58,20 +66,7 @@ const Navbar: React.FC<NavbarProps> = ({
       setIsScrolled(false);
     }
   }
-  function addScrollListener(): void {
-    if (window) {
-      window.addEventListener(
-        "scroll",
-        debounce(handleScrollEvent, SCROLL_DELAY),
-        false
-      );
-    }
-  }
-  function removeScrollListener(): void {
-    if (window) {
-      window.removeEventListener("scroll", handleScrollEvent, false);
-    }
-  }
+
   return (
     <OuterContainer className={isScrolled ? "onScroll" : ""}>
       <NavbarContainer className={isScrolled ? "onScroll" : ""}>

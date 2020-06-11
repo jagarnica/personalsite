@@ -1,8 +1,10 @@
 import React, { ReactNode } from "react";
+import { navigate } from "gatsby";
 import styled from "styled-components";
 import TypedInEffect from "../components/texteffects/typedindev";
 import Layout from "../components/layout";
 import * as GLOBAL_STYLES from "../styles/styles";
+import HeroButton from "../components/general/buttons/herobutton";
 import SEO from "../components/seo";
 import SkillCard from "../components/skillcard/skillcard";
 import WireframeVideo from "../components/threejs/wireframevideo";
@@ -39,6 +41,27 @@ const IndexPage: ReactNode = () => (
             Computer Science. I have experience with a wide variety of
             technologies.
           </p>
+          <HeroButton
+            onClick={(
+              event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+            ) => {
+              event.preventDefault();
+              navigate("/about/");
+            }}
+          >
+            Learn More About Me
+          </HeroButton>
+          <HeroButton
+            margin={"20px 0px"}
+            onClick={(
+              event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+            ) => {
+              event.preventDefault();
+              navigate("/comingsoon/");
+            }}
+          >
+            Read About What I Am Up To
+          </HeroButton>
         </DetailsTextDiv>
       </FlexContainer>
     </HeroContainer>
@@ -78,7 +101,7 @@ const CardsContainer = styled.div`
 
 const FlexContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
 `;
 const ColorTextSpan = styled.span`
@@ -96,5 +119,6 @@ const IntroTextDiv = styled.div`
 const DetailsTextDiv = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 2.45em;
   flex: 1;
 `;
