@@ -13,16 +13,29 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    {
+      resolve: "gatsby-plugin-eslint",
+      options: {
+        test: /\.js$|\.jsx$|\.tsx$|\.ts$/,
+        exclude: /(node_modules|.cache|public)/,
+        stages: ["develop"],
+        options: {
+          emitWarning: true,
+          failOnError: false,
+        },
+      },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [
-          `Source Sans Pro` // you can also specify font weights and styles
-        ],
-        display: 'swap'
-      }
+        fonts: [`Source Sans Pro`, `IBM Plex Mono`],
+        display: "swap",
+      },
+    },
+    {
+      resolve: `gatsby-plugin-styled-components`,
     },
     {
       resolve: `gatsby-plugin-manifest`,
@@ -50,4 +63,4 @@ module.exports = {
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
   ],
-}
+};

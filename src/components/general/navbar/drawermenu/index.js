@@ -1,2 +1,2 @@
-import DrawerButton from "./mobilenavbar"
-export default DrawerButton
+import MobileNavComponent from "./mobilenavbar";
+export default MobileNavComponent;

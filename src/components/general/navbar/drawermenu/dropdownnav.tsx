@@ -1,10 +1,11 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import ReactDOM from "react-dom";
 import styled, { keyframes } from "styled-components";
 import ExitButton from "./exitbutton";
 interface DropDownNavProps {
   isVisible: boolean;
   width?: string;
+  backgroundColor?: string;
   onRequestOpen?: () => void;
   onRequestClose?: () => void;
 }
@@ -16,6 +17,7 @@ interface DropDownNavState {
  * @description Presents a simple drawer that comes in from the
  * top.
  * @prop {boolean} isVisible Determines if the drawer is visible
+ * @prop {string} backgroundColor This sets the background color of the dropdown drawer. Defaults to white.
  * @prop {string} width Sets the width of the drawer
  * @prop {function} onRequestClose Sets the actions when the mask or outside is clicked.
  * @prop {function} onRequestOpen This will be called whenever the drawer is opening.
@@ -24,24 +26,31 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
   static defaultProps = {
     isVisible: false,
     width: `100vw`,
-    onRequestOpen: function () {},
-    onRequestClose: () => {},
+    backgroundColor: `white`,
+    onRequestOpen: function (): void {
+      return;
+    },
+    onRequestClose: function (): void {
+      return;
+    },
   };
   windowOffset: number;
   previousAttributes: string;
-  constructor(props: DropDownNavProps, state: DropDownNavState) {
+  _isMounted: boolean;
+  constructor(props: DropDownNavProps) {
     super(props);
     this.state = {
       inDOM: false,
     };
+    this._isMounted = false;
     this.windowOffset = 0;
     this.previousAttributes = "";
   }
-  restoreScrolling = () => {
+  restoreScrolling = (): void => {
     document.body.setAttribute("style", this.previousAttributes);
     window.scrollTo(0, this.windowOffset);
   };
-  preventScrolling = () => {
+  preventScrolling = (): void => {
     this.windowOffset = window && window.scrollY ? window.scrollY : 0; // This extra check must be done because gatsby build will complain
     this.previousAttributes = document.body.getAttribute("style")
       ? String(document.body.getAttribute("style"))
@@ -51,7 +60,7 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
       `position: fixed; top: -${this.windowOffset}px;;left:0;right:0;`
     );
   };
-  componentDidUpdate(prevProps: DropDownNavProps) {
+  componentDidUpdate(prevProps: DropDownNavProps): void {
     //Lets check to see if we are visible or not
     if (this.props.isVisible !== prevProps.isVisible) {
       //Check to see if we should do this check.
@@ -62,9 +71,12 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
         ) {
           this.props.onRequestOpen();
         }
-        this.setState({
-          inDOM: true,
-        });
+        if (this._isMounted) {
+          this.setState({
+            inDOM: true,
+          });
+        }
+
         //Since we are opening the modal, lets block scrolling.
         this.preventScrolling();
       } else {
@@ -72,7 +84,7 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
       }
     }
   }
-  onMaskClick = (event: React.MouseEvent) => {
+  onMaskClick = (event: React.MouseEvent): void => {
     event.preventDefault();
     event.stopPropagation();
     //Undo the scrolling event blocking now that the modal is closed.
@@ -81,11 +93,13 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
       this.props.onRequestClose();
     }
   };
-  componentWillUnmount() {
+  componentWillUnmount(): void {
+    this._isMounted = false;
     this.restoreScrolling();
   }
-  componentDidMount() {
+  componentDidMount(): void {
     //Lets check to see if we are visible or not
+    this._isMounted = true;
     if (this.props.isVisible === true) {
       if (
         this.props.onRequestOpen &&
@@ -93,32 +107,35 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
       ) {
         this.props.onRequestOpen();
       }
-      this.setState({
-        inDOM: true,
-      });
+      if (this._isMounted) {
+        this.setState({
+          inDOM: true,
+        });
+      }
+
       //If we are already visible, lets block scrolling.
       this.preventScrolling();
     }
   }
   /**
-   * @function handleAnimationEnd When the animation is over, we will update our state, causing a rerender to remove it from the DOM. 
-   * @param event 
+   * @function handleAnimationEnd When the animation is over, we will update our state, causing a rerender to remove it from the DOM.
+   * @param event
    */
-  handleAnimationEnd = (event?: React.AnimationEvent) => {
+  handleAnimationEnd = (event?: React.AnimationEvent): void => {
     if (event) {
       event.preventDefault();
       event.stopPropagation();
     }
-    if (!this.props.isVisible) {
+    if (!this.props.isVisible && this._isMounted) {
       this.setState({
         inDOM: false,
       });
     }
   };
 
-  render() {
+  render(): ReactNode {
     try {
-      let drawerClassName = this.props.isVisible ? "show" : "hide";
+      const drawerClassName = this.props.isVisible ? "show" : "hide";
       return this.state.inDOM
         ? ReactDOM.createPortal(
             <ModelMask className={drawerClassName}>
@@ -126,6 +143,7 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
                 <ModalContainer
                   onAnimationEnd={this.handleAnimationEnd}
                   className={drawerClassName}
+                  backgroundColor={this.props.backgroundColor}
                   onClick={e => {
                     // We are simply preventing the e based function up above from misfiring
                     e.stopPropagation();
@@ -214,7 +232,7 @@ to{
 }
 
 `;
-const ModelMask = styled.div<{width?: string, height?: string}>`
+const ModelMask = styled.div<{ width?: string; height?: string }>`
   position: fixed;
   z-index: 950;
   top: 0;
@@ -245,12 +263,16 @@ const ModalWrapper = styled.div`
   z-index: 500;
 `;
 /* This styling is for the actual border containing the content */
-const ModalContainer = styled.div<{ className?: string }>`
+const ModalContainer = styled.div<{
+  className?: string;
+  backgroundColor?: string;
+}>`
   position: absolute;
   z-index: 500;
   opacity: 1; /* This sets the opacity for the entire container */
   transform: translateX(-100%);
-  background-color: #fff;
+  background-color: ${props =>
+    props.backgroundColor ? props.backgroundColor : ``};
   border-radius: 4px;
   top: 0;
   left: 0;
