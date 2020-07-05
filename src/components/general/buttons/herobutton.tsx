@@ -3,6 +3,7 @@ import styled from "styled-components";
 import * as GLOBAL_STYLES from "../../../styles/styles";
 interface HeroButtonProps {
   children?: React.ReactNode;
+  margin?: string;
 }
 /**
  * @name HeroButton This is a large button that also takes in all the regular props for a button.

@@ -28,7 +28,7 @@ const IndexPage: ReactNode = () => (
           <h1>
             <TypedInEffect
               cursorColor={CURSOR_ELEMENT_COLOR}
-              speed={15}
+              speed={0.08}
               message="Developer For Hire."
             />
           </h1>
