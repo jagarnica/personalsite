@@ -7,7 +7,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import Navbar from "./general/navbar/navbar";
+import Navbar from "./general/navbar/";
 import styled from "styled-components";
 import "./layout.css";
 const Layout: React.FC = ({ children }) => {

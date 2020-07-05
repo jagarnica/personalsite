@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { debounce } from "lodash";
 import styled from "styled-components";
 import NavItem from "./navigationitem";
-import DrawerMenu from "./drawermenu/index";
-import "../../layout.css";
-import * as globalStyles from "../../../styles/styles";
-import RoadLink from "./classes/roadlink";
+import DrawerMenu from "../drawermenu/index";
+import "../../../layout.css";
+import * as globalStyles from "../../../../styles/styles";
+import RoadLink from "../classes/roadlink";
 import { Link } from "gatsby";
 
 const SCROLL_DELAY = 60;

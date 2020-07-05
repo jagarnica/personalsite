@@ -5,6 +5,7 @@ import ExitButton from "./exitbutton";
 interface DropDownNavProps {
   isVisible: boolean;
   width?: string;
+  backgroundColor?: string;
   onRequestOpen?: () => void;
   onRequestClose?: () => void;
 }
@@ -16,6 +17,7 @@ interface DropDownNavState {
  * @description Presents a simple drawer that comes in from the
  * top.
  * @prop {boolean} isVisible Determines if the drawer is visible
+ * @prop {string} backgroundColor This sets the background color of the dropdown drawer. Defaults to white.
  * @prop {string} width Sets the width of the drawer
  * @prop {function} onRequestClose Sets the actions when the mask or outside is clicked.
  * @prop {function} onRequestOpen This will be called whenever the drawer is opening.
@@ -24,6 +26,7 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
   static defaultProps = {
     isVisible: false,
     width: `100vw`,
+    backgroundColor: `white`,
     onRequestOpen: function (): void {
       return;
     },
@@ -140,6 +143,7 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
                 <ModalContainer
                   onAnimationEnd={this.handleAnimationEnd}
                   className={drawerClassName}
+                  backgroundColor={this.props.backgroundColor}
                   onClick={e => {
                     // We are simply preventing the e based function up above from misfiring
                     e.stopPropagation();
@@ -259,12 +263,16 @@ const ModalWrapper = styled.div`
   z-index: 500;
 `;
 /* This styling is for the actual border containing the content */
-const ModalContainer = styled.div<{ className?: string }>`
+const ModalContainer = styled.div<{
+  className?: string;
+  backgroundColor?: string;
+}>`
   position: absolute;
   z-index: 500;
   opacity: 1; /* This sets the opacity for the entire container */
   transform: translateX(-100%);
-  background-color: #fff;
+  background-color: ${props =>
+    props.backgroundColor ? props.backgroundColor : ``};
   border-radius: 4px;
   top: 0;
   left: 0;
