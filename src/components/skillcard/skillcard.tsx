@@ -29,16 +29,13 @@ interface CardContainerProps {
 const CardContainer = styled.div<CardContainerProps>`
   height: auto;
   overflow: hidden;
-  border: 0px solid black;
+  border: 1px solid transparent;
   cursor: default;
-  border-radius: 4px;
-  color: black;
+  border-radius: 0px;
+  color: white;
   transition: 0.3s ease;
-  background: white;
-  box-shadow: ${globalStyles.BOX_SHADOWS.shadow1};
-  &:hover {
-    box-shadow: ${globalStyles.BOX_SHADOWS.shadow2};
-  }
+  background: #145593;
+
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -51,5 +48,5 @@ const SkillTitle = styled.span`
 `;
 const DetailsText = styled.span`
   font-size: 0.9em;
-  font-weight: normal;
+  font-weight: 200;
 `;

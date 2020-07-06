@@ -8,6 +8,7 @@ interface DropDownNavProps {
   backgroundColor?: string;
   onRequestOpen?: () => void;
   onRequestClose?: () => void;
+  exitButtonColor?: string;
 }
 interface DropDownNavState {
   inDOM: boolean;
@@ -21,6 +22,7 @@ interface DropDownNavState {
  * @prop {string} width Sets the width of the drawer
  * @prop {function} onRequestClose Sets the actions when the mask or outside is clicked.
  * @prop {function} onRequestOpen This will be called whenever the drawer is opening.
+ * @prop {string} exitButtonColor This sets the color for the exit button.
  */
 class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
   static defaultProps = {
@@ -33,6 +35,7 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
     onRequestClose: function (): void {
       return;
     },
+    exitButtonColor: "black",
   };
   windowOffset: number;
   previousAttributes: string;
@@ -151,7 +154,7 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
                   style={{ width: this.props.width }}
                 >
                   <ExitButtonContainer onClick={this.onMaskClick}>
-                    <ExitButton />
+                    <ExitButton color={this.props.exitButtonColor} />
                   </ExitButtonContainer>
                   {this.props.children}
                 </ModalContainer>

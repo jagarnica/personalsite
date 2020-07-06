@@ -10,8 +10,8 @@ import { Link } from "gatsby";
 
 const SCROLL_DELAY = 60;
 const NAV_BAR_LINKS = [
-  new RoadLink("Home", "#4700ff", "/"),
-  new RoadLink("About", "purple", "/about/"),
+  new RoadLink("Home", "hsl(1,85%,65%)", "/"),
+  new RoadLink("About", "#145593", "/about/"),
   new RoadLink("Blog", "red", "/comingsoon/"),
   new RoadLink("Resume", "red", "/comingsoon/"),
   new RoadLink("Portfolio", "blue", "/comingsoon/"),
@@ -73,7 +73,11 @@ const Navbar: React.FC<NavbarProps> = ({
         <TitleSpan to="/" activeStyle={{ textDecoration: "none" }}>
           JESUS GARNICA
         </TitleSpan>
-        <DrawerMenu iconColor={isScrolled ? `black` : "hsla(0, 0%, 100%, 0.8)"}>
+        <DrawerMenu
+          exitButtonColor={globalStyles.COLORS.lightWhite}
+          backgroundColor={"#2b2b2b"}
+          iconColor={"hsla(0, 0%, 100%, 0.8)"}
+        >
           <TabsLayoutDiv>{NavTabs}</TabsLayoutDiv>
         </DrawerMenu>
       </NavbarContainer>
@@ -95,8 +99,7 @@ const OuterContainer = styled.div`
   color: hsla(0, 0%, 100%, 0.8);
   background-color: rgba(255, 255, 255, 0);
   &.onScroll {
-    color: black;
-    background-color: rgba(255, 255, 255, 1);
+    background-color: ${globalStyles.COLORS.darkGrey};
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 `;

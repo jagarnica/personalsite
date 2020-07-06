@@ -21,7 +21,6 @@ const TypedInDev: React.FC<Props> = ({ message, speed, cursorColor }) => {
   const amountOfCharacters = splitUpMessage.length;
   useEffect(() => {
     const letterTimer = setTimeout(() => {
-      console.log("testing here!!");
       if (visibleCharacters < amountOfCharacters) {
         setVisibleCharacters(visibleCharacters + 1);
       }

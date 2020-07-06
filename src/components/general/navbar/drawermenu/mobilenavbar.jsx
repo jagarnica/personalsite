@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import MobileNarBarButton from "./navbaranimatedbutton.tsx";
-import SideDrawer from "./dropdownnav.tsx";
+import DropdownNav from "./dropdownnav.tsx";
 /**
  * @name MobileNavBar
  * @param {React.Node} children This sets the content that will be shown in the menu.
  * @param {string} iconColor This sets the color for the sandwhich icon.
+ * @param {string} backgroundColor This sets the background color for the drawer menu
+ * @param {string} exitButtonColor This sets the background color for the exit button.
  *
  */
 class MobileNavBar extends Component {
@@ -44,13 +46,15 @@ class MobileNavBar extends Component {
   render() {
     return (
       <Container>
-        <SideDrawer
+        <DropdownNav
+          exitButtonColor={this.props.exitButtonColor}
+          backgroundColor={this.props.backgroundColor}
           width="100%"
           onRequestClose={this.handleMenuClosing}
           isVisible={this.state.menuOpen}
         >
           <DrawerContainer>{this.props.children}</DrawerContainer>
-        </SideDrawer>
+        </DropdownNav>
         <MobileNarBarButton
           iconColor={this.props.iconColor}
           active={this.state.menuOpen}

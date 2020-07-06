@@ -6,8 +6,6 @@ import Layout from "../components/layout";
 import * as GLOBAL_STYLES from "../styles/styles";
 import HeroButton from "../components/general/buttons/herobutton";
 import SEO from "../components/seo";
-import SkillCard from "../components/skillcard/skillcard";
-import WireframeVideo from "../components/threejs/wireframevideo";
 import HeroContainer from "../components/general/herocontainer/herocontainer";
 const CURSOR_ELEMENT_COLOR = `hsl(1, 85%, 65%)`;
 const IndexPage: ReactNode = () => (
@@ -68,36 +66,7 @@ const IndexPage: ReactNode = () => (
   </Layout>
 );
 
-const GenerateSkillCards = (cardMargin?: string) => {
-  const displayMargins = cardMargin ? cardMargin : "";
-  const skills = [
-    { skill: "C++", details: "Software Development" },
-    { skill: "ReactJS", details: "Front End Web Development" },
-    { skill: "Apollo GraphQl", details: "Database Query" },
-    { skill: "Swift", details: "Software Development" },
-  ];
-  return skills.map(currentSkill => {
-    return (
-      <SkillCard
-        margin={displayMargins}
-        skill={currentSkill.skill}
-        details={currentSkill.details}
-        key={currentSkill.skill}
-      />
-    );
-  });
-};
-
 export default IndexPage;
-
-const CardsContainer = styled.div`
-  display: grid;
-
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  align-items: center;
-  grid-gap: 1rem;
-  max-width: 100%;
-`;
 
 const FlexContainer = styled.div`
   display: flex;
