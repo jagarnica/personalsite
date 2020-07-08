@@ -1,7 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
-import MobileNarBarButton from "./navbaranimatedbutton.tsx";
-import DropdownNav from "./dropdownnav.tsx";
+import MobileNarBarButton from "./navbaranimatedbutton";
+import DropdownNav from "./dropdownnav";
+interface MobileNavBarProps {
+  children?: React.ReactNode;
+  iconColor?: string;
+  backgroundColor?: string;
+  exitButtonColor?: string;
+}
+interface MobileNavBarState {
+  menuOpen: boolean;
+}
 /**
  * @name MobileNavBar
  * @param {React.Node} children This sets the content that will be shown in the menu.
@@ -10,22 +19,26 @@ import DropdownNav from "./dropdownnav.tsx";
  * @param {string} exitButtonColor This sets the background color for the exit button.
  *
  */
-class MobileNavBar extends Component {
-  constructor(props) {
+class MobileNavBar extends React.Component<
+  MobileNavBarProps,
+  MobileNavBarState
+> {
+  _isMounted: boolean;
+  constructor(props: MobileNavBarProps) {
     super(props);
     this.state = {
       menuOpen: false,
     };
     this._isMounted = false;
   }
-  componentDidMount() {
+  componentDidMount(): void {
     // Prevent memory leaks.
     this._isMounted = true;
   }
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     this._isMounted = false;
   }
-  handleUserMenuButtonClick = event => {
+  handleUserMenuButtonClick = (event: React.MouseEvent): void => {
     event.preventDefault();
     event.stopPropagation();
 
@@ -35,7 +48,7 @@ class MobileNavBar extends Component {
       });
     }
   };
-  handleMenuClosing = () => {
+  handleMenuClosing = (): void => {
     if (this._isMounted) {
       this.setState({
         menuOpen: false,
@@ -43,7 +56,7 @@ class MobileNavBar extends Component {
     }
   };
 
-  render() {
+  render(): React.ReactNode {
     return (
       <Container>
         <DropdownNav
@@ -69,13 +82,11 @@ export default MobileNavBar;
 const Container = styled.div`
   max-width: 100%;
   height: auto;
-
   display: flex;
   justify-content: flex-end;
   align-items: center;
 `;
 const DrawerContainer = styled.div`
   max-width: 100%;
-
   height: 100%;
 `;

@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 interface NavbarButtonProps {
-  width: number;
+  width?: number;
   active: boolean;
-  height: number;
-  onClick?: void;
-  iconColor: string;
+  height?: number;
+  onClick?: (arg0: React.MouseEvent) => void;
+  iconColor?: string;
 }
 /**
  * @name NavbarButton
@@ -64,6 +64,9 @@ const NavbarButton: React.FC<NavbarButtonProps> = ({
   );
 };
 export default NavbarButton;
+NavbarButton.defaultProps = {
+  active: false,
+};
 interface ContainerProps {
   width?: number;
   height?: number;
@@ -74,7 +77,9 @@ interface BarElementProps {
   iconColor?: string;
   className?: string;
 }
-const Container = styled.div<ContainerProps>`
+const Container = styled.div<
+  React.HtmlHTMLAttributes<HTMLElement> & ContainerProps
+>`
   width: ${props => (props.width ? props.width + `px` : `20px`)};
   height: ${props => (props.height ? props.height + `px` : `15px`)};
   cursor: pointer;
