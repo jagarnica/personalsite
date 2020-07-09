@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { debounce } from "lodash";
+import React, { useRef } from "react";
+import useScrollHandler from "../../../../helpers/hooks/usescrollhandler";
 import styled from "styled-components";
 import NavItem from "./navigationitem";
 import DrawerMenu from "../drawermenu/";
@@ -7,8 +7,6 @@ import "../../../layout.css";
 import * as globalStyles from "../../../../styles/styles";
 import RoadLink from "../classes/roadlink";
 import { Link } from "gatsby";
-
-const SCROLL_DELAY = 60;
 const NAV_BAR_LINKS = [
   new RoadLink("Home", "hsl(1,85%,65%)", "/"),
   new RoadLink("About", "#145593", "/about/"),
@@ -16,13 +14,8 @@ const NAV_BAR_LINKS = [
   new RoadLink("Resume", "red", "/comingsoon/"),
   new RoadLink("Portfolio", "blue", "/comingsoon/"),
 ];
-interface NavbarProps {
-  scrollThreshold?: number;
-}
-const Navbar: React.FC<NavbarProps> = ({
-  scrollThreshold = 60,
-}: NavbarProps) => {
-  const [isScrolled, setIsScrolled] = useState(false);
+const Navbar: React.FC = () => {
+  const isScrolled = useScrollHandler(); // Get if the user scrolled down or not.
   const NavTabs = NAV_BAR_LINKS.map((roadObj: RoadLink) => {
     const pathName = roadObj.getPathName();
     const linkName = roadObj.name;
@@ -36,40 +29,10 @@ const Navbar: React.FC<NavbarProps> = ({
       ></NavItem>
     );
   });
-  useEffect(() => {
-    if (window) {
-      window.addEventListener(
-        "scroll",
-        debounce(handleScrollEvent, SCROLL_DELAY),
-        false
-      );
-    }
-    return function () {
-      if (window) {
-        window.removeEventListener("scroll", handleScrollEvent, false);
-      }
-    };
-  });
-  function handleScrollEvent(event: Event): void {
-    if (!event.target) {
-      return;
-    }
-    const currentTarget = event.target as HTMLDocument;
-    const scrollingTarget = currentTarget.scrollingElement;
-    const userScrolledDown =
-      scrollingTarget && scrollingTarget.scrollTop > scrollThreshold
-        ? true
-        : false;
-    if (userScrolledDown) {
-      setIsScrolled(true);
-    } else if (isScrolled) {
-      setIsScrolled(false);
-    }
-  }
 
   return (
     <OuterContainer className={isScrolled ? "onScroll" : ""}>
-      <NavbarContainer className={isScrolled ? "onScroll" : ""}>
+      <NavbarContainer>
         <TitleSpan to="/" activeStyle={{ textDecoration: "none" }}>
           JESUS GARNICA
         </TitleSpan>
@@ -93,7 +56,7 @@ const OuterContainer = styled.div`
   top: 0;
   left: 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0);
-  transition: box-shadow 0.4s ease, background-color 0.2s ease;
+  transition: box-shadow 0.1s ease, background-color 0.1s ease;
   justify-content: center;
   width: 100vw;
   color: hsla(0, 0%, 100%, 0.8);
