@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
-import useScrollHandler from "../../../../helpers/hooks/usescrollhandler";
+import React from "react";
+import useScrollHandler from "helpers/hooks/usescrollhandler";
 import styled from "styled-components";
 import NavItem from "./navigationitem";
 import DrawerMenu from "../drawermenu/";
 import "../../../layout.css";
-import * as globalStyles from "../../../../styles/styles";
+import * as globalStyles from "styles/styles";
 import RoadLink from "../classes/roadlink";
 import { Link } from "gatsby";
 const NAV_BAR_LINKS = [

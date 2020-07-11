@@ -4,7 +4,9 @@ import Layout from "../components/layout";
 import { useStaticQuery, graphql } from "gatsby";
 import Img from "gatsby-image";
 import SkillCard from "../components/skillcard/skillcard";
+import * as GLOBAL_STYLES from "styles/styles";
 import SEO from "../components/seo";
+import Projects from "components/landing/githubrepocards";
 const AboutImage = () => {
   const data = useStaticQuery(graphql`
     query {
@@ -61,9 +63,16 @@ const AboutPage: React.ReactNode = () => (
           Want to build something great together? Feel free to contact me at{" "}
           <b>jgarnicacc@gmail.com</b>.
         </p>
-        <h1>Things I am good at.</h1>
+        <h1>Skills</h1>
         <CardsContainer>{GenerateSkillCards()}</CardsContainer>
       </div>
+      <h1>My Github Repos</h1>
+      <ReposContainer>
+        <Projects
+          textColor={GLOBAL_STYLES.COLORS.lightWhite}
+          backgroundColor={GLOBAL_STYLES.COLORS.aboutPageAccent}
+        />
+      </ReposContainer>
     </GridLayout>
   </Layout>
 );
@@ -82,6 +91,7 @@ const GenerateSkillCards = (cardMargin?: string) => {
     { skill: "Jest", details: "Testing" },
     { skill: "Python", details: "Software Development" },
     { skill: "Javascript", details: "Web Development" },
+    { skill: "ThreeJS", details: "Web Animation and Graphics" },
     { skill: "Java", details: "Software Development" },
   ];
   return skills.map(currentSkill => {
@@ -91,6 +101,8 @@ const GenerateSkillCards = (cardMargin?: string) => {
         skill={currentSkill.skill}
         details={currentSkill.details}
         key={currentSkill.skill}
+        textColor={GLOBAL_STYLES.COLORS.lightWhite}
+        backgroundColor={GLOBAL_STYLES.COLORS.aboutPageAccent}
       />
     );
   });
@@ -102,6 +114,12 @@ const CardsContainer = styled.div`
   align-items: center;
   grid-gap: 1rem;
   max-width: 100%;
+`;
+
+const ReposContainer = styled(CardsContainer)`
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  align-items: flex-start;
+  grid-gap: 0.5rem;
 `;
 
 const GridLayout = styled.div`

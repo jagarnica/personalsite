@@ -1,14 +1,13 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { navigate } from "gatsby";
 import styled from "styled-components";
-import TypedInEffect from "../components/texteffects/typedindev";
-import Layout from "../components/layout";
-import * as GLOBAL_STYLES from "../styles/styles";
+import TypedInEffect from "components/texteffects/typedindev";
+import Layout from "components/layout";
+import * as GLOBAL_STYLES from "styles/styles";
 import HeroButton from "../components/general/buttons/herobutton";
-import SEO from "../components/seo";
-import HeroContainer from "../components/general/herocontainer/herocontainer";
-const CURSOR_ELEMENT_COLOR = `hsl(1, 85%, 65%)`;
-const IndexPage: ReactNode = () => (
+import SEO from "components/seo";
+import HeroContainer from "components/general/herocontainer/herocontainer";
+const IndexPage: React.ReactNode = () => (
   <Layout>
     <SEO title="Home" />
     <HeroContainer minHeight={600} heroBackground={<div />}>
@@ -25,7 +24,7 @@ const IndexPage: ReactNode = () => (
         <DetailsTextDiv>
           <h1>
             <TypedInEffect
-              cursorColor={CURSOR_ELEMENT_COLOR}
+              cursorColor={GLOBAL_STYLES.COLORS.homePageAccent}
               speed={0.08}
               message="Developer For Hire."
             />
@@ -74,7 +73,7 @@ const FlexContainer = styled.div`
   justify-content: space-between;
 `;
 const ColorTextSpan = styled.span`
-  color: hsl(1, 85%, 65%);
+  color: ${GLOBAL_STYLES.COLORS.homePageAccent};
 `;
 const IntroTextDiv = styled.div`
   flex: 1;

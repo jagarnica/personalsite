@@ -1,6 +1,11 @@
+const path = require("path");
+
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
+    title: `Jesus Garnica`,
     description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
     author: `@gatsbyjs`,
   },
@@ -11,6 +16,29 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
+      },
+    },
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        typeName: "GitHub",
+        fieldName: "github",
+        url: "https://api.github.com/graphql",
+        headers: {
+          Authorization: `bearer ${process.env.GATSBY_PORTFOLIO_GITHUB_TOKEN}`,
+        },
+      },
+    },
+    {
+      resolve: "gatsby-plugin-root-import",
+      options: {
+        src: path.join(__dirname, "src"),
+        pages: path.join(__dirname, "src/pages"),
+        styles: path.join(__dirname, "src/styles"),
+        helpers: path.join(__dirname, "src/helpers"),
+        components: path.join(__dirname, "src/components"),
+        images: path.join(__dirname, "src/images"),
+        types: path.join(__dirname, "src/types"),
       },
     },
     {
