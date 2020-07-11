@@ -147,10 +147,7 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
                   onAnimationEnd={this.handleAnimationEnd}
                   className={drawerClassName}
                   backgroundColor={this.props.backgroundColor}
-                  onClick={e => {
-                    // We are simply preventing the e based function up above from misfiring
-                    e.stopPropagation();
-                  }}
+                  onClick={this.onMaskClick}
                   style={{ width: this.props.width }}
                 >
                   <ExitButtonContainer onClick={this.onMaskClick}>

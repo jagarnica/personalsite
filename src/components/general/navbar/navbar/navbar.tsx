@@ -94,4 +94,8 @@ const TabsLayoutDiv = styled.div`
   padding: 20px 0px;
   height: 100%;
   max-height: 100%;
+  pointer-events: none;
+  * {
+    pointer-events: auto;
+  }
 `;

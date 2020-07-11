@@ -19,7 +19,7 @@ export default (scrollThreshold = 60): boolean => {
       if (scrollCheck !== scroll) {
         setScroll(scrollCheck);
       }
-    }, 80);
+    }, 30);
 
     // setting the event handler from web API
     document.addEventListener("scroll", onScroll);
