@@ -6,6 +6,8 @@ require("dotenv").config({
 module.exports = {
   siteMetadata: {
     title: `Jesus Garnica`,
+    github: `https://github.com/jagarnica`,
+    linkedin: `https://www.linkedin.com/in/jesus-garnica/`,
     description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
     author: `@gatsbyjs`,
   },

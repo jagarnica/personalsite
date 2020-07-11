@@ -1,12 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 import Layout from "../components/layout";
+import * as Buttons from "components/general/buttons";
 import { useStaticQuery, graphql } from "gatsby";
 import Img from "gatsby-image";
 import SkillCard from "../components/skillcard/skillcard";
 import * as GLOBAL_STYLES from "styles/styles";
 import SEO from "../components/seo";
 import Projects from "components/landing/githubrepocards";
+const SocialMediaLinks = () => {
+  const link = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          github
+          linkedin
+        }
+      }
+    }
+  `);
+  return link;
+};
 const AboutImage = () => {
   const data = useStaticQuery(graphql`
     query {
@@ -67,6 +81,10 @@ const AboutPage: React.ReactNode = () => (
         <CardsContainer>{GenerateSkillCards()}</CardsContainer>
       </div>
       <h1>My Github Repos</h1>
+      <StyledLink href={SocialMediaLinks.github} target="_blank" rel="noopener">
+        <Buttons.HeroButton>View all</Buttons.HeroButton>
+      </StyledLink>
+
       <ReposContainer>
         <Projects
           textColor={GLOBAL_STYLES.COLORS.lightWhite}
@@ -121,7 +139,9 @@ const ReposContainer = styled(CardsContainer)`
   align-items: flex-start;
   grid-gap: 0.5rem;
 `;
-
+const StyledLink = styled.a`
+  text-decoration: none;
+`;
 const GridLayout = styled.div`
   display: grid;
   grid-template-columns: 1fr;

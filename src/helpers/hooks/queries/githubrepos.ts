@@ -9,21 +9,24 @@ const GetRepoData = () => {
       {
         github {
           user(login: "jagarnica") {
-            repositories(
-              last: 20
-              orderBy: { field: UPDATED_AT, direction: ASC }
-            ) {
-              nodes {
-                name
-                url
-                isFork
-                description
-                id
-                isPrivate
-                languages(first: 3) {
-                  nodes {
+            itemShowcase {
+              hasPinnedItems
+              items(first: 10) {
+                nodes {
+                  ... on GitHub_Repository {
+                    id
                     name
-                    color
+                    description
+                    languages(
+                      orderBy: { field: SIZE, direction: ASC }
+                      first: 10
+                    ) {
+                      nodes {
+                        id
+                        name
+                        color
+                      }
+                    }
                   }
                 }
               }
@@ -33,6 +36,6 @@ const GetRepoData = () => {
       }
     `
   );
-  return github.user.repositories.nodes;
+  return github.user.itemShowcase.items.nodes;
 };
 export default GetRepoData;
