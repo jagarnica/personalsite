@@ -19,7 +19,6 @@ const ProgrammingLanguageLogo: React.FC<{
   } catch (e) {
     return <span></span>;
   }
-  console.log("language received", lang);
   switch (_langLowercase) {
     case "react":
       return <Logo.ReactLogo />;
@@ -38,7 +37,8 @@ const ProgrammingLanguageLogo: React.FC<{
       return <Logo.CSSLogo />;
     case "html":
       return <Logo.Html5Logo />;
-
+    case "java":
+      return <Logo.JavaLogo />;
     default:
       return <LangauageDetail textColor={textColor}>{lang}</LangauageDetail>;
   }
@@ -50,19 +50,17 @@ const GithubRepoCards: React.FC<GitHubRepoProps> = ({
   backgroundColor,
 }) => {
   const data = GithubRepoData();
-  console.log("data? ", data);
+
   if (!data) {
     return <></>;
   }
   return data.map(repo => {
     const languages = repo.languages.nodes;
-
     const url = repo.url ? repo.url : ``;
 
     const languagesText = languages.map(lang => {
       const color = lang.color ? lang.color : ``;
       const languageName = lang.name;
-      console.log("language name", languageName);
       const LogoFound = (
         <ProgrammingLanguageLogo
           key={lang.name}

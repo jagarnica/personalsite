@@ -10,7 +10,7 @@ import HeroContainer from "components/general/herocontainer/herocontainer";
 const IndexPage: React.ReactNode = () => (
   <Layout>
     <SEO title="Home" />
-    <HeroContainer minHeight={600} heroBackground={<div />}>
+    <HeroContainer minHeight={500} heroBackground={<div />}>
       <FlexContainer>
         <IntroTextDiv>
           <span>
@@ -79,7 +79,7 @@ const IntroTextDiv = styled.div`
   flex: 1;
   display: flex;
   height: 100%;
-  margin-top: 100px;
+  margin-top: 0px;
   font-family: "IBM Plex Mono", ${GLOBAL_STYLES.FONT_FAMILY};
   font-size: 5em;
   line-height: 1em;

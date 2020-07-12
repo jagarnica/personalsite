@@ -4,23 +4,13 @@ import Layout from "../components/layout";
 import * as Buttons from "components/general/buttons";
 import { useStaticQuery, graphql } from "gatsby";
 import Img from "gatsby-image";
+import SocialMediaQuery from "helpers/hooks/queries/socialmedia";
 import SkillCard from "../components/skillcard/skillcard";
-import * as GLOBAL_STYLES from "styles/styles";
+import { LinkedInLogo, GitHubLogo } from "images/icons/";
+import { COLORS } from "styles/styles";
 import SEO from "../components/seo";
 import Projects from "components/landing/githubrepocards";
-const SocialMediaLinks = () => {
-  const link = useStaticQuery(graphql`
-    query {
-      site {
-        siteMetadata {
-          github
-          linkedin
-        }
-      }
-    }
-  `);
-  return link;
-};
+
 const AboutImage = () => {
   const data = useStaticQuery(graphql`
     query {
@@ -42,58 +32,75 @@ const AboutImage = () => {
   );
 };
 
-const AboutPage: React.ReactNode = () => (
-  <Layout>
-    <SEO title="About" />
-    <GridLayout>
-      <PotraitDiv>
-        <AboutImage />
-      </PotraitDiv>
+const AboutPage: React.ReactNode = () => {
+  const siteQuery = SocialMediaQuery();
+  const githubProfileLink = siteQuery.siteMetadata.github;
+  const linkedInProfileLink = siteQuery.siteMetadata.linkedin;
+  return (
+    <Layout>
+      <SEO title="About" />
+      <GridLayout>
+        <PotraitDiv>
+          <AboutImage />
+        </PotraitDiv>
 
-      <div>
-        <h1>Hello, my name is Jesus Garnica.</h1>
-        <p>
-          I recently just graduated from San Francisco State University with a
-          B.S. in Computer Science. I finished working as an intern at Trueclap
-          where I leveraged React to create multiple UI elements made for the
-          modern web.
-        </p>
-        <p>
-          During my time at SFSU I worked with wide variety of technologies. I
-          used Swift and Google&apos;s Places API to create an iOS app. I worked
-          with React on two seperate projects with a team. One was to get an
-          E-commerce website built for SFSU students. The latter was a web app
-          built with ChessJS, NodeJS, AWS, and MongoDB to allow users to play
-          games of chess with each other online.
-        </p>
-        <p>
-          When I am not programming, I am usually busy restoring vintage hi-fi
-          recievers or other electronics. I have spent a lot free time bringing
-          an old Marantz 2230 back alive from the grave, making a La Pavoni
-          Espresso machine look better than ever, and restoring other various
-          electronics.
-        </p>
-        <p>
-          Want to build something great together? Feel free to contact me at{" "}
-          <b>jgarnicacc@gmail.com</b>.
-        </p>
-        <h1>Skills</h1>
-        <CardsContainer>{GenerateSkillCards()}</CardsContainer>
-      </div>
-      <h1>My Github Repos</h1>
-      <StyledLink href={SocialMediaLinks.github} target="_blank" rel="noopener">
-        <Buttons.HeroButton>View all</Buttons.HeroButton>
-      </StyledLink>
+        <div>
+          <h1>Hello, my name is Jesus Garnica.</h1>
+          <StyledLink href={linkedInProfileLink} target="_blank" rel="noopener">
+            <LinkedInLogo />
+          </StyledLink>
+          <StyledLink href={githubProfileLink} target="_blank" rel="noopener">
+            <GitHubLogo />
+          </StyledLink>
 
-      <ReposContainer>
-        <Projects
-          textColor={GLOBAL_STYLES.COLORS.lightWhite}
-          backgroundColor={GLOBAL_STYLES.COLORS.aboutPageAccent}
-        />
-      </ReposContainer>
-    </GridLayout>
-  </Layout>
-);
+          <p>
+            I recently just graduated from San Francisco State University with a
+            B.S. in Computer Science. I finished working as an intern at
+            Trueclap where I leveraged React to create multiple UI elements made
+            for the modern web.
+          </p>
+          <p>
+            During my time at SFSU I worked with wide variety of technologies. I
+            used Swift and Google&apos;s Places API to create an iOS app. I
+            worked with React on two seperate projects with a team. One was to
+            get an E-commerce website built for SFSU students. The latter was a
+            web app built with ChessJS, NodeJS, AWS, and MongoDB to allow users
+            to play games of chess with each other online.
+          </p>
+          <p>
+            When I am not programming, I am usually busy restoring vintage hi-fi
+            recievers or other electronics. I have spent a lot free time
+            bringing an old Marantz 2230 back alive from the grave, making a La
+            Pavoni Espresso machine look better than ever, and restoring other
+            various electronics.
+          </p>
+          <p>
+            Want to build something great together? Feel free to contact me at{" "}
+            <b>jgarnicacc@gmail.com</b>.
+          </p>
+          <h1>Skills</h1>
+          <CardsContainer>{GenerateSkillCards()}</CardsContainer>
+        </div>
+        <h1>My Github Repos</h1>
+        <StyledLink href={githubProfileLink} target="_blank" rel="noopener">
+          <Buttons.HeroButton
+            accentColor={COLORS.lightWhite}
+            mainColor={COLORS.aboutPageAccent}
+          >
+            View all
+          </Buttons.HeroButton>
+        </StyledLink>
+
+        <ReposContainer>
+          <Projects
+            textColor={COLORS.lightWhite}
+            backgroundColor={COLORS.aboutPageAccent}
+          />
+        </ReposContainer>
+      </GridLayout>
+    </Layout>
+  );
+};
 
 export default AboutPage;
 const GenerateSkillCards = (cardMargin?: string) => {
@@ -119,8 +126,8 @@ const GenerateSkillCards = (cardMargin?: string) => {
         skill={currentSkill.skill}
         details={currentSkill.details}
         key={currentSkill.skill}
-        textColor={GLOBAL_STYLES.COLORS.lightWhite}
-        backgroundColor={GLOBAL_STYLES.COLORS.aboutPageAccent}
+        textColor={COLORS.lightWhite}
+        backgroundColor={COLORS.aboutPageAccent}
       />
     );
   });

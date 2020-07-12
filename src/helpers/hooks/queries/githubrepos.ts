@@ -27,6 +27,7 @@ const GetRepoData = () => {
                         color
                       }
                     }
+                    url
                   }
                 }
               }
