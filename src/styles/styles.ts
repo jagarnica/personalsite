@@ -12,5 +12,6 @@ export const COLORS = {
   lightWhite: `hsla(0, 0%, 100%, 0.8)`,
   darkGrey: `#2b2b2b`,
   aboutPageAccent: `#145593`,
+  titleColor: `hsla(0, 0%, 100%, 0.8)`,
   homePageAccent: `hsl(1,85%,65%)`,
 };

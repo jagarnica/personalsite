@@ -1,3 +1,3 @@
 import HeroButton from "./herobutton";
-
-export { HeroButton };
+import Button from "./button";
+export { Button, HeroButton };

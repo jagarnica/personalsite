@@ -10,58 +10,53 @@ import HeroContainer from "components/general/herocontainer/herocontainer";
 const IndexPage: React.ReactNode = () => (
   <Layout>
     <SEO title="Home" />
-    <HeroContainer minHeight={500} heroBackground={<div />}>
-      <FlexContainer>
-        <IntroTextDiv>
-          <span>
-            hello and
-            <ColorTextSpan>
-              <br />
-              welcome.
-            </ColorTextSpan>
-          </span>
-        </IntroTextDiv>
-        <DetailsTextDiv>
-          <h1>
-            <TypedInEffect
-              cursorColor={GLOBAL_STYLES.COLORS.homePageAccent}
-              speed={0.08}
-              message="Developer For Hire."
-            />
-          </h1>
-          <p>
-            My name is Jesus Garnica, welcome to my website. I am a developer in
-            the bay area.
-          </p>
-          <p>
-            I just graduated from San Francisco State University with a B.S. in
-            Computer Science. I have experience with a wide variety of
-            technologies.
-          </p>
-          <HeroButton
-            onClick={(
-              event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-            ) => {
-              event.preventDefault();
-              navigate("/about/");
-            }}
-          >
-            Learn More About Me
-          </HeroButton>
-          <HeroButton
-            margin={"20px 0px"}
-            onClick={(
-              event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-            ) => {
-              event.preventDefault();
-              navigate("/comingsoon/");
-            }}
-          >
-            Read About What I Am Up To
-          </HeroButton>
-        </DetailsTextDiv>
-      </FlexContainer>
-    </HeroContainer>
+
+    <FlexContainer>
+      <IntroTextDiv>
+        <span>
+          hello and
+          <ColorTextSpan>
+            <br />
+            welcome.
+          </ColorTextSpan>
+        </span>
+      </IntroTextDiv>
+      <DetailsTextDiv>
+        <h1>
+          <TypedInEffect
+            cursorColor={GLOBAL_STYLES.COLORS.homePageAccent}
+            speed={0.08}
+            message="Developer For Hire."
+          />
+        </h1>
+        <p>
+          My name is Jesus Garnica, welcome to my website. I am a developer in
+          the bay area.
+        </p>
+        <p>
+          I just graduated from San Francisco State University with a B.S. in
+          Computer Science. I have experience with a wide variety of
+          technologies.
+        </p>
+        <HeroButton
+          onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            event.preventDefault();
+            navigate("/about/");
+          }}
+        >
+          Learn More About Me
+        </HeroButton>
+        <HeroButton
+          margin={"20px 0px"}
+          onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            event.preventDefault();
+            navigate("/comingsoon/");
+          }}
+        >
+          Read About What I Am Up To
+        </HeroButton>
+      </DetailsTextDiv>
+    </FlexContainer>
   </Layout>
 );
 

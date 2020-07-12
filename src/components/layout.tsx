@@ -1,21 +1,15 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
 import React from "react";
 import PropTypes from "prop-types";
 import Navbar from "./general/navbar/";
 import styled from "styled-components";
+import { FONT_FAMILY } from "styles/styles";
 import "./layout.css";
 const Layout: React.FC = ({ children }) => {
   return (
     <>
-      <Navbar></Navbar>
+      <Navbar />
       <PageContainerDiv>
-        <MainContainer>{children}</MainContainer>
+        {children}
         <footer></footer>
       </PageContainerDiv>
     </>
@@ -30,11 +24,9 @@ export default Layout;
 
 const PageContainerDiv = styled.div`
   margin: 0 auto;
+  margin-top: calc(69px + 1.45rem);
   max-width: 960px;
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: ${FONT_FAMILY};
   padding: 0 1.0875rem 1.45rem;
 `;
-const MainContainer = styled.main`
-  margin-top: calc(69px + 1.45rem);
-`;
+const MainContainer = styled.main``;
