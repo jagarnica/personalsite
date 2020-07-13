@@ -1,4 +1,4 @@
 export type SocialMedia = {
-  github: string;
-  linkedin: string;
+  readonly github: string;
+  readonly linkedin: string;
 };
