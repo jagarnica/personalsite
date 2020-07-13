@@ -59,6 +59,7 @@ const OuterContainer = styled.div`
   transition: box-shadow 0.1s ease, background-color 0.1s ease;
   justify-content: center;
   width: 100vw;
+  max-width: 100%;
   color: hsla(0, 0%, 100%, 0.8);
   background-color: rgba(255, 255, 255, 0);
   &.onScroll {

@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Layout from "../components/layout";
-import * as Buttons from "components/general/buttons";
 import { useStaticQuery, graphql } from "gatsby";
 import Img from "gatsby-image";
 import SocialMediaQuery from "helpers/hooks/queries/socialmedia";
@@ -34,8 +33,8 @@ const AboutImage = () => {
 
 const AboutPage: React.ReactNode = () => {
   const siteQuery = SocialMediaQuery();
-  const githubProfileLink = siteQuery.siteMetadata.github;
-  const linkedInProfileLink = siteQuery.siteMetadata.linkedin;
+  const githubProfileLink = siteQuery.github;
+  const linkedInProfileLink = siteQuery.linkedin;
   return (
     <Layout>
       <SEO title="About" />

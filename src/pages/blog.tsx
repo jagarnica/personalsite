@@ -3,7 +3,7 @@ import Layout from "../components/layout";
 import Image from "../components/image";
 import SEO from "../components/seo";
 
-const ComingSoonPage = () => (
+const ComingSoonPage: React.FC = () => (
   <Layout>
     <SEO title="Coming Soon" />
     <h1>Coming soon...</h1>
