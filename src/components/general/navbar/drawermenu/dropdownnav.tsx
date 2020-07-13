@@ -234,22 +234,22 @@ to{
 `;
 const ModelMask = styled.div<{ width?: string; height?: string }>`
   position: fixed;
-  z-index: 950;
+  z-index: 20;
+  * {
+    z-index: 20;
+  }
   top: 0;
   left: 0;
-  transform: translate3d(0, 0, 0); /* Keep this for optimization in firefox */
   width: ${props => props.width || "100%"};
   height: ${props => props.height || "100%"};
-  background-color: rgba(82, 95, 127, 0.25);
+  background-color: transparent;
   opacity: 0;
   transition: opacity 0.3s ease;
   &.show {
-    transform: translate3d(0, 0, 0);
-    animation: ${FadeIn} 0.3s ease forwards;
+    animation: ${FadeIn} 0s ease forwards;
   }
   &.hide {
-    transform: translate3d(0, 0, 0);
-    animation: ${FadeOut} 0.3s ease forwards;
+    animation: ${FadeOut} 0s ease forwards;
   }
 `;
 /* This styling is for the corner buttons containing the content */
@@ -259,8 +259,7 @@ const ModalWrapper = styled.div`
   left: 0;
   bottom: 0;
   height: 100%;
-
-  z-index: 500;
+  transform: translate3d(0, 0, 0);
 `;
 /* This styling is for the actual border containing the content */
 const ModalContainer = styled.div<{
@@ -268,7 +267,6 @@ const ModalContainer = styled.div<{
   backgroundColor?: string;
 }>`
   position: absolute;
-  z-index: 500;
   opacity: 1; /* This sets the opacity for the entire container */
   transform: translateX(-100%);
   background-color: ${props =>
