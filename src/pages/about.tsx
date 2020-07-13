@@ -39,19 +39,15 @@ const AboutPage: React.ReactNode = () => {
   return (
     <Layout>
       <SEO title="About" />
-      <GridLayout>
+      <FlexLayout>
         <PotraitDiv>
           <AboutImage />
         </PotraitDiv>
 
         <div>
-          <h1>Hello, my name is Jesus Garnica.</h1>
-          <StyledLink href={linkedInProfileLink} target="_blank" rel="noopener">
-            <LinkedInLogo />
-          </StyledLink>
-          <StyledLink href={githubProfileLink} target="_blank" rel="noopener">
-            <GitHubLogo />
-          </StyledLink>
+          <SectionLabel>About Me</SectionLabel>
+
+          <h3>Hello, my name is Jesus.</h3>
 
           <p>
             I recently just graduated from San Francisco State University with a
@@ -78,18 +74,10 @@ const AboutPage: React.ReactNode = () => {
             Want to build something great together? Feel free to contact me at{" "}
             <b>jgarnicacc@gmail.com</b>.
           </p>
-          <h1>Skills</h1>
+          <SectionLabel>Skills</SectionLabel>
           <CardsContainer>{GenerateSkillCards()}</CardsContainer>
         </div>
-        <h1>My Github Repos</h1>
-        <StyledLink href={githubProfileLink} target="_blank" rel="noopener">
-          <Buttons.HeroButton
-            accentColor={COLORS.lightWhite}
-            mainColor={COLORS.aboutPageAccent}
-          >
-            View all
-          </Buttons.HeroButton>
-        </StyledLink>
+        <SectionLabel>My Github Repos</SectionLabel>
 
         <ReposContainer>
           <Projects
@@ -97,7 +85,25 @@ const AboutPage: React.ReactNode = () => {
             backgroundColor={COLORS.aboutPageAccent}
           />
         </ReposContainer>
-      </GridLayout>
+
+        <SectionLabel>Social</SectionLabel>
+        <div>
+          <StyledLink
+            href={linkedInProfileLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <LinkedInLogo />
+          </StyledLink>
+          <StyledLink
+            href={githubProfileLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <GitHubLogo />
+          </StyledLink>
+        </div>
+      </FlexLayout>
     </Layout>
   );
 };
@@ -139,23 +145,20 @@ const CardsContainer = styled.div`
   align-items: center;
   grid-gap: 1rem;
   max-width: 100%;
+  margin-bottom: 1.45rem;
 `;
 
 const ReposContainer = styled(CardsContainer)`
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   align-items: flex-start;
   grid-gap: 0.5rem;
+  align-self: stretch;
 `;
 const StyledLink = styled.a`
   text-decoration: none;
+  margin-right: 10px;
 `;
-const GridLayout = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  align-items: center;
-  grid-row-gap: 1rem;
-`;
+
 const PotraitDiv = styled.div`
   margin: 0 auto;
 `;
@@ -166,4 +169,15 @@ const PotraitImage = styled(Img)`
   border-color: transparent;
   border-radius: 50%;
   overflow: hidden;
+`;
+const SectionLabel = styled.h1`
+  display: inline-block;
+  border: 0px solid transparent;
+
+  border-bottom: 4px solid ${COLORS.aboutPageAccent};
+`;
+const FlexLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 `;

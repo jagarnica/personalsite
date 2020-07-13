@@ -29,4 +29,3 @@ const PageContainerDiv = styled.div`
   font-family: ${FONT_FAMILY};
   padding: 0 1.0875rem 1.45rem;
 `;
-const MainContainer = styled.main``;

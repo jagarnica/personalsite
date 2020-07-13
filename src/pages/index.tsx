@@ -6,7 +6,6 @@ import Layout from "components/layout";
 import * as GLOBAL_STYLES from "styles/styles";
 import HeroButton from "../components/general/buttons/herobutton";
 import SEO from "components/seo";
-import HeroContainer from "components/general/herocontainer/herocontainer";
 const IndexPage: React.ReactNode = () => (
   <Layout>
     <SEO title="Home" />
