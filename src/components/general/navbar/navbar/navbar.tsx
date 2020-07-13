@@ -1,28 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { debounce } from "lodash";
+import React from "react";
+import useScrollHandler from "helpers/hooks/usescrollhandler";
 import styled from "styled-components";
 import NavItem from "./navigationitem";
-import DrawerMenu from "../drawermenu/index";
+import DrawerMenu from "../drawermenu/";
 import "../../../layout.css";
-import * as globalStyles from "../../../../styles/styles";
+import * as globalStyles from "styles/styles";
 import RoadLink from "../classes/roadlink";
 import { Link } from "gatsby";
-
-const SCROLL_DELAY = 60;
 const NAV_BAR_LINKS = [
-  new RoadLink("Home", "#4700ff", "/"),
-  new RoadLink("About", "purple", "/about/"),
-  new RoadLink("Blog", "red", "/comingsoon/"),
+  new RoadLink("Home", "hsl(1,85%,65%)", "/"),
+  new RoadLink("About", "#145593", "/about/"),
+  new RoadLink("Blog", "red", "/blog/"),
   new RoadLink("Resume", "red", "/comingsoon/"),
-  new RoadLink("Portfolio", "blue", "/comingsoon/"),
+  new RoadLink("Portfolio", "blue", "/portfolio/"),
 ];
-interface NavbarProps {
-  scrollThreshold?: number;
-}
-const Navbar: React.FC<NavbarProps> = ({
-  scrollThreshold = 60,
-}: NavbarProps) => {
-  const [isScrolled, setIsScrolled] = useState(false);
+const Navbar: React.FC = () => {
+  const isScrolled = useScrollHandler(); // Get if the user scrolled down or not.
   const NavTabs = NAV_BAR_LINKS.map((roadObj: RoadLink) => {
     const pathName = roadObj.getPathName();
     const linkName = roadObj.name;
@@ -36,44 +29,18 @@ const Navbar: React.FC<NavbarProps> = ({
       ></NavItem>
     );
   });
-  useEffect(() => {
-    if (window) {
-      window.addEventListener(
-        "scroll",
-        debounce(handleScrollEvent, SCROLL_DELAY),
-        false
-      );
-    }
-    return function () {
-      if (window) {
-        window.removeEventListener("scroll", handleScrollEvent, false);
-      }
-    };
-  });
-  function handleScrollEvent(event: Event): void {
-    if (!event.target) {
-      return;
-    }
-    const currentTarget = event.target as HTMLDocument;
-    const scrollingTarget = currentTarget.scrollingElement;
-    const userScrolledDown =
-      scrollingTarget && scrollingTarget.scrollTop > scrollThreshold
-        ? true
-        : false;
-    if (userScrolledDown) {
-      setIsScrolled(true);
-    } else if (isScrolled) {
-      setIsScrolled(false);
-    }
-  }
 
   return (
     <OuterContainer className={isScrolled ? "onScroll" : ""}>
-      <NavbarContainer className={isScrolled ? "onScroll" : ""}>
+      <NavbarContainer>
         <TitleSpan to="/" activeStyle={{ textDecoration: "none" }}>
           JESUS GARNICA
         </TitleSpan>
-        <DrawerMenu iconColor={isScrolled ? `black` : "hsla(0, 0%, 100%, 0.8)"}>
+        <DrawerMenu
+          exitButtonColor={globalStyles.COLORS.lightWhite}
+          backgroundColor={"#2b2b2b"}
+          iconColor={"hsla(0, 0%, 100%, 0.8)"}
+        >
           <TabsLayoutDiv>{NavTabs}</TabsLayoutDiv>
         </DrawerMenu>
       </NavbarContainer>
@@ -89,14 +56,14 @@ const OuterContainer = styled.div`
   top: 0;
   left: 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0);
-  transition: box-shadow 0.4s ease, background-color 0.2s ease;
+  transition: box-shadow 0.1s ease, background-color 0.1s ease;
   justify-content: center;
   width: 100vw;
+  max-width: 100%;
   color: hsla(0, 0%, 100%, 0.8);
   background-color: rgba(255, 255, 255, 0);
   &.onScroll {
-    color: black;
-    background-color: rgba(255, 255, 255, 1);
+    background-color: ${globalStyles.COLORS.darkGrey};
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 `;
@@ -128,4 +95,8 @@ const TabsLayoutDiv = styled.div`
   padding: 20px 0px;
   height: 100%;
   max-height: 100%;
+  pointer-events: none;
+  * {
+    pointer-events: auto;
+  }
 `;

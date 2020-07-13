@@ -9,6 +9,10 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "noUnusedLocals": false, // done due to compat with babel
+    "baseUrl": "./src", // done to get absolute paths working in vscode.
+    "paths": {
+      "*": ["types/*", "*"]
+    }
   },
   "exclude": ["node_modules", "public", ".cache"]
 }

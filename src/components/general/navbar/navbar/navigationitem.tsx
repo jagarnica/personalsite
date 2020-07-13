@@ -18,7 +18,7 @@ const NavbarItem: React.FC<Props> = ({ linkName, activeColor, pathName }) => {
     <NavLinkDiv
       to={pathName}
       style={{
-        color: `black`,
+        color: `hsla(0, 0%, 100%, 0.8)`,
         textDecoration: `none`,
       }}
       activeStyle={{
