@@ -14,5 +14,7 @@ export const COLORS = {
   aboutPageAccent: `#145593`,
   titleColor: `hsla(0, 0%, 100%, 0.8)`,
   homePageAccent: `hsl(1,85%,65%)`,
-  resumePageAccent: `purple`,
+  blogPageAccent: `#00a897`,
+  resumePageAccent: `#5E35B1`,
+  portfolioPageAccent: `#B388FF`,
 };

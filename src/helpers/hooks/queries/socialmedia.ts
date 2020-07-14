@@ -14,7 +14,6 @@ const SocialMediaLinks = (): SocialMedia => {
       }
     }
   `);
-  console.log(site.siteMetadata);
   const linkedinlink: string = site.siteMetadata.linkedin
     ? site.siteMetadata.linkedin
     : "";

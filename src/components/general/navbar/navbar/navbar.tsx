@@ -10,9 +10,8 @@ import { Link } from "gatsby";
 const NAV_BAR_LINKS = [
   new RoadLink("Home", globalStyles.COLORS.homePageAccent, "/"),
   new RoadLink("About", globalStyles.COLORS.aboutPageAccent, "/about/"),
-  new RoadLink("Blog", "red", "/blog/"),
+  new RoadLink("Blog", globalStyles.COLORS.blogPageAccent, "/blog/"),
   new RoadLink("Resume", globalStyles.COLORS.resumePageAccent, "/resume/"),
-  new RoadLink("Portfolio", "blue", "/portfolio/"),
 ];
 const Navbar: React.FC = () => {
   const isScrolled = useScrollHandler(); // Get if the user scrolled down or not.
