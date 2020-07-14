@@ -8,11 +8,10 @@ import * as globalStyles from "styles/styles";
 import RoadLink from "../classes/roadlink";
 import { Link } from "gatsby";
 const NAV_BAR_LINKS = [
-  new RoadLink("Home", "hsl(1,85%,65%)", "/"),
-  new RoadLink("About", "#145593", "/about/"),
-  new RoadLink("Blog", "red", "/blog/"),
-  new RoadLink("Resume", "red", "/comingsoon/"),
-  new RoadLink("Portfolio", "blue", "/portfolio/"),
+  new RoadLink("Home", globalStyles.COLORS.homePageAccent, "/"),
+  new RoadLink("About", globalStyles.COLORS.aboutPageAccent, "/about/"),
+  new RoadLink("Blog", globalStyles.COLORS.blogPageAccent, "/blog/"),
+  new RoadLink("Resume", globalStyles.COLORS.resumePageAccent, "/resume/"),
 ];
 const Navbar: React.FC = () => {
   const isScrolled = useScrollHandler(); // Get if the user scrolled down or not.

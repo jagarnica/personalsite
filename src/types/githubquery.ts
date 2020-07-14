@@ -1,7 +1,7 @@
 export type GitHubRepo = {
-  description: string | null;
-  id: string | null;
-  languages: any;
-  name: string | null;
-  url: string | null;
+  readonly description: string | null;
+  readonly id: string | null;
+  readonly languages: any;
+  readonly name: string | null;
+  readonly url: string | null;
 };

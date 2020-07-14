@@ -1,22 +1,26 @@
 import React from "react";
 import styled from "styled-components";
-import Layout from "../components/layout";
+import Layout from "components/layout";
 import { useStaticQuery, graphql } from "gatsby";
 import Img from "gatsby-image";
 import SocialMediaQuery from "helpers/hooks/queries/socialmedia";
-import SkillCard from "../components/skillcard/skillcard";
+import SkillCard from "components/skillcard/skillcard";
 import { LinkedInLogo, GitHubLogo } from "images/icons/";
 import { COLORS } from "styles/styles";
-import SEO from "../components/seo";
+import SEO from "components/seo";
 import Projects from "components/landing/githubrepocards";
-
+import AspectRatioBox from "components/general/aspectratiobox/aspectratiobox";
 const AboutImage = () => {
   const data = useStaticQuery(graphql`
     query {
-      placeholderImage: file(relativePath: { eq: "about_image_cropped.jpg" }) {
+      file(relativePath: { eq: "about_image_cropped.jpg" }) {
         childImageSharp {
-          fixed(width: 450, height: 450, quality: 95, fit: CONTAIN) {
-            ...GatsbyImageSharpFixed
+          fluid(maxWidth: 450, quality: 95) {
+            base64
+            srcWebp
+            srcSetWebp
+            originalImg
+            originalName
           }
         }
       }
@@ -26,7 +30,7 @@ const AboutImage = () => {
   return (
     <PotraitImage
       backgroundColor={true}
-      fixed={data.placeholderImage.childImageSharp.fixed}
+      fluid={data.file.childImageSharp.fluid}
     />
   );
 };
@@ -40,7 +44,9 @@ const AboutPage: React.ReactNode = () => {
       <SEO title="About" />
       <FlexLayout>
         <PotraitDiv>
-          <AboutImage />
+          <AspectRatioBox width="100%" maxWidth="500px">
+            <AboutImage />
+          </AspectRatioBox>
         </PotraitDiv>
 
         <div>
@@ -160,6 +166,15 @@ const StyledLink = styled.a`
 
 const PotraitDiv = styled.div`
   margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  margin-bottom: 1.45rem;
+  object-fit: contain;
 `;
 
 const PotraitImage = styled(Img)`
@@ -167,7 +182,8 @@ const PotraitImage = styled(Img)`
   border: 1px;
   border-color: transparent;
   border-radius: 50%;
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
 `;
 const SectionLabel = styled.h1`
   display: inline-block;

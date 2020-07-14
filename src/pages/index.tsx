@@ -65,6 +65,7 @@ const FlexContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  max-width: 100%;
 `;
 const ColorTextSpan = styled.span`
   color: ${GLOBAL_STYLES.COLORS.homePageAccent};
@@ -77,6 +78,10 @@ const IntroTextDiv = styled.div`
   font-family: "IBM Plex Mono", ${GLOBAL_STYLES.FONT_FAMILY};
   font-size: 5em;
   line-height: 1em;
+  max-width: 100%;
+  @media only screen and (max-width: 600px) {
+    font-size: 4em;
+  }
 `;
 const DetailsTextDiv = styled.div`
   display: flex;

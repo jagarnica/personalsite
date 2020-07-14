@@ -51,7 +51,6 @@ const GetRepoData = (): [GitHubRepo] => {
       return repoObject;
     }
   );
-  console.log(response);
   return response;
 };
 export default GetRepoData;
