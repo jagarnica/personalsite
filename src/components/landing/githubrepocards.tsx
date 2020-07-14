@@ -33,8 +33,10 @@ const ProgrammingLanguageLogo: React.FC<{
       return <Logo.JsLogo />;
     case "rust":
       return <Logo.RustLogo />;
+    case "typescript":
+      return <Logo.TSLogo />;
     case "css":
-      return <Logo.CSSLogo />;
+      return <Logo.CSSLogo fillColor="hsla(0, 0%, 80%, 0.8)" />;
     case "html":
       return <Logo.Html5Logo />;
     case "java":

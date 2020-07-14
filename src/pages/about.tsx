@@ -16,11 +16,7 @@ const AboutImage = () => {
       file(relativePath: { eq: "about_image_cropped.jpg" }) {
         childImageSharp {
           fluid(maxWidth: 450, quality: 95) {
-            base64
-            srcWebp
-            srcSetWebp
-            originalImg
-            originalName
+            ...GatsbyImageSharpFluid
           }
         }
       }
@@ -82,7 +78,7 @@ const AboutPage: React.ReactNode = () => {
           <SectionLabel>Skills</SectionLabel>
           <CardsContainer>{GenerateSkillCards()}</CardsContainer>
         </div>
-        <SectionLabel>My Github Repos</SectionLabel>
+        <SectionLabel>Some of My Github Repos</SectionLabel>
 
         <ReposContainer>
           <Projects
@@ -92,6 +88,10 @@ const AboutPage: React.ReactNode = () => {
         </ReposContainer>
 
         <SectionLabel>Social</SectionLabel>
+        <h4>
+          Feel free to connect with me on LinkedIn or look at some of my work on
+          GitHub!
+        </h4>
         <div>
           <StyledLink
             href={linkedInProfileLink}

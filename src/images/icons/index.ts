@@ -8,12 +8,14 @@ import GitHubLogo from "./githublogo";
 import CppLogo from "./cpplogo";
 import LinkedInLogo from "./linkedinlogo";
 import ReactLogo from "./reactlogo";
+import TSLogo from "./tslogo";
 export {
   PythonLogo,
   JavaLogo,
   JsLogo,
   RustLogo,
   ReactLogo,
+  TSLogo,
   CSSLogo,
   GitHubLogo,
   LinkedInLogo,
