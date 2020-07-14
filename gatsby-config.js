@@ -21,6 +21,14 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `static`,
+        path: `${__dirname}/static/`,
+        ignore: [`**/\.*`], // ignore files starting with a dot
+      },
+    },
+    {
       resolve: "gatsby-source-graphql",
       options: {
         typeName: "GitHub",
