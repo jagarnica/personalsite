@@ -21,13 +21,13 @@ const IndexPage: React.ReactNode = () => (
         </span>
       </IntroTextDiv>
       <DetailsTextDiv>
-        <h1>
+        <TypeEffectText>
           <TypedInEffect
             cursorColor={GLOBAL_STYLES.COLORS.homePageAccent}
             speed={0.08}
             message="Developer For Hire."
           />
-        </h1>
+        </TypeEffectText>
         <p>
           My name is Jesus Garnica, welcome to my website. I am a developer in
           the bay area.
@@ -88,4 +88,9 @@ const DetailsTextDiv = styled.div`
   flex-direction: column;
   margin-top: 2.45em;
   flex: 1;
+`;
+
+const TypeEffectText = styled.h1`
+  font-weight: 500;
+  font-family: ${GLOBAL_STYLES.FONT_FAMILY};
 `;

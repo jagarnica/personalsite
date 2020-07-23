@@ -196,6 +196,9 @@ const ExitButtonContainer = styled.div`
   &:focus {
     outline: 1px solid white;
   }
+  &:active {
+    outline: 0;
+  }
   &:hover {
     animation: 0.3s ${ButtonSpin} ease;
   }
