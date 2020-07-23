@@ -150,7 +150,7 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
                   onClick={this.onMaskClick}
                   style={{ width: this.props.width }}
                 >
-                  <ExitButtonContainer onClick={this.onMaskClick}>
+                  <ExitButtonContainer tabIndex={2} onClick={this.onMaskClick}>
                     <ExitButton color={this.props.exitButtonColor} />
                   </ExitButtonContainer>
                   {this.props.children}
@@ -186,14 +186,16 @@ const ExitButtonContainer = styled.div`
   top: 50px;
   right: 10%;
   padding: 10px;
-
+  -webkit-tap-highlight-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
 
   width: 52px;
   height: 52px;
-
+  &:focus {
+    outline: 1px solid white;
+  }
   &:hover {
     animation: 0.3s ${ButtonSpin} ease;
   }

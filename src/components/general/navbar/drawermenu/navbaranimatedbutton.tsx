@@ -3,6 +3,7 @@ import styled from "styled-components";
 interface NavbarButtonProps {
   width?: number;
   active: boolean;
+  tabIndex?: number;
   height?: number;
   onClick?: (arg0: React.MouseEvent) => void;
   iconColor?: string;
@@ -23,6 +24,7 @@ const NavbarButton: React.FC<NavbarButtonProps> = ({
   active,
   height,
   onClick,
+  tabIndex = 1,
   iconColor,
 }) => {
   let barClassName = "";
@@ -34,6 +36,8 @@ const NavbarButton: React.FC<NavbarButtonProps> = ({
   return (
     <>
       <Container
+        tabIndex={tabIndex}
+        role="button"
         onClick={
           onClick
             ? onClick
@@ -85,13 +89,23 @@ const Container = styled.div<
   cursor: pointer;
   display: flex;
   flex-shrink: 0;
+
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  &:focus {
+    outline: 0;
+    border: 1px solid white;
+  }
+  &:active {
+    outline: 0;
+    border: 0px solid white;
+  }
+  -webkit-tap-highlight-color: transparent;
 `;
 const BarElement = styled.div<BarElementProps>`
   width: 100%;
-
+  user-select: none;
   height: 2px;
   background: ${props => (props.iconColor ? props.iconColor : `black`)};
   transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
