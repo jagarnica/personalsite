@@ -49,7 +49,7 @@ const IndexPage: React.ReactNode = () => (
           margin={"20px 0px"}
           onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             event.preventDefault();
-            navigate("/comingsoon/");
+            navigate("/blog/");
           }}
         >
           Read About What I Am Up To
