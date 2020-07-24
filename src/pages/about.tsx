@@ -78,7 +78,7 @@ const AboutPage: React.ReactNode = () => {
           <SectionLabel>Skills</SectionLabel>
           <CardsContainer>{GenerateSkillCards()}</CardsContainer>
         </div>
-        <SectionLabel>Some of My Github Repos</SectionLabel>
+        <SectionLabel>Preview My GitHub</SectionLabel>
 
         <ReposContainer>
           <Projects
@@ -89,8 +89,8 @@ const AboutPage: React.ReactNode = () => {
 
         <SectionLabel>Social</SectionLabel>
         <h4>
-          Feel free to connect with me on LinkedIn or look at some of my work on
-          GitHub!
+          Feel free to connect with me on LinkedIn or look at the rest of my
+          work on GitHub!
         </h4>
         <div>
           <StyledLink

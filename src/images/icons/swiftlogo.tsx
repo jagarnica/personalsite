@@ -1,18 +1,19 @@
 import React from "react";
 import SvgIcon from "types/svgicon";
 
-const SwiftLogo: SvgIcon = () => (
+const SwiftLogo: SvgIcon = ({ height = 32, width = 32 }) => (
   <svg
-    width="40px"
+    width={width}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 40 36"
     version="1.1"
-    height="36px"
+    height={height}
   >
+    <title>Swift</title>
     <defs>
       <linearGradient id="a" x2="50%" x1="50%" y2="100%">
-        <stop stop-color="#F88A36" offset="0" />
-        <stop stop-color="#FD2020" offset="1" />
+        <stop stopColor="#F88A36" offset="0" />
+        <stop stopColor="#FD2020" offset="1" />
       </linearGradient>
     </defs>
     <path

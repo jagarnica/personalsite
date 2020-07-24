@@ -33,10 +33,14 @@ const ProgrammingLanguageLogo: React.FC<{
       return <Logo.JsLogo />;
     case "rust":
       return <Logo.RustLogo />;
+    case "ruby":
+      return <Logo.RubyLogo />;
     case "typescript":
       return <Logo.TSLogo />;
+    case "swift":
+      return <Logo.SwiftLogo />;
     case "css":
-      return <Logo.CSSLogo fillColor="hsla(0, 0%, 80%, 0.8)" />;
+      return <Logo.CSSLogo fillColor="#ffffff" />;
     case "html":
       return <Logo.Html5Logo />;
     case "java":
@@ -56,7 +60,7 @@ const GithubRepoCards: React.FC<GitHubRepoProps> = ({
   if (!data) {
     return <></>;
   }
-  return data.map(repo => {
+  const cards: React.ReactNode = data.map(repo => {
     const languages = repo.languages.nodes;
     const url = repo.url ? repo.url : ``;
 
@@ -73,12 +77,13 @@ const GithubRepoCards: React.FC<GitHubRepoProps> = ({
 
       return LogoFound;
     });
+    const keyName: string = repo.name ? repo.name : url;
     return (
       <ProjectCard
         textColor={textColor}
         backgroundColor={backgroundColor}
         margin={margin}
-        key={repo.name}
+        key={keyName}
       >
         <Title>
           <RepoLink href={url} target="_blank" rel="noopener">
@@ -94,6 +99,7 @@ const GithubRepoCards: React.FC<GitHubRepoProps> = ({
       </ProjectCard>
     );
   });
+  return cards;
 };
 export default GithubRepoCards;
 GithubRepoCards.defaultProps = {
