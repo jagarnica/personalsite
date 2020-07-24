@@ -1,10 +1,6 @@
 import React from "react";
 import SvgIcon from "types/svgicon";
-const CSSLogo: SvgIcon = ({
-  height = 32,
-  width = 32,
-  fillColor = "#264de4",
-}) => (
+const CSSLogo: SvgIcon = ({ height = 32, width = 32 }) => (
   <svg
     enableBackground="new 0 0 32 32"
     height={height}
