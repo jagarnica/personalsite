@@ -17,7 +17,7 @@ const Button: ButtonType = ({
   mainColor = COLORS.primaryColor,
   accentColor = COLORS.lightWhite,
   width = "",
-  textColor = "",
+  textColor = "white",
   children,
   ...props
 }) => {
