@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { FONT_FAMILY, COLORS } from "styles/styles";
+import { COLORS } from "styles/styles";
 import * as Logo from "images/icons";
 import GithubRepoData from "helpers/hooks/queries/githubrepos";
 interface GitHubRepoProps {
@@ -133,9 +133,9 @@ const RepoLink = styled.a`
   cursor: pointer;
   text-decoration: underline;
   color: inherit;
+  font-weight: 500;
   transition: color 0.2s ease;
   &:hover {
-    color: white;
   }
 `;
 const LanguageDetail = styled.div<GitHubRepoProps>`

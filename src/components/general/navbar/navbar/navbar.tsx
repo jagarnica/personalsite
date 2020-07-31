@@ -37,7 +37,7 @@ const Navbar: React.FC = () => {
         </TitleSpan>
         <DrawerMenu
           exitButtonColor={globalStyles.COLORS.sevenBlack}
-          backgroundColor={"#fcfcfc"}
+          backgroundColor={globalStyles.COLORS.siteBackground}
           iconColor={globalStyles.COLORS.sevenBlack}
         >
           <TabsLayoutDiv>{NavTabs}</TabsLayoutDiv>
@@ -90,7 +90,7 @@ const TabsLayoutDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   margin: auto 0;
   padding: 20px 0px;
   height: 100%;

@@ -18,11 +18,15 @@ const NavbarItem: React.FC<Props> = ({ linkName, activeColor, pathName }) => {
     <NavLinkDiv
       to={pathName}
       style={{
-        color: globalStyleConst.COLORS.sevenBlack,
+        background: activeColor,
+        color: globalStyleConst.COLORS.lightWhite,
         textDecoration: `none`,
       }}
+      activeClassName="page_active"
       activeStyle={{
+        background: `transparent`,
         color: activeColor,
+        outlineColor: activeColor,
       }}
     >
       {linkName}
@@ -32,16 +36,22 @@ const NavbarItem: React.FC<Props> = ({ linkName, activeColor, pathName }) => {
 export default NavbarItem;
 const NavLinkDiv = styled(Link)`
   font-size: 2.8em;
-  height: 2.8em;
-  font-weight: bold;
-  margin-bottom: 4px;
+  line-height: 1em;
   color: black;
-  padding: 0px 1px;
+  font-weight: 400;
+  padding: 20px;
   justify-content: center;
   align-items: center;
   display: flex;
+  width: 400px;
   border: 0px solid transparent;
-  margin-left: 10px;
-  margin-right: 10px;
+  text-transform: uppercase;
   font-family: ${globalStyleConst.FONT_FAMILY};
+  &.page_active {
+    outline-style: solid;
+    outline-width: 4px;
+    &:hover {
+      outline-style: solid;
+    }
+  }
 `;

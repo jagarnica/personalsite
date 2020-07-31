@@ -43,7 +43,7 @@ const AboutPage: React.ReactNode = () => {
       <SEO title="About" />
       <FlexLayout>
         <PotraitDiv>
-          <AspectRatioBox width="100%" maxWidth="500px">
+          <AspectRatioBox width="100%" maxWidth="400px">
             <AboutImage />
           </AspectRatioBox>
         </PotraitDiv>
@@ -94,8 +94,8 @@ const AboutPage: React.ReactNode = () => {
 
         <ReposContainer>
           <Projects
-            textColor={COLORS.sevenBlack}
-            backgroundColor={COLORS.siteBackground}
+            textColor={COLORS.siteBackground}
+            backgroundColor={COLORS.sevenBlack}
             accentColor={aboutPageAccent}
           />
         </ReposContainer>
