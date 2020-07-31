@@ -17,6 +17,6 @@ export default SectionLabel;
 const SectionName = styled.h1<SectionLabelProps>`
   border: 0px solid transparent;
   text-transform: uppercase;
-  font-weight: medium;
+  font-weight: 500;
   margin: ${props => (props.margin ? props.margin : ``)};
 `;

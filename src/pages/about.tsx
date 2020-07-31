@@ -99,7 +99,7 @@ const AboutPage: React.ReactNode = () => {
           />
         </ReposContainer>
 
-        <SectionLabel margin={"0 0 3rem 0px"} accentColor={aboutPageAccent}>
+        <SectionLabel margin={"0 0 1.45rem 0px"} accentColor={aboutPageAccent}>
           Social
         </SectionLabel>
         <p>
@@ -151,8 +151,9 @@ const GenerateSkillCards = (cardMargin?: string) => {
         skill={currentSkill.skill}
         details={currentSkill.details}
         key={currentSkill.skill}
-        textColor={COLORS.lightWhite}
-        backgroundColor={COLORS.aboutPageAccent}
+        textColor={COLORS.sevenBlack}
+        accentColor={COLORS.aboutPageAccent}
+        backgroundColor={COLORS.siteBackground}
       />
     );
   });

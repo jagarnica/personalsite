@@ -6,6 +6,7 @@ interface skillCardProps {
   margin?: string; // this should be typed in like a regular margin css property
   textColor?: string;
   backgroundColor?: string;
+  accentColor?: string;
 }
 /**
  * @name SkillCard
@@ -21,12 +22,14 @@ const SkillCard: React.FC<skillCardProps> = ({
   margin,
   backgroundColor,
   textColor,
+  accentColor,
 }) => {
   return (
     <CardContainer
       backgroundColor={backgroundColor}
       textColor={textColor}
       margin={margin}
+      accentColor={accentColor}
     >
       <SkillTitle>{skill}</SkillTitle>
       <DetailsText>{details}</DetailsText>
@@ -44,7 +47,7 @@ SkillCard.defaultProps = {
 const CardContainer = styled.div<skillCardProps>`
   height: auto;
   overflow: hidden;
-  border: 1px solid transparent;
+  border: 1px solid black;
   cursor: default;
   border-radius: 0px;
   color: ${props => (props.textColor ? props.textColor : ``)};
@@ -53,11 +56,12 @@ const CardContainer = styled.div<skillCardProps>`
   display: flex;
   flex-direction: column;
   padding: 10px;
+  border-top: 6px solid ${props => (props.accentColor ? props.accentColor : ``)};
   margin: ${props => (props.margin ? props.margin : "")};
 `;
 const SkillTitle = styled.span`
   font-size: 1.1em;
-  font-weight: bold;
+  font-weight: 500;
 `;
 const DetailsText = styled.span`
   font-size: 0.9em;
