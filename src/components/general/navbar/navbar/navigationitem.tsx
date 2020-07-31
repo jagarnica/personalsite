@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "gatsby";
-import * as globalStyleConst from "../../../../styles/styles";
+import * as globalStyleConst from "styles/styles";
 
 interface Props {
   linkName: string; // This is the name of the link shown to the user
@@ -18,7 +18,7 @@ const NavbarItem: React.FC<Props> = ({ linkName, activeColor, pathName }) => {
     <NavLinkDiv
       to={pathName}
       style={{
-        color: `hsla(0, 0%, 100%, 0.8)`,
+        color: globalStyleConst.COLORS.sevenBlack,
         textDecoration: `none`,
       }}
       activeStyle={{

@@ -12,13 +12,7 @@ const IndexPage: React.ReactNode = () => (
 
     <FlexContainer>
       <IntroTextDiv>
-        <span>
-          hello and
-          <ColorTextSpan>
-            <br />
-            welcome.
-          </ColorTextSpan>
-        </span>
+        <span>Hello and Welcome.</span>
       </IntroTextDiv>
       <DetailsTextDiv>
         <TypeEffectText>
@@ -38,6 +32,7 @@ const IndexPage: React.ReactNode = () => (
           technologies.
         </p>
         <HeroButton
+          mainColor={GLOBAL_STYLES.COLORS.homePageAccent}
           onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             event.preventDefault();
             navigate("/about/");
@@ -46,6 +41,7 @@ const IndexPage: React.ReactNode = () => (
           Learn More About Me
         </HeroButton>
         <HeroButton
+          mainColor={GLOBAL_STYLES.COLORS.homePageAccent}
           margin={"20px 0px"}
           onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             event.preventDefault();
@@ -67,16 +63,20 @@ const FlexContainer = styled.div`
   justify-content: space-between;
   max-width: 100%;
 `;
-const ColorTextSpan = styled.span`
-  color: ${GLOBAL_STYLES.COLORS.homePageAccent};
-`;
+
 const IntroTextDiv = styled.div`
   flex: 1;
   display: flex;
   height: 100%;
   margin-top: 0px;
-  font-family: "IBM Plex Mono", ${GLOBAL_STYLES.FONT_FAMILY};
+  font-family: "IBM Plex", ${GLOBAL_STYLES.FONT_FAMILY};
   font-size: 5em;
+  font-weight: normal;
+  align-content: center;
+  padding: 60px 0px;
+  border-top: 2px solid ${GLOBAL_STYLES.COLORS.homePageAccent};
+  border-bottom: 2px solid ${GLOBAL_STYLES.COLORS.homePageAccent};
+
   line-height: 1em;
   max-width: 100%;
   @media only screen and (max-width: 600px) {
@@ -91,6 +91,6 @@ const DetailsTextDiv = styled.div`
 `;
 
 const TypeEffectText = styled.h1`
-  font-weight: 500;
+  font-weight: normal;
   font-family: ${GLOBAL_STYLES.FONT_FAMILY};
 `;

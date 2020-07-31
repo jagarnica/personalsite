@@ -73,7 +73,7 @@ interface SingleLetterProps {
 }
 const SingleLetter = styled.span<SingleLetterProps>`
   opacity: 0;
-  animation: ${AppearAnimation} 0.1s ease forwards;
+  animation: ${AppearAnimation} 0s ease forwards;
   animation-delay: ${props => (props.delay ? props.delay + "s" : "0s")};
 `;
 const BlinkAnimation = keyframes`

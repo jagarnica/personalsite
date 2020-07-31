@@ -15,7 +15,7 @@ const Button: ButtonType = ({
   margin = "",
   padding = "",
   mainColor = COLORS.primaryColor,
-  accentColor = COLORS.lightWhite,
+  accentColor = COLORS.sevenBlack,
   width = "",
   textColor = "white",
   children,

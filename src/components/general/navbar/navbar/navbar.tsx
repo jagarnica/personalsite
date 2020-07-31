@@ -36,9 +36,9 @@ const Navbar: React.FC = () => {
           JESUS GARNICA
         </TitleSpan>
         <DrawerMenu
-          exitButtonColor={globalStyles.COLORS.lightWhite}
-          backgroundColor={"#2b2b2b"}
-          iconColor={"hsla(0, 0%, 100%, 0.8)"}
+          exitButtonColor={globalStyles.COLORS.sevenBlack}
+          backgroundColor={"#fcfcfc"}
+          iconColor={globalStyles.COLORS.sevenBlack}
         >
           <TabsLayoutDiv>{NavTabs}</TabsLayoutDiv>
         </DrawerMenu>
@@ -59,10 +59,10 @@ const OuterContainer = styled.div`
   justify-content: center;
   width: 100vw;
   max-width: 100%;
-  color: hsla(0, 0%, 100%, 0.8);
+  color: ${globalStyles.COLORS.sevenBlack};
   background-color: rgba(255, 255, 255, 0);
   &.onScroll {
-    background-color: ${globalStyles.COLORS.darkGrey};
+    background-color: ${globalStyles.COLORS.siteBackground};
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 `;
