@@ -94,8 +94,9 @@ const AboutPage: React.ReactNode = () => {
 
         <ReposContainer>
           <Projects
-            textColor={COLORS.lightWhite}
-            backgroundColor={aboutPageAccent}
+            textColor={COLORS.sevenBlack}
+            backgroundColor={COLORS.siteBackground}
+            accentColor={aboutPageAccent}
           />
         </ReposContainer>
 

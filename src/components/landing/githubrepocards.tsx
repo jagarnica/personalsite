@@ -7,6 +7,7 @@ interface GitHubRepoProps {
   margin?: string; // this should be typed in like a regular margin css property
   textColor?: string;
   backgroundColor?: string;
+  accentColor?: string;
 }
 
 const ProgrammingLanguageLogo: React.FC<{
@@ -46,13 +47,14 @@ const ProgrammingLanguageLogo: React.FC<{
     case "java":
       return <Logo.JavaLogo />;
     default:
-      return <LangauageDetail textColor={textColor}>{lang}</LangauageDetail>;
+      return <LanguageDetail textColor={textColor}>{lang}</LanguageDetail>;
   }
 };
 
 const GithubRepoCards: React.FC<GitHubRepoProps> = ({
   margin,
   textColor,
+  accentColor,
   backgroundColor,
 }) => {
   const data = GithubRepoData();
@@ -80,6 +82,7 @@ const GithubRepoCards: React.FC<GitHubRepoProps> = ({
     const keyName: string = repo.name ? repo.name : url;
     return (
       <ProjectCard
+        accentColor={accentColor}
         textColor={textColor}
         backgroundColor={backgroundColor}
         margin={margin}
@@ -109,7 +112,6 @@ GithubRepoCards.defaultProps = {
 const ProjectCard = styled.div<GitHubRepoProps>`
   overflow: hidden;
   height: 100%;
-  border: 1px solid transparent;
   cursor: default;
   border-radius: 0px;
   color: ${props => (props.textColor ? props.textColor : ``)};
@@ -117,7 +119,8 @@ const ProjectCard = styled.div<GitHubRepoProps>`
   background: ${props => (props.backgroundColor ? props.backgroundColor : ``)};
   display: flex;
   flex-direction: column;
-
+  border: 1px solid ${COLORS.sevenBlack};
+  border-top: 6px solid ${props => (props.accentColor ? props.accentColor : ``)};
   padding: 10px;
   margin: ${props => (props.margin ? props.margin : "")};
 `;
@@ -128,24 +131,24 @@ const Title = styled.div`
 `;
 const RepoLink = styled.a`
   cursor: pointer;
-  text-decoration: none;
+  text-decoration: underline;
   color: inherit;
   transition: color 0.2s ease;
   &:hover {
     color: white;
   }
 `;
-const LangauageDetail = styled.div<GitHubRepoProps>`
+const LanguageDetail = styled.div<GitHubRepoProps>`
   font-size: 0.8em;
   margin: 0;
-  font-family: "IBM Plex Mono", ${FONT_FAMILY};
+
   display: flex;
   max-height: 24px;
   align-items: center;
   color: ${props => (props.textColor ? props.textColor : ``)};
   border-radius: 0px;
   padding: 0px 12px;
-  background: ${COLORS.darkGrey};
+
   margin-right: 4px;
 `;
 const DescriptionText = styled.span`

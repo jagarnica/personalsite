@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { COLORS } from "styles/styles";
 interface skillCardProps {
   skill?: string;
   details?: string;
@@ -47,7 +48,7 @@ SkillCard.defaultProps = {
 const CardContainer = styled.div<skillCardProps>`
   height: auto;
   overflow: hidden;
-  border: 1px solid black;
+  border: 1px solid ${COLORS.sevenBlack};
   cursor: default;
   border-radius: 0px;
   color: ${props => (props.textColor ? props.textColor : ``)};
