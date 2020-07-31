@@ -55,15 +55,16 @@ const OuterContainer = styled.div`
   top: 0;
   left: 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0);
-  transition: box-shadow 0.1s ease, background-color 0.1s ease;
+  transition: border-color 0.1s ease, background-color 0.1s ease;
   justify-content: center;
   width: 100vw;
   max-width: 100%;
+  border-bottom: 1px solid transparent;
   color: ${globalStyles.COLORS.sevenBlack};
   background-color: rgba(255, 255, 255, 0);
   &.onScroll {
     background-color: ${globalStyles.COLORS.siteBackground};
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid ${globalStyles.COLORS.sevenBlack};
   }
 `;
 const NavbarContainer = styled.div`

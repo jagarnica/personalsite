@@ -1,9 +1,9 @@
 import React from "react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
-import SectionLabel from "components/general/sectionlabel/sectionlabel";
 import { COLORS } from "styles/styles";
 import { HeroButton } from "components/general/buttons/";
+import PageLabel from "components/general/pagelabel/pagelabel";
 import { graphql, useStaticQuery } from "gatsby";
 const resumeFile = () => {
   const data = useStaticQuery(graphql`
@@ -21,11 +21,16 @@ const ResumePage: React.FC = () => {
   return (
     <Layout>
       <SEO title="Resume" />
-      <SectionLabel accentColor={COLORS.resumePageAccent}>Resume</SectionLabel>
-      <h4>
+      <PageLabel
+        margin="0px 0px 20px 0px"
+        accentColor={COLORS.resumePageAccent}
+      >
+        Resume
+      </PageLabel>
+      <p>
         Need a printer friendly summary of my professional history? My resume is
         just a click away below.
-      </h4>
+      </p>
       <a href={resumeLink} download>
         <HeroButton mainColor={COLORS.resumePageAccent}>
           Get My Resume

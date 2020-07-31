@@ -6,14 +6,15 @@ import Layout from "components/layout";
 import * as GLOBAL_STYLES from "styles/styles";
 import HeroButton from "../components/general/buttons/herobutton";
 import SEO from "components/seo";
+import PageLabel from "components/general/pagelabel/pagelabel";
 const IndexPage: React.ReactNode = () => (
   <Layout>
     <SEO title="Home" />
 
     <FlexContainer>
-      <IntroTextDiv>
-        <span>Hello and Welcome.</span>
-      </IntroTextDiv>
+      <PageLabel accentColor={GLOBAL_STYLES.COLORS.homePageAccent}>
+        Hello and Welcome
+      </PageLabel>
       <DetailsTextDiv>
         <TypeEffectText>
           <TypedInEffect
@@ -64,25 +65,6 @@ const FlexContainer = styled.div`
   max-width: 100%;
 `;
 
-const IntroTextDiv = styled.div`
-  flex: 1;
-  display: flex;
-  height: 100%;
-  margin-top: 0px;
-  font-family: "IBM Plex", ${GLOBAL_STYLES.FONT_FAMILY};
-  font-size: 5em;
-  font-weight: normal;
-  align-content: center;
-  padding: 60px 0px;
-  border-top: 2px solid ${GLOBAL_STYLES.COLORS.homePageAccent};
-  border-bottom: 2px solid ${GLOBAL_STYLES.COLORS.homePageAccent};
-
-  line-height: 1em;
-  max-width: 100%;
-  @media only screen and (max-width: 600px) {
-    font-size: 4em;
-  }
-`;
 const DetailsTextDiv = styled.div`
   display: flex;
   flex-direction: column;
