@@ -2,12 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import Layout from "components/layout";
 import { useStaticQuery, graphql } from "gatsby";
+import PageLabel from "components/general/pagelabel/pagelabel";
 import Img from "gatsby-image";
+import MTAIcon from "components/decorative/mtaicon/mtaicon";
 import SocialMediaQuery from "helpers/hooks/queries/socialmedia";
 import SkillCard from "components/skillcard/skillcard";
-import { LinkedInLogo, GitHubLogo } from "images/icons/";
 import { COLORS } from "styles/styles";
 import SEO from "components/seo";
+import SectionLabel from "components/general/sectionlabel/sectionlabel";
 import Projects from "components/landing/githubrepocards";
 import AspectRatioBox from "components/general/aspectratiobox/aspectratiobox";
 const AboutImage = () => {
@@ -33,6 +35,7 @@ const AboutImage = () => {
 
 const AboutPage: React.ReactNode = () => {
   const siteQuery = SocialMediaQuery();
+  const { aboutPageAccent } = COLORS;
   const githubProfileLink = siteQuery.github;
   const linkedInProfileLink = siteQuery.linkedin;
   return (
@@ -40,13 +43,15 @@ const AboutPage: React.ReactNode = () => {
       <SEO title="About" />
       <FlexLayout>
         <PotraitDiv>
-          <AspectRatioBox width="100%" maxWidth="500px">
+          <AspectRatioBox width="100%" maxWidth="400px">
             <AboutImage />
           </AspectRatioBox>
         </PotraitDiv>
 
         <div>
-          <SectionLabel>About Me</SectionLabel>
+          <PageLabel margin={"0px 0px 40px 0px"} accentColor={aboutPageAccent}>
+            About Me
+          </PageLabel>
 
           <h3>Hello, my name is Jesus.</h3>
 
@@ -75,37 +80,49 @@ const AboutPage: React.ReactNode = () => {
             Want to build something great together? Feel free to contact me at{" "}
             <b>jgarnicacc@gmail.com</b>.
           </p>
-          <SectionLabel>Skills</SectionLabel>
+          <SectionLabel
+            margin={"3rem 0px 3rem 0px"}
+            accentColor={aboutPageAccent}
+          >
+            Skills
+          </SectionLabel>
           <CardsContainer>{GenerateSkillCards()}</CardsContainer>
         </div>
-        <SectionLabel>Preview My GitHub</SectionLabel>
+        <SectionLabel margin={"0px"} accentColor={aboutPageAccent}>
+          Preview My GitHub
+        </SectionLabel>
 
         <ReposContainer>
           <Projects
-            textColor={COLORS.lightWhite}
-            backgroundColor={COLORS.aboutPageAccent}
+            textColor={COLORS.sevenBlack}
+            backgroundColor={COLORS.siteBackground}
+            accentColor={aboutPageAccent}
           />
         </ReposContainer>
 
-        <SectionLabel>Social</SectionLabel>
-        <h4>
+        <SectionLabel margin={"0 0 1.45rem 0px"} accentColor={aboutPageAccent}>
+          Social
+        </SectionLabel>
+        <p>
           Feel free to connect with me on LinkedIn or look at the rest of my
           work on GitHub!
-        </h4>
+        </p>
         <div>
           <StyledLink
+            title="LinkedIn"
             href={linkedInProfileLink}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <LinkedInLogo />
+            <MTAIcon size={40} text="LI" />
           </StyledLink>
           <StyledLink
+            title="GitHub"
             href={githubProfileLink}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <GitHubLogo />
+            <MTAIcon size={40} text="GH" />
           </StyledLink>
         </div>
       </FlexLayout>
@@ -137,20 +154,20 @@ const GenerateSkillCards = (cardMargin?: string) => {
         skill={currentSkill.skill}
         details={currentSkill.details}
         key={currentSkill.skill}
-        textColor={COLORS.lightWhite}
-        backgroundColor={COLORS.aboutPageAccent}
+        textColor={COLORS.sevenBlack}
+        accentColor={COLORS.aboutPageAccent}
+        backgroundColor={COLORS.siteBackground}
       />
     );
   });
 };
 const CardsContainer = styled.div`
   display: grid;
-
+  margin: 3rem 0px;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   align-items: center;
   grid-gap: 1rem;
   max-width: 100%;
-  margin-bottom: 1.45rem;
 `;
 
 const ReposContainer = styled(CardsContainer)`
@@ -185,12 +202,7 @@ const PotraitImage = styled(Img)`
   width: 100%;
   height: 100%;
 `;
-const SectionLabel = styled.h1`
-  display: inline-block;
-  border: 0px solid transparent;
 
-  border-bottom: 4px solid ${COLORS.aboutPageAccent};
-`;
 const FlexLayout = styled.div`
   display: flex;
   flex-direction: column;

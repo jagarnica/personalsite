@@ -36,9 +36,9 @@ const Navbar: React.FC = () => {
           JESUS GARNICA
         </TitleSpan>
         <DrawerMenu
-          exitButtonColor={globalStyles.COLORS.lightWhite}
-          backgroundColor={"#2b2b2b"}
-          iconColor={"hsla(0, 0%, 100%, 0.8)"}
+          exitButtonColor={globalStyles.COLORS.sevenBlack}
+          backgroundColor={globalStyles.COLORS.siteBackground}
+          iconColor={globalStyles.COLORS.sevenBlack}
         >
           <TabsLayoutDiv>{NavTabs}</TabsLayoutDiv>
         </DrawerMenu>
@@ -55,15 +55,16 @@ const OuterContainer = styled.div`
   top: 0;
   left: 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0);
-  transition: box-shadow 0.1s ease, background-color 0.1s ease;
+  transition: border-color 0.1s ease, background-color 0.1s ease;
   justify-content: center;
   width: 100vw;
   max-width: 100%;
-  color: hsla(0, 0%, 100%, 0.8);
+  border-bottom: 1px solid transparent;
+  color: ${globalStyles.COLORS.sevenBlack};
   background-color: rgba(255, 255, 255, 0);
   &.onScroll {
-    background-color: ${globalStyles.COLORS.darkGrey};
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background-color: ${globalStyles.COLORS.siteBackground};
+    border-bottom: 1px solid ${globalStyles.COLORS.sevenBlack};
   }
 `;
 const NavbarContainer = styled.div`
@@ -89,7 +90,7 @@ const TabsLayoutDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   margin: auto 0;
   padding: 20px 0px;
   height: 100%;

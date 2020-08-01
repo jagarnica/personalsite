@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "gatsby";
-import * as globalStyleConst from "../../../../styles/styles";
+import * as globalStyleConst from "styles/styles";
 
 interface Props {
   linkName: string; // This is the name of the link shown to the user
@@ -18,11 +18,16 @@ const NavbarItem: React.FC<Props> = ({ linkName, activeColor, pathName }) => {
     <NavLinkDiv
       to={pathName}
       style={{
-        color: `hsla(0, 0%, 100%, 0.8)`,
+        borderColor: activeColor,
+        background: activeColor,
+        color: globalStyleConst.COLORS.lightWhite,
         textDecoration: `none`,
       }}
+      activeClassName="page_active"
       activeStyle={{
+        background: `transparent`,
         color: activeColor,
+        borderColor: activeColor,
       }}
     >
       {linkName}
@@ -32,16 +37,17 @@ const NavbarItem: React.FC<Props> = ({ linkName, activeColor, pathName }) => {
 export default NavbarItem;
 const NavLinkDiv = styled(Link)`
   font-size: 2.8em;
-  height: 2.8em;
-  font-weight: bold;
-  margin-bottom: 4px;
+  line-height: 1em;
   color: black;
-  padding: 0px 1px;
+  font-weight: 400;
+  padding: 20px;
   justify-content: center;
   align-items: center;
   display: flex;
-  border: 0px solid transparent;
-  margin-left: 10px;
-  margin-right: 10px;
+  width: 396px;
+
+  border: 4px solid;
+  outline: none;
+  text-transform: uppercase;
   font-family: ${globalStyleConst.FONT_FAMILY};
 `;

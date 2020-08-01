@@ -73,7 +73,7 @@ interface SingleLetterProps {
 }
 const SingleLetter = styled.span<SingleLetterProps>`
   opacity: 0;
-  animation: ${AppearAnimation} 0.1s ease forwards;
+  animation: ${AppearAnimation} 0s ease forwards;
   animation-delay: ${props => (props.delay ? props.delay + "s" : "0s")};
 `;
 const BlinkAnimation = keyframes`
@@ -92,6 +92,11 @@ const AnimatedTextContainedSpan = styled.span<SingleLetterProps>`
     line-height: inherit;
     color: ${props => (props.cursorColor ? props.cursorColor : ``)};
     opacity: 0;
+    top: 0;
+    will-change: opacity;
+    position: absolute;
+    right: 0;
+    transform: translate(75%, -10%);
     animation: ${BlinkAnimation} 0.8s ease infinite;
   }
 `;

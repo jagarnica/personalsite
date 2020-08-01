@@ -22,5 +22,5 @@ const HeroButton: ButtonType = ({
 
 export default HeroButton;
 const StyledButton = styled(Button)`
-  font-weight: bold;
+  font-weight: normal;
 `;

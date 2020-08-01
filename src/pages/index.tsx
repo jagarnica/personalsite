@@ -6,25 +6,20 @@ import Layout from "components/layout";
 import * as GLOBAL_STYLES from "styles/styles";
 import HeroButton from "../components/general/buttons/herobutton";
 import SEO from "components/seo";
+import PageLabel from "components/general/pagelabel/pagelabel";
 const IndexPage: React.ReactNode = () => (
   <Layout>
     <SEO title="Home" />
 
     <FlexContainer>
-      <IntroTextDiv>
-        <span>
-          hello and
-          <ColorTextSpan>
-            <br />
-            welcome.
-          </ColorTextSpan>
-        </span>
-      </IntroTextDiv>
+      <PageLabel accentColor={GLOBAL_STYLES.COLORS.homePageAccent}>
+        Hello and Welcome
+      </PageLabel>
       <DetailsTextDiv>
         <TypeEffectText>
           <TypedInEffect
             cursorColor={GLOBAL_STYLES.COLORS.homePageAccent}
-            speed={0.08}
+            speed={0.04}
             message="Developer For Hire."
           />
         </TypeEffectText>
@@ -38,6 +33,7 @@ const IndexPage: React.ReactNode = () => (
           technologies.
         </p>
         <HeroButton
+          mainColor={GLOBAL_STYLES.COLORS.homePageAccent}
           onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             event.preventDefault();
             navigate("/about/");
@@ -46,6 +42,7 @@ const IndexPage: React.ReactNode = () => (
           Learn More About Me
         </HeroButton>
         <HeroButton
+          mainColor={GLOBAL_STYLES.COLORS.homePageAccent}
           margin={"20px 0px"}
           onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             event.preventDefault();
@@ -67,22 +64,7 @@ const FlexContainer = styled.div`
   justify-content: space-between;
   max-width: 100%;
 `;
-const ColorTextSpan = styled.span`
-  color: ${GLOBAL_STYLES.COLORS.homePageAccent};
-`;
-const IntroTextDiv = styled.div`
-  flex: 1;
-  display: flex;
-  height: 100%;
-  margin-top: 0px;
-  font-family: "IBM Plex Mono", ${GLOBAL_STYLES.FONT_FAMILY};
-  font-size: 5em;
-  line-height: 1em;
-  max-width: 100%;
-  @media only screen and (max-width: 600px) {
-    font-size: 4em;
-  }
-`;
+
 const DetailsTextDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -91,6 +73,6 @@ const DetailsTextDiv = styled.div`
 `;
 
 const TypeEffectText = styled.h1`
-  font-weight: 500;
+  font-weight: normal;
   font-family: ${GLOBAL_STYLES.FONT_FAMILY};
 `;
