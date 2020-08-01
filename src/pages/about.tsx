@@ -4,9 +4,9 @@ import Layout from "components/layout";
 import { useStaticQuery, graphql } from "gatsby";
 import PageLabel from "components/general/pagelabel/pagelabel";
 import Img from "gatsby-image";
+import MTAIcon from "components/decorative/mtaicon/mtaicon";
 import SocialMediaQuery from "helpers/hooks/queries/socialmedia";
 import SkillCard from "components/skillcard/skillcard";
-import { LinkedInLogo, GitHubLogo } from "images/icons/";
 import { COLORS } from "styles/styles";
 import SEO from "components/seo";
 import SectionLabel from "components/general/sectionlabel/sectionlabel";
@@ -94,8 +94,8 @@ const AboutPage: React.ReactNode = () => {
 
         <ReposContainer>
           <Projects
-            textColor={COLORS.siteBackground}
-            backgroundColor={COLORS.sevenBlack}
+            textColor={COLORS.sevenBlack}
+            backgroundColor={COLORS.siteBackground}
             accentColor={aboutPageAccent}
           />
         </ReposContainer>
@@ -109,18 +109,20 @@ const AboutPage: React.ReactNode = () => {
         </p>
         <div>
           <StyledLink
+            title="LinkedIn"
             href={linkedInProfileLink}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <LinkedInLogo />
+            <MTAIcon size={40} text="LI" />
           </StyledLink>
           <StyledLink
+            title="GitHub"
             href={githubProfileLink}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <GitHubLogo />
+            <MTAIcon size={40} text="GH" />
           </StyledLink>
         </div>
       </FlexLayout>

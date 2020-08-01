@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { COLORS } from "styles/styles";
-import * as Logo from "images/icons";
+import MTAIcon from "components/decorative/mtaicon/mtaicon";
 import GithubRepoData from "helpers/hooks/queries/githubrepos";
 interface GitHubRepoProps {
   margin?: string; // this should be typed in like a regular margin css property
@@ -12,69 +12,84 @@ interface GitHubRepoProps {
 
 const ProgrammingLanguageLogo: React.FC<{
   lang?: string;
-  textColor?: string;
-}> = ({ lang = "", textColor = "#000000" }) => {
+}> = ({ lang = "" }) => {
   let _langLowercase = "";
   try {
     _langLowercase = lang.toLocaleLowerCase();
   } catch (e) {
     return <span></span>;
   }
+  let iconText = "";
+  let textSize = "";
   switch (_langLowercase) {
     case "react":
-      return <Logo.ReactLogo />;
-
+      iconText = "react";
+      break;
     case "c++":
-      return <Logo.CppLogo />;
-
+      iconText = "C++";
+      break;
     case "python":
-      return <Logo.PythonLogo />;
+      iconText = "py";
+      break;
 
     case "javascript":
-      return <Logo.JsLogo />;
+      iconText = "js";
+      break;
+
     case "rust":
-      return <Logo.RustLogo />;
+      iconText = "rs";
+      break;
     case "ruby":
-      return <Logo.RubyLogo />;
+      iconText = "rb";
+      break;
     case "typescript":
-      return <Logo.TSLogo />;
+      iconText = "ts";
+      break;
     case "swift":
-      return <Logo.SwiftLogo />;
+      textSize = "0.65em";
+      iconText = "swift";
+      break;
     case "css":
-      return <Logo.CSSLogo fillColor="#ffffff" />;
+      iconText = "CSS";
+      break;
     case "html":
-      return <Logo.Html5Logo />;
+      iconText = "html";
+      break;
     case "java":
-      return <Logo.JavaLogo />;
-    default:
-      return <LanguageDetail textColor={textColor}>{lang}</LanguageDetail>;
+      textSize = "0.80em";
+      iconText = "java";
+      break;
   }
+  return (
+    <MTAIcon
+      fontSize={textSize}
+      padding="5%"
+      title={lang}
+      size={20}
+      text={iconText}
+    />
+  );
 };
 
 const GithubRepoCards: React.FC<GitHubRepoProps> = ({
   margin,
-  textColor,
+  textColor = "white",
   accentColor,
-  backgroundColor,
+  backgroundColor = "black",
 }) => {
   const data = GithubRepoData();
 
   if (!data) {
-    return <></>;
+    return null;
   }
   const cards: React.ReactNode = data.map(repo => {
     const languages = repo.languages.nodes;
     const url = repo.url ? repo.url : ``;
 
     const languagesText = languages.map(lang => {
-      const color = lang.color ? lang.color : ``;
-      const languageName = lang.name;
+      const languageName: string = lang.name;
       const LogoFound = (
-        <ProgrammingLanguageLogo
-          key={lang.name}
-          textColor={color}
-          lang={languageName}
-        />
+        <ProgrammingLanguageLogo key={lang.name} lang={languageName} />
       );
 
       return LogoFound;
@@ -105,10 +120,7 @@ const GithubRepoCards: React.FC<GitHubRepoProps> = ({
   return cards;
 };
 export default GithubRepoCards;
-GithubRepoCards.defaultProps = {
-  backgroundColor: `black`,
-  textColor: `white`,
-};
+
 const ProjectCard = styled.div<GitHubRepoProps>`
   overflow: hidden;
   height: 100%;
@@ -120,37 +132,30 @@ const ProjectCard = styled.div<GitHubRepoProps>`
   display: flex;
   flex-direction: column;
   border: 1px solid ${COLORS.sevenBlack};
-  border-top: 6px solid ${props => (props.accentColor ? props.accentColor : ``)};
+  border-top: 14px solid
+    ${props => (props.accentColor ? props.accentColor : ``)};
   padding: 10px;
   margin: ${props => (props.margin ? props.margin : "")};
 `;
 const Title = styled.div`
   font-size: 1.3em;
   display: flex;
+  background: ${COLORS.sevenBlack};
+
   font-weight: bold;
 `;
 const RepoLink = styled.a`
   cursor: pointer;
-  text-decoration: underline;
-  color: inherit;
-  font-weight: 500;
+  text-decoration: none;
+  color: ${COLORS.siteBackground};
+  text-transform: uppercase;
+  padding: 10px 3px;
+  font-weight: 900;
   transition: color 0.2s ease;
   &:hover {
   }
 `;
-const LanguageDetail = styled.div<GitHubRepoProps>`
-  font-size: 0.8em;
-  margin: 0;
 
-  display: flex;
-  max-height: 24px;
-  align-items: center;
-  color: ${props => (props.textColor ? props.textColor : ``)};
-  border-radius: 0px;
-  padding: 0px 12px;
-
-  margin-right: 4px;
-`;
 const DescriptionText = styled.span`
   font-size: 0.9em;
 `;

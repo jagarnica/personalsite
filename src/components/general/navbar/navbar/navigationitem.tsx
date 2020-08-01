@@ -18,6 +18,7 @@ const NavbarItem: React.FC<Props> = ({ linkName, activeColor, pathName }) => {
     <NavLinkDiv
       to={pathName}
       style={{
+        borderColor: activeColor,
         background: activeColor,
         color: globalStyleConst.COLORS.lightWhite,
         textDecoration: `none`,
@@ -26,7 +27,7 @@ const NavbarItem: React.FC<Props> = ({ linkName, activeColor, pathName }) => {
       activeStyle={{
         background: `transparent`,
         color: activeColor,
-        outlineColor: activeColor,
+        borderColor: activeColor,
       }}
     >
       {linkName}
@@ -43,15 +44,10 @@ const NavLinkDiv = styled(Link)`
   justify-content: center;
   align-items: center;
   display: flex;
-  width: 400px;
-  border: 0px solid transparent;
+  width: 396px;
+
+  border: 4px solid;
+  outline: none;
   text-transform: uppercase;
   font-family: ${globalStyleConst.FONT_FAMILY};
-  &.page_active {
-    outline-style: solid;
-    outline-width: 4px;
-    &:hover {
-      outline-style: solid;
-    }
-  }
 `;
