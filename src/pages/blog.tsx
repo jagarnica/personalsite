@@ -9,10 +9,10 @@ const ComingSoonPage: React.FC = () => (
     <PageLabel margin="0px 0px 20px 0px" accentColor={COLORS.blogPageAccent}>
       Blog
     </PageLabel>
-    <h4>
+    <p>
       Coming soon! Stay tuned for posts about tech, audio, hi-fi, and
       programming.
-    </h4>
+    </p>
   </Layout>
 );
 

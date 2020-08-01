@@ -19,7 +19,7 @@ const IndexPage: React.ReactNode = () => (
         <TypeEffectText>
           <TypedInEffect
             cursorColor={GLOBAL_STYLES.COLORS.homePageAccent}
-            speed={0.08}
+            speed={0.04}
             message="Developer For Hire."
           />
         </TypeEffectText>

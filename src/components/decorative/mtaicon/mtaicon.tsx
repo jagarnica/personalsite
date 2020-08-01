@@ -25,7 +25,7 @@ const MTAIcon: React.FC<MTAIconProp> = ({
   margin,
   title = "",
   fontSize = "",
-  padding = "8%",
+  padding = "8px",
 }) => {
   return (
     <IconDiv
@@ -36,7 +36,7 @@ const MTAIcon: React.FC<MTAIconProp> = ({
       backgroundColor={COLORS.sevenBlack}
       size={size}
     >
-      {text}
+      <span>{text}</span>
     </IconDiv>
   );
 };
@@ -62,4 +62,6 @@ const IconDiv = styled.div<{
   align-items: center;
   padding: ${props => (props.padding ? props.padding : ``)};
   font-weight: 800;
+
+  text-align: center;
 `;

@@ -48,7 +48,7 @@ const ButtonContainer = styled.button<ButtonContainerProps>`
   border: 1px solid ${props => props.mainColor};
   border-style: solid;
   width: ${props => props.width};
-  border-radius: 4px;
+  border-radius: 0px;
   font-family: ${FONT_FAMILY};
   margin: ${props => props.margin};
   background: ${props => props.mainColor};

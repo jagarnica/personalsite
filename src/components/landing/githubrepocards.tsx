@@ -63,7 +63,7 @@ const ProgrammingLanguageLogo: React.FC<{
   return (
     <MTAIcon
       fontSize={textSize}
-      padding="5%"
+      padding="24px"
       title={lang}
       size={20}
       text={iconText}
@@ -127,45 +127,47 @@ const ProjectCard = styled.div<GitHubRepoProps>`
   cursor: default;
   border-radius: 0px;
   color: ${props => (props.textColor ? props.textColor : ``)};
-  transition: 0.3s ease;
+
   background: ${props => (props.backgroundColor ? props.backgroundColor : ``)};
   display: flex;
   flex-direction: column;
   border: 1px solid ${COLORS.sevenBlack};
   border-top: 14px solid
     ${props => (props.accentColor ? props.accentColor : ``)};
-  padding: 10px;
+  padding: 0px;
   margin: ${props => (props.margin ? props.margin : "")};
 `;
 const Title = styled.div`
   font-size: 1.3em;
   display: flex;
   background: ${COLORS.sevenBlack};
-
+  border-bottom: 1px solid ${COLORS.sevenBlack};
   font-weight: bold;
 `;
 const RepoLink = styled.a`
   cursor: pointer;
   text-decoration: none;
   color: ${COLORS.siteBackground};
-  text-transform: uppercase;
-  padding: 10px 3px;
-  font-weight: 900;
+  padding: 7px 10px;
+  font-weight: 800;
   transition: color 0.2s ease;
-  &:hover {
-  }
 `;
 
 const DescriptionText = styled.span`
   font-size: 0.9em;
+  font-weight: normal;
+  padding: 10px;
 `;
 const LangaugesContainer = styled.div`
   display: flex;
+  padding: 10px;
   justify-content: flex-start;
   flex-direction: row;
   align-items: center;
-  * {
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid ${COLORS.sevenBlack};
+  div {
     margin-right: 4px;
   }
-  margin: 6px 0px;
+  margin: 0px 0px 6px 0px;
 `;
