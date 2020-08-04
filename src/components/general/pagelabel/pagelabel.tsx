@@ -34,6 +34,6 @@ const Container = styled.div<{ color: string; margin?: string }>`
   line-height: 1em;
   max-width: 100%;
   @media only screen and (max-width: 600px) {
-    font-size: 4em;
+    font-size: 3.4em;
   }
 `;

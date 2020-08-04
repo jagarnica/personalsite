@@ -31,7 +31,7 @@ const ResumePage: React.FC = () => {
         Need a printer friendly summary of my professional history? My resume is
         just a click away below.
       </p>
-      <a href={resumeLink} download>
+      <a href={resumeLink} target="_blank" rel="noreferrer" download>
         <HeroButton mainColor={COLORS.resumePageAccent}>
           Get My Resume
         </HeroButton>
