@@ -45,9 +45,12 @@ const NavLinkDiv = styled(Link)`
   align-items: center;
   display: flex;
   width: 396px;
-
+  max-width: 80%;
   border: 4px solid;
   outline: none;
   text-transform: uppercase;
   font-family: ${globalStyleConst.FONT_FAMILY};
+  @media only screen and (max-device-width: 600px) {
+    font-size: 2.1em;
+  }
 `;

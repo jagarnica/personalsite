@@ -193,6 +193,11 @@ const ExitButtonContainer = styled.div`
 
   width: 52px;
   height: 52px;
+  @media only screen and (max-device-width: 600px) {
+    top: 20px;
+
+    right: 5%;
+  }
   &:focus {
     outline: 1px solid white;
   }
