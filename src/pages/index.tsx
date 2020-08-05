@@ -24,15 +24,22 @@ const IndexPage: React.ReactNode = () => (
           />
         </TypeEffectText>
         <p>
-          My name is Jesus Garnica, welcome to my website. I am a developer in
-          the bay area.
+          My name is Jesus Garnica, welcome to my website! I am a passionate
+          developer in the bay area.
         </p>
         <p>
           I just graduated from San Francisco State University with a B.S. in
           Computer Science. I have experience with a wide variety of
           technologies.
         </p>
+        <p>
+          If you would like to learn more about me just click below to get to my
+          about page. Also, feel free to take a look at my blog where I will be
+          soon be making posts about tech, hi-fi, vintage computers, and other
+          various subjects.
+        </p>
         <HeroButton
+          aria-label="Go To About Page"
           mainColor={GLOBAL_STYLES.COLORS.homePageAccent}
           onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             event.preventDefault();
@@ -42,6 +49,7 @@ const IndexPage: React.ReactNode = () => (
           Learn More About Me
         </HeroButton>
         <HeroButton
+          aria-label="Go To Blog"
           mainColor={GLOBAL_STYLES.COLORS.homePageAccent}
           margin={"20px 0px"}
           onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
