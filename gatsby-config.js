@@ -8,7 +8,7 @@ module.exports = {
     title: `Jesus Garnica`,
     github: `https://github.com/jagarnica`,
     linkedin: `https://www.linkedin.com/in/jesus-garnica/`,
-    description: `Jesus Garnica's dev site.`,
+    description: `Jesus Garnica's portfolio and unfocused tech blog.`,
     author: `@jagarnica`,
   },
   plugins: [
@@ -81,8 +81,8 @@ module.exports = {
         name: `Jesus Garnica`,
         short_name: `JG`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#f2efe9`,
+        theme_color: `#f2efe9`,
         display: `minimal-ui`,
         icon: `src/images/site_logo.png`, // This path is relative to the root of the site.
       },
@@ -95,6 +95,12 @@ module.exports = {
         isTSX: false,
         jsxPragma: `React`,
         allExtensions: false,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-s3`,
+      options: {
+        bucketName: `${process.env.S3_BUCKET_NAME}`,
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

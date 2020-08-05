@@ -27,6 +27,7 @@ const AboutImage = () => {
 
   return (
     <PotraitImage
+      alt="self potrait"
       backgroundColor={true}
       fluid={data.file.childImageSharp.fluid}
     />
@@ -52,33 +53,49 @@ const AboutPage: React.ReactNode = () => {
           <PageLabel margin={"0px 0px 40px 0px"} accentColor={aboutPageAccent}>
             About Me
           </PageLabel>
-
-          <h3>Hello, my name is Jesus.</h3>
-
+          <h3>Hello, my name is Jesús.</h3>
           <p>
-            I recently just graduated from San Francisco State University with a
-            B.S. in Computer Science. I finished working as an intern at
-            Trueclap where I leveraged React to create multiple UI elements made
-            for the modern web.
+            I am born and raised in Silicon Valley. I recently just graduated
+            from San Francisco State University with a B.S. in Computer Science.
+            I most recently finished working as an intern at Trueclap where I
+            leveraged React and GatsbyJs to create beautiful UI elements for the
+            modern web.
           </p>
           <p>
-            During my time at SFSU I worked with wide variety of technologies. I
-            used Swift and Google&apos;s Places API to create an iOS app. I
-            worked with React on two seperate projects with a team. One was to
-            get an E-commerce website built for SFSU students. The latter was a
-            web app built with ChessJS, NodeJS, AWS, and MongoDB to allow users
-            to play games of chess with each other online.
+            During my time at SFSU, I worked with a wide variety of
+            technologies.{" "}
+            {`I used Swift and Google's Places API to create an iOS
+            app. `}
+            I worked with React on two separate projects with a team. One was to
+            get an E-commerce website built to help SFSU students resell their
+            old absurdly priced textbooks. The latter was a progressive web app
+            built with ChessJS, GatsbyJS, NodeJS, AWS, and MongoDB to allow
+            users to play games of chess with each other online.
           </p>
           <p>
-            When I am not programming, I am usually busy restoring vintage hi-fi
-            recievers or other electronics. I have spent a lot free time
+            Currently, I am spending most of my time programming working with
+            Typescript and Python. I am also currently working on learning Rust
+            to continue creating a discord bot.
+          </p>
+          <p>
+            When I am not programming, I am usually busy restoring hi-fi
+            receivers or other electronics. I have spent a lot of free time
             bringing an old Marantz 2230 back alive from the grave, making a La
-            Pavoni Espresso machine look better than ever, and restoring other
-            various electronics.
+            Pavoni Espresso machine look better than ever, maintaining my
+            vintage computers, and build boards to add modern features to old
+            designs.
           </p>
           <p>
             Want to build something great together? Feel free to contact me at{" "}
-            <b>jgarnicacc@gmail.com</b>.
+            <b>
+              <a
+                style={{ color: `inherit` }}
+                href="mailto:jgarnicacc@gmail.com"
+              >
+                jgarnicacc@gmail.com
+              </a>
+            </b>
+            .
           </p>
           <SectionLabel
             margin={"3rem 0px 3rem 0px"}
