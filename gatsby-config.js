@@ -100,7 +100,14 @@ module.exports = {
     {
       resolve: `gatsby-plugin-s3`,
       options: {
+        hostName: `https://www.jesusgarnica.com`,
         bucketName: `${process.env.S3_BUCKET_NAME}`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-canonical-urls`,
+      options: {
+        siteUrl: "https://www.jesusgarnica.com",
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
