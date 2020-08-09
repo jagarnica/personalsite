@@ -5,7 +5,6 @@ interface Props {
   speed: number; // This sets how fast display the message. The higher the number the faster
   cursorColor?: string;
 }
-
 /**
  * @name TypedInDev
  * @description Takes in a string and displays it as if it were being typed in.
@@ -17,8 +16,8 @@ interface Props {
 const TypedInDev: React.FC<Props> = ({ message, speed, cursorColor }) => {
   const [visibleCharacters, setVisibleCharacters] = useState(0);
   const speedFactor = speed * 1000; // we want to do this in terms of seconds
-  const splitUpMessage: string[] = message.split("");
-  const amountOfCharacters = splitUpMessage.length;
+  const amountOfCharacters = message.split("").length;
+  // This is our timer for getting the letters to display.
   useEffect(() => {
     const letterTimer = setTimeout(() => {
       if (visibleCharacters < amountOfCharacters) {
@@ -26,29 +25,23 @@ const TypedInDev: React.FC<Props> = ({ message, speed, cursorColor }) => {
       }
     }, speedFactor);
     return () => {
-      clearTimeout(letterTimer);
-    };
-  }, []);
-  useEffect(() => {
-    const letterTimer = setTimeout(() => {
-      if (visibleCharacters < amountOfCharacters) {
-        setVisibleCharacters(visibleCharacters + 1);
-      }
-    }, speedFactor);
-    return () => {
+      // Clear our timer just incase.
       clearTimeout(letterTimer);
     };
   }, [visibleCharacters]);
-
-  const lettersGenerated = splitUpMessage.map((letter, index) => {
-    if (index < visibleCharacters) {
+  // These are the letters that are generated
+  const lettersGenerated = message
+    .substr(0, visibleCharacters)
+    .split("")
+    .map((letter, index) => {
       return <SingleLetter key={index}>{letter}</SingleLetter>;
-    }
-    return null;
-  });
+    });
   return (
-    <AnimatedTextContainedSpan cursorColor={cursorColor}>
-      {visibleCharacters > 0 ? lettersGenerated : <span>{""}</span>}
+    <AnimatedTextContainedSpan
+      className={visibleCharacters > 0 ? "" : "blank"}
+      cursorColor={cursorColor}
+    >
+      {lettersGenerated}
     </AnimatedTextContainedSpan>
   );
 };
@@ -87,16 +80,25 @@ from, to {
 const AnimatedTextContainedSpan = styled.span<SingleLetterProps>`
   position: relative;
   display: inline-block;
+  transform: translate3d(0, 0, 0);
+  transform-style: preserve-3d;
+  &.blank {
+    color: transparent;
+    &:before {
+      content: "|";
+    }
+    width: 0;
+  }
   &:after {
     content: "|";
     line-height: inherit;
     color: ${props => (props.cursorColor ? props.cursorColor : ``)};
     opacity: 0;
     top: 0;
-    will-change: opacity;
     position: absolute;
     right: 0;
-    transform: translate(75%, -10%);
+    transform: translate3d(75%, -10%, 0);
+    transform-style: preserve-3d;
     animation: ${BlinkAnimation} 0.8s ease infinite;
   }
 `;

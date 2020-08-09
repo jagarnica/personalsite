@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import useStyledTheme from "helpers/hooks/usestyledtheme";
 import Layout from "components/layout";
 import { useStaticQuery, graphql } from "gatsby";
 import PageLabel from "components/general/pagelabel/pagelabel";
@@ -33,12 +34,110 @@ const AboutImage = () => {
     />
   );
 };
-
-const AboutPage: React.ReactNode = () => {
+function PageContent() {
   const siteQuery = SocialMediaQuery();
-  const { aboutPageAccent } = COLORS;
+
   const githubProfileLink = siteQuery.github;
   const linkedInProfileLink = siteQuery.linkedin;
+  const {
+    aboutPageAccent,
+    sevenBlack,
+    siteBackground,
+  } = useStyledTheme().colors;
+
+  return (
+    <>
+      <div>
+        <PageLabel margin={"0px 0px 40px 0px"} accentColor={aboutPageAccent}>
+          About Me
+        </PageLabel>
+        <h3>Hello, my name is Jesús.</h3>
+        <p>
+          I am born and raised in Silicon Valley. I recently just graduated from
+          San Francisco State University with a B.S. in Computer Science. I most
+          recently finished working as an intern at Trueclap where I leveraged
+          React and GatsbyJs to create beautiful UI elements for the modern web.
+        </p>
+        <p>
+          During my time at SFSU, I worked with a wide variety of technologies.{" "}
+          {`I used Swift and Google's Places API to create an iOS
+            app. `}
+          I worked with React on two separate projects with a team. One was to
+          get an E-commerce website built to help SFSU students resell their old
+          absurdly priced textbooks. The latter was a progressive web app built
+          with ChessJS, GatsbyJS, NodeJS, AWS, and MongoDB to allow users to
+          play games of chess with each other online.
+        </p>
+        <p>
+          Currently, I am spending most of my time programming working with
+          Typescript and Python. I am also currently working on learning Rust to
+          continue creating a discord bot.
+        </p>
+        <p>
+          When I am not programming, I am usually busy restoring hi-fi receivers
+          or other electronics. I have spent a lot of free time bringing an old
+          Marantz 2230 back alive from the grave, making a La Pavoni Espresso
+          machine look better than ever, maintaining my vintage computers, and
+          build boards to add modern features to old designs.
+        </p>
+        <p>
+          Want to build something great together? Feel free to contact me at{" "}
+          <b>
+            <a style={{ color: `inherit` }} href="mailto:jgarnicacc@gmail.com">
+              jgarnicacc@gmail.com
+            </a>
+          </b>
+          .
+        </p>
+        <SectionLabel
+          margin={"3rem 0px 3rem 0px"}
+          accentColor={aboutPageAccent}
+        >
+          Skills
+        </SectionLabel>
+        <CardsContainer>{GenerateSkillCards()}</CardsContainer>
+      </div>
+      <SectionLabel margin={"0px"} accentColor={aboutPageAccent}>
+        Preview My GitHub
+      </SectionLabel>
+
+      <ReposContainer>
+        <Projects
+          textColor={sevenBlack}
+          backgroundColor={siteBackground}
+          accentColor={aboutPageAccent}
+        />
+      </ReposContainer>
+
+      <SectionLabel margin={"0 0 1.45rem 0px"} accentColor={aboutPageAccent}>
+        Social
+      </SectionLabel>
+      <p>
+        Feel free to connect with me on LinkedIn or look at the rest of my work
+        on GitHub!
+      </p>
+      <div>
+        <StyledLink
+          title="LinkedIn"
+          href={linkedInProfileLink}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <MTAIcon size={40} text="LI" />
+        </StyledLink>
+        <StyledLink
+          title="GitHub"
+          href={githubProfileLink}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <MTAIcon size={40} text="GH" />
+        </StyledLink>
+      </div>
+    </>
+  );
+}
+const AboutPage: React.ReactNode = () => {
   return (
     <Layout>
       <SEO title="About" />
@@ -48,100 +147,7 @@ const AboutPage: React.ReactNode = () => {
             <AboutImage />
           </AspectRatioBox>
         </PotraitDiv>
-
-        <div>
-          <PageLabel margin={"0px 0px 40px 0px"} accentColor={aboutPageAccent}>
-            About Me
-          </PageLabel>
-          <h3>Hello, my name is Jesús.</h3>
-          <p>
-            I am born and raised in Silicon Valley. I recently just graduated
-            from San Francisco State University with a B.S. in Computer Science.
-            I most recently finished working as an intern at Trueclap where I
-            leveraged React and GatsbyJs to create beautiful UI elements for the
-            modern web.
-          </p>
-          <p>
-            During my time at SFSU, I worked with a wide variety of
-            technologies.{" "}
-            {`I used Swift and Google's Places API to create an iOS
-            app. `}
-            I worked with React on two separate projects with a team. One was to
-            get an E-commerce website built to help SFSU students resell their
-            old absurdly priced textbooks. The latter was a progressive web app
-            built with ChessJS, GatsbyJS, NodeJS, AWS, and MongoDB to allow
-            users to play games of chess with each other online.
-          </p>
-          <p>
-            Currently, I am spending most of my time programming working with
-            Typescript and Python. I am also currently working on learning Rust
-            to continue creating a discord bot.
-          </p>
-          <p>
-            When I am not programming, I am usually busy restoring hi-fi
-            receivers or other electronics. I have spent a lot of free time
-            bringing an old Marantz 2230 back alive from the grave, making a La
-            Pavoni Espresso machine look better than ever, maintaining my
-            vintage computers, and build boards to add modern features to old
-            designs.
-          </p>
-          <p>
-            Want to build something great together? Feel free to contact me at{" "}
-            <b>
-              <a
-                style={{ color: `inherit` }}
-                href="mailto:jgarnicacc@gmail.com"
-              >
-                jgarnicacc@gmail.com
-              </a>
-            </b>
-            .
-          </p>
-          <SectionLabel
-            margin={"3rem 0px 3rem 0px"}
-            accentColor={aboutPageAccent}
-          >
-            Skills
-          </SectionLabel>
-          <CardsContainer>{GenerateSkillCards()}</CardsContainer>
-        </div>
-        <SectionLabel margin={"0px"} accentColor={aboutPageAccent}>
-          Preview My GitHub
-        </SectionLabel>
-
-        <ReposContainer>
-          <Projects
-            textColor={COLORS.sevenBlack}
-            backgroundColor={COLORS.siteBackground}
-            accentColor={aboutPageAccent}
-          />
-        </ReposContainer>
-
-        <SectionLabel margin={"0 0 1.45rem 0px"} accentColor={aboutPageAccent}>
-          Social
-        </SectionLabel>
-        <p>
-          Feel free to connect with me on LinkedIn or look at the rest of my
-          work on GitHub!
-        </p>
-        <div>
-          <StyledLink
-            title="LinkedIn"
-            href={linkedInProfileLink}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <MTAIcon size={40} text="LI" />
-          </StyledLink>
-          <StyledLink
-            title="GitHub"
-            href={githubProfileLink}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <MTAIcon size={40} text="GH" />
-          </StyledLink>
-        </div>
+        <PageContent />
       </FlexLayout>
     </Layout>
   );

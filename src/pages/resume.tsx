@@ -1,10 +1,10 @@
 import React from "react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
-import { COLORS } from "styles/styles";
 import { HeroButton } from "components/general/buttons/";
 import PageLabel from "components/general/pagelabel/pagelabel";
 import { graphql, useStaticQuery } from "gatsby";
+import useTheme from "helpers/hooks/usestyledtheme";
 const resumeFile = () => {
   const data = useStaticQuery(graphql`
     query MyQuery {
@@ -16,15 +16,13 @@ const resumeFile = () => {
   `);
   return data;
 };
-const ResumePage: React.FC = () => {
+function PageContent() {
+  const themeFound = useTheme();
+  const resumePageAccent = themeFound.colors.resumePageAccent;
   const resumeLink = resumeFile().file.publicURL;
   return (
-    <Layout>
-      <SEO title="Resume" />
-      <PageLabel
-        margin="0px 0px 20px 0px"
-        accentColor={COLORS.resumePageAccent}
-      >
+    <>
+      <PageLabel margin="0px 0px 20px 0px" accentColor={resumePageAccent}>
         Resume
       </PageLabel>
       <p>
@@ -32,10 +30,16 @@ const ResumePage: React.FC = () => {
         just a click away below.
       </p>
       <a href={resumeLink} target="_blank" rel="noreferrer" download>
-        <HeroButton mainColor={COLORS.resumePageAccent}>
-          Get My Resume
-        </HeroButton>
+        <HeroButton mainColor={resumePageAccent}>Get My Resume</HeroButton>
       </a>
+    </>
+  );
+}
+const ResumePage: React.FC = () => {
+  return (
+    <Layout>
+      <SEO title="Resume" />
+      <PageContent />
     </Layout>
   );
 };

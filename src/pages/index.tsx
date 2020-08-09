@@ -1,24 +1,21 @@
 import React from "react";
 import { navigate } from "gatsby";
+import useTheme from "helpers/hooks/usestyledtheme";
 import styled from "styled-components";
 import TypedInEffect from "components/texteffects/typedindev";
 import Layout from "components/layout";
-import * as GLOBAL_STYLES from "styles/styles";
 import HeroButton from "../components/general/buttons/herobutton";
 import SEO from "components/seo";
 import PageLabel from "components/general/pagelabel/pagelabel";
-const IndexPage: React.ReactNode = () => (
-  <Layout>
-    <SEO title="Home" />
-
+function PageContents() {
+  const homePageAccent = useTheme().colors.homePageAccent;
+  return (
     <FlexContainer>
-      <PageLabel accentColor={GLOBAL_STYLES.COLORS.homePageAccent}>
-        Hello and Welcome
-      </PageLabel>
+      <PageLabel accentColor={homePageAccent}>Hello and Welcome</PageLabel>
       <DetailsTextDiv>
         <TypeEffectText>
           <TypedInEffect
-            cursorColor={GLOBAL_STYLES.COLORS.homePageAccent}
+            cursorColor={homePageAccent}
             speed={0.04}
             message="Developer For Hire."
           />
@@ -40,7 +37,7 @@ const IndexPage: React.ReactNode = () => (
         </p>
         <HeroButton
           aria-label="Go To About Page"
-          mainColor={GLOBAL_STYLES.COLORS.homePageAccent}
+          mainColor={homePageAccent}
           onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             event.preventDefault();
             navigate("/about/");
@@ -50,7 +47,7 @@ const IndexPage: React.ReactNode = () => (
         </HeroButton>
         <HeroButton
           aria-label="Go To Blog"
-          mainColor={GLOBAL_STYLES.COLORS.homePageAccent}
+          mainColor={homePageAccent}
           margin={"20px 0px"}
           onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             event.preventDefault();
@@ -61,8 +58,16 @@ const IndexPage: React.ReactNode = () => (
         </HeroButton>
       </DetailsTextDiv>
     </FlexContainer>
-  </Layout>
-);
+  );
+}
+const IndexPage: React.ReactNode = () => {
+  return (
+    <Layout>
+      <SEO title="Home" />
+      <PageContents />
+    </Layout>
+  );
+};
 
 export default IndexPage;
 
@@ -82,5 +87,6 @@ const DetailsTextDiv = styled.div`
 
 const TypeEffectText = styled.h1`
   font-weight: normal;
-  font-family: ${GLOBAL_STYLES.FONT_FAMILY};
+  font-family: ${props =>
+    props.theme.baseFontFamily ? props.theme.baseFontFamily : ``};
 `;
