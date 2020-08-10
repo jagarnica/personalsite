@@ -1,17 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Navbar from "./general/navbar/";
-import styled from "styled-components";
-import { FONT_FAMILY } from "styles/styles";
+import Navbar from "./general/navbar";
+import styled, { ThemeProvider } from "styled-components";
+import BaseSiteTheme from "styles/basesitetheme";
 import "./layout.css";
+
 const Layout: React.FC = ({ children }) => {
   return (
     <>
-      <Navbar />
-      <PageContainerDiv>
-        {children}
-        <footer></footer>
-      </PageContainerDiv>
+      <ThemeProvider theme={BaseSiteTheme}>
+        <Navbar />
+        <PageContainerDiv>
+          {children}
+          <footer></footer>
+        </PageContainerDiv>
+      </ThemeProvider>
     </>
   );
 };
@@ -26,6 +29,6 @@ const PageContainerDiv = styled.div`
   margin: 0 auto;
   margin-top: calc(69px + 1.45rem);
   max-width: 960px;
-  font-family: ${FONT_FAMILY};
+  font-family: ${props => props.theme.baseFontFamily};
   padding: 0 1.0875rem 1.45rem;
 `;

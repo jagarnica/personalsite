@@ -87,19 +87,21 @@ const Container = styled.div<
   width: ${props => (props.width ? props.width + `px` : `20px`)};
   height: ${props => (props.height ? props.height + `px` : `15px`)};
   cursor: pointer;
-  display: flex;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 100%;
   flex-shrink: 0;
-
+  transform: translate3d(0, 0, 0);
+  transform-style: preserve-3d;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  outline: 1px solid transparent;
   &:focus {
-    outline: 0;
-    border: 1px solid white;
+    outline: 1px solid transparent;
   }
   &:active {
-    outline: 0;
-    border: 0px solid white;
+    outline: 1px solid transparent;
   }
   -webkit-tap-highlight-color: transparent;
 `;
@@ -107,6 +109,8 @@ const BarElement = styled.div<BarElementProps>`
   width: 100%;
   user-select: none;
   height: 2px;
+  transform: translate3d(0, 0, 0);
+  transform-style: preserve-3d;
   background: ${props => (props.iconColor ? props.iconColor : `black`)};
   transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
   &.center {
