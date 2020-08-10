@@ -100,8 +100,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-s3`,
       options: {
-        hostName: `https://www.jesusgarnica.com`,
         bucketName: `${process.env.S3_BUCKET_NAME}`,
+        acl: null,
       },
     },
     {
