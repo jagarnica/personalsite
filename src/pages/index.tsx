@@ -58,10 +58,7 @@ function PageContents() {
 const IndexPage: React.ReactNode = () => {
   return (
     <Layout>
-      <SEO
-        title="Home"
-        description="Home page of Jesus Garnica's personal website."
-      />
+      <SEO title="Home" description="Welcome to the home page of my website." />
       <PageContents />
     </Layout>
   );

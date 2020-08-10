@@ -38,7 +38,10 @@ function PageContent() {
 const ResumePage: React.ReactNode = () => {
   return (
     <Layout>
-      <SEO title="Resume" />
+      <SEO
+        title="Resume"
+        description="Download an easy to print version of my resume!"
+      />
       <PageContent />
     </Layout>
   );
