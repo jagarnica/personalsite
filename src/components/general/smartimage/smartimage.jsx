@@ -17,8 +17,7 @@ const PlaceholderImg = props => {
   return <Layout {...props} />;
 };
 class SmartImg extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
     this.state = {
       imageError: false,
       isLoaded: false,

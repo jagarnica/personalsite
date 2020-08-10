@@ -26,7 +26,7 @@ function PageContent() {
         Resume
       </PageLabel>
       <p>
-        Need a printer friendly summary of my professional history? My resume is
+        Need a printer-friendly summary of my professional history? My resume is
         just a click away below.
       </p>
       <a href={resumeLink} target="_blank" rel="noreferrer" download>
@@ -35,7 +35,7 @@ function PageContent() {
     </>
   );
 }
-const ResumePage: React.FC = () => {
+const ResumePage: React.ReactNode = () => {
   return (
     <Layout>
       <SEO title="Resume" />

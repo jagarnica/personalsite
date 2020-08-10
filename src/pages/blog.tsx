@@ -17,9 +17,12 @@ function PageContent() {
     </>
   );
 }
-const ComingSoonPage: React.FC = () => (
+const ComingSoonPage: React.ReactNode = () => (
   <Layout>
-    <SEO title="Tech Blog" />
+    <SEO
+      title="Tech Blog"
+      description="The unfocused tech posts from Jesus Garnica"
+    />
     <PageContent />
   </Layout>
 );

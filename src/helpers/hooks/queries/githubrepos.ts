@@ -1,5 +1,12 @@
 import { useStaticQuery, graphql } from "gatsby";
 import { GitHubRepo } from "githubquery";
+type githubRepoQuery = {
+  id: string;
+  name: string;
+  description: string | null;
+  languages: [];
+  url: string;
+};
 /**
  * @name githubrepos This returns an array with the repos from github, they contain the name and url. This is a query so it could be
  * undefined if something goes wrong.
@@ -40,7 +47,7 @@ const GetRepoData = (): [GitHubRepo] => {
   );
 
   const response: [GitHubRepo] = github.user.itemShowcase.items.nodes.map(
-    repo => {
+    (repo: githubRepoQuery) => {
       const repoObject: GitHubRepo = {
         description: repo.description,
         name: repo.name,

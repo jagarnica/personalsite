@@ -2,14 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import { COLORS } from "styles/styles";
 import MTAIcon from "components/decorative/mtaicon/mtaicon";
-import GithubRepoData from "helpers/hooks/queries/githubrepos";
+import useGithubRepoData from "helpers/hooks/queries/githubrepos";
 interface GitHubRepoProps {
   margin?: string; // this should be typed in like a regular margin css property
   textColor?: string;
   backgroundColor?: string;
   accentColor?: string;
 }
-
+type GitLanguageObj = {
+  id: string;
+  name: string;
+  color: string;
+};
 const ProgrammingLanguageLogo: React.FC<{
   lang?: string;
 }> = ({ lang = "" }) => {
@@ -71,13 +75,28 @@ const ProgrammingLanguageLogo: React.FC<{
   );
 };
 
-const GithubRepoCards: React.FC<GitHubRepoProps> = ({
+const SwitchRepoName = function (
+  id: string | null,
+  name: string | null
+): string {
+  switch (id) {
+    case "MDEwOlJlcG9zaXRvcnkyNjg5OTg5NjM=":
+      return "Chess";
+    case "MDEwOlJlcG9zaXRvcnkyODQzNjMwMjA=":
+      return "Dónde";
+    case "MDEwOlJlcG9zaXRvcnkyNjY0NDM3NTE=":
+      return "PersonalSite";
+    default:
+      return name ? name : ``;
+  }
+};
+function GithubRepoCards({
   margin,
   textColor = "white",
   accentColor,
   backgroundColor = "black",
-}) => {
-  const data = GithubRepoData();
+}: GitHubRepoProps): React.ReactElement | null {
+  const data = useGithubRepoData();
 
   if (!data) {
     return null;
@@ -86,7 +105,7 @@ const GithubRepoCards: React.FC<GitHubRepoProps> = ({
     const languages = repo.languages.nodes;
     const url = repo.url ? repo.url : ``;
 
-    const languagesText = languages.map(lang => {
+    const languagesText = languages.map((lang: GitLanguageObj) => {
       const languageName: string = lang.name;
       const LogoFound = (
         <ProgrammingLanguageLogo key={lang.name} lang={languageName} />
@@ -94,6 +113,7 @@ const GithubRepoCards: React.FC<GitHubRepoProps> = ({
 
       return LogoFound;
     });
+    const nameToDisplay = SwitchRepoName(repo.id, repo.name);
     const keyName: string = repo.name ? repo.name : url;
     return (
       <ProjectCard
@@ -105,9 +125,10 @@ const GithubRepoCards: React.FC<GitHubRepoProps> = ({
       >
         <Title>
           <RepoLink href={url} target="_blank" rel="noopener">
-            {repo.name}
+            {nameToDisplay}
           </RepoLink>
         </Title>
+
         <LangaugesContainer>{languagesText}</LangaugesContainer>
         {repo.description ? (
           <DescriptionText>{repo.description}</DescriptionText>
@@ -117,8 +138,11 @@ const GithubRepoCards: React.FC<GitHubRepoProps> = ({
       </ProjectCard>
     );
   });
-  return cards;
-};
+  if (cards) {
+    return cards as React.ReactElement;
+  }
+  return null;
+}
 export default GithubRepoCards;
 
 const ProjectCard = styled.div<GitHubRepoProps>`

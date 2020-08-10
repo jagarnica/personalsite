@@ -1,23 +1,24 @@
 import React from "react";
+import SVGIcon from "types/svgicon";
 
-interface ExitButtonProps {
-  size?: number;
-  color?: string;
-}
-
-const ExitButton: React.FC<ExitButtonProps> = ({ color }) => {
+/**
+ * @name ExitButton
+ * @description Creates a small exit button svg.
+ * @param param0
+ */
+const ExitButton: SVGIcon = ({ fillColor }) => {
   return (
     <svg
       height="100px"
       width="100px"
-      fill={color}
+      fill={fillColor}
       viewBox="0 0 100 100"
       version="1.1"
       x="0px"
       y="0px"
     >
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-        <g fill={color}>
+        <g fill={fillColor}>
           <path d="M92.6414972,24.4178928 C95.7763212,21.2830688 95.7916784,16.1811919 92.6544084,13.0439219 L86.9560781,7.34559157 C83.8295113,4.21902477 78.7265079,4.21410211 75.5821072,7.35850278 L50,32.94061 L24.4178928,7.35850278 C21.2830688,4.22367883 16.1811919,4.20832157 13.0439219,7.34559157 L7.34559157,13.0439219 C4.21902477,16.1704887 4.21410211,21.2734921 7.35850278,24.4178928 L32.94061,50 L7.35850278,75.5821072 C4.22367883,78.7169312 4.20832157,83.8188081 7.34559157,86.9560781 L13.0439219,92.6544084 C16.1704887,95.7809752 21.2734921,95.7858979 24.4178928,92.6414972 L50,67.05939 L75.5821072,92.6414972 C78.7169312,95.7763212 83.8188081,95.7916784 86.9560781,92.6544084 L92.6544084,86.9560781 C95.7809752,83.8295113 95.7858979,78.7265079 92.6414972,75.5821072 L67.05939,50 L92.6414972,24.4178928 Z"></path>
         </g>
       </g>

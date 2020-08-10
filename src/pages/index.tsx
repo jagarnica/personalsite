@@ -21,19 +21,14 @@ function PageContents() {
           />
         </TypeEffectText>
         <p>
-          My name is Jesus Garnica, welcome to my website! I am a passionate
-          developer in the bay area.
+          My name is Jesús Garnica, welcome to my website! I am a passionate
+          frontend developer born and raised in the Bay Area.
         </p>
         <p>
-          I just graduated from San Francisco State University with a B.S. in
-          Computer Science. I have experience with a wide variety of
-          technologies.
-        </p>
-        <p>
-          If you would like to learn more about me just click below to get to my
-          about page. Also, feel free to take a look at my blog where I will be
-          soon be making posts about tech, hi-fi, vintage computers, and other
-          various subjects.
+          I have experience with a wide variety of technologies, both digital
+          and analog. Check out my About page to learn more about me, and check
+          back soon for new blog posts about tech, hi-fi, vintage computers, and
+          other subjects.
         </p>
         <HeroButton
           aria-label="Go To About Page"
@@ -54,7 +49,7 @@ function PageContents() {
             navigate("/blog/");
           }}
         >
-          Read About What I Am Up To
+          Read About What I’m Up To
         </HeroButton>
       </DetailsTextDiv>
     </FlexContainer>
@@ -63,7 +58,10 @@ function PageContents() {
 const IndexPage: React.ReactNode = () => {
   return (
     <Layout>
-      <SEO title="Home" />
+      <SEO
+        title="Home"
+        description="Home page of Jesus Garnica's personal website."
+      />
       <PageContents />
     </Layout>
   );

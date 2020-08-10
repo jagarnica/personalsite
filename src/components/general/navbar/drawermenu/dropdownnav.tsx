@@ -151,7 +151,7 @@ class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
                   style={{ width: this.props.width }}
                 >
                   <ExitButtonContainer tabIndex={2} onClick={this.onMaskClick}>
-                    <ExitButton color={this.props.exitButtonColor} />
+                    <ExitButton fillColor={this.props.exitButtonColor} />
                   </ExitButtonContainer>
                   {this.props.children}
                 </ModalContainer>
