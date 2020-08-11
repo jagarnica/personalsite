@@ -20,9 +20,9 @@ interface NavbarButtonProps {
  *
  */
 const NavbarButton: React.FC<NavbarButtonProps> = ({
-  width,
-  active,
-  height,
+  width = 32,
+  active = false,
+  height = 32,
   onClick,
   tabIndex = 1,
   iconColor,
@@ -31,8 +31,6 @@ const NavbarButton: React.FC<NavbarButtonProps> = ({
   if (active) {
     barClassName += "clicked";
   }
-  const iconHeight = height || 15;
-  const transformAmount = Math.round(iconHeight / 1.15384615385) / 2;
   return (
     <>
       <Container
@@ -46,21 +44,16 @@ const NavbarButton: React.FC<NavbarButtonProps> = ({
               }
         } // If there is an onClick func passed in, do it!
         width={width}
-        height={iconHeight}
+        height={height}
         iconColor={iconColor}
       >
-        <BarElement
-          iconColor={iconColor}
-          translateY={transformAmount}
-          className={"top " + barClassName}
-        />
+        <BarElement iconColor={iconColor} className={"top " + barClassName} />
         <BarElement
           iconColor={iconColor}
           className={"center " + barClassName}
         />
         <BarElement
           iconColor={iconColor}
-          translateY={transformAmount}
           className={"bottom " + barClassName}
         />
       </Container>
@@ -68,12 +61,10 @@ const NavbarButton: React.FC<NavbarButtonProps> = ({
   );
 };
 export default NavbarButton;
-NavbarButton.defaultProps = {
-  active: false,
-};
+
 interface ContainerProps {
-  width?: number;
-  height?: number;
+  width: number;
+  height: number;
   iconColor?: string;
 }
 interface BarElementProps {
@@ -84,17 +75,15 @@ interface BarElementProps {
 const Container = styled.div<
   React.HtmlHTMLAttributes<HTMLElement> & ContainerProps
 >`
-  width: ${props => (props.width ? props.width + `px` : `20px`)};
-  height: ${props => (props.height ? props.height + `px` : `15px`)};
+  width: ${props => props.width + `px`};
+  height: ${props => props.height + `px`};
+  padding: 4px;
   cursor: pointer;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  grid-template-columns: 100%;
-  flex-shrink: 0;
+  display: flex;
   transform: translate3d(0, 0, 0);
   transform-style: preserve-3d;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   outline: 1px solid transparent;
   &:focus {
@@ -106,7 +95,7 @@ const Container = styled.div<
   -webkit-tap-highlight-color: transparent;
 `;
 const BarElement = styled.div<BarElementProps>`
-  width: 100%;
+  width: 20px;
   user-select: none;
   height: 2px;
   transform: translate3d(0, 0, 0);
@@ -122,19 +111,19 @@ const BarElement = styled.div<BarElementProps>`
     opacity: 1;
   }
   &.bottom {
-    transform: translateY(0) rotate(0);
+    margin-top: 5px;
+    transform: none;
     &.clicked {
-      transform: ${props =>
-          props.translateY ? `translateY(-` + props.translateY + `px)` : ``}
-        rotate(135deg);
+      transform-origin: top left;
+      transform: translateX(-1px) rotate(-45deg);
     }
   }
   &.top {
-    transform: translateY(0) rotate(0);
+    transform: none;
+    margin-bottom: 5px;
     &.clicked {
-      transform: ${props =>
-          props.translateY ? `translateY(` + props.translateY + `px)` : ``}
-        rotate(-135deg);
+      transform-origin: top left;
+      transform: rotate(45deg);
     }
   }
 `;
