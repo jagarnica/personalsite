@@ -27,7 +27,7 @@ function PageContent() {
       </PageLabel>
       <p>
         Need a printer-friendly summary of my professional history? My resume is
-        just a click away below.
+        just a click away.
       </p>
       <a href={resumeLink} target="_blank" rel="noreferrer" download>
         <HeroButton mainColor={resumePageAccent}>Get My Resume</HeroButton>
