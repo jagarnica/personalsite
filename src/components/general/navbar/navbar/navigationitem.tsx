@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "gatsby";
-import * as globalStyleConst from "styles/styles";
 
 interface Props {
   linkName: string; // This is the name of the link shown to the user
@@ -20,7 +19,6 @@ const NavbarItem: React.FC<Props> = ({ linkName, activeColor, pathName }) => {
       style={{
         borderColor: activeColor,
         background: activeColor,
-        color: globalStyleConst.COLORS.lightWhite,
         textDecoration: `none`,
       }}
       activeClassName="page_active"
@@ -41,6 +39,7 @@ const NavLinkDiv = styled(Link)`
   color: black;
   font-weight: 400;
   padding: 20px;
+  color: ${props => props.theme.colors.lightWhite};
   justify-content: center;
   align-items: center;
   display: flex;
@@ -49,7 +48,7 @@ const NavLinkDiv = styled(Link)`
   border: 4px solid;
   outline: none;
   text-transform: uppercase;
-  font-family: ${globalStyleConst.FONT_FAMILY};
+  font-family: ${props => props.theme.baseFontFamily};
   @media only screen and (max-device-width: 600px) {
     font-size: 2.1em;
   }

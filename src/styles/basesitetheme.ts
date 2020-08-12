@@ -1,5 +1,7 @@
 export default {
   colors: {
+    borderColor: `hsla(0,0%,9%,0.9)`,
+    primaryFontColor: `hsla(0,0%,9%,0.9)`,
     primaryColor: `hsl(1,85%,65%);`,
     lightWhite: `hsla(0, 0%, 100%, 0.8)`,
     darkGrey: `#2b2b2b`,
@@ -12,6 +14,7 @@ export default {
     siteBackground: `#f2efe9`,
     portfolioPageAccent: `#B388FF`,
   },
+
   fonts: [`Ibm Flex Sans`, `IBM Plex Mono`],
   baseFontFamily: `'Ibm Plex Sans',-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;`,
 };
