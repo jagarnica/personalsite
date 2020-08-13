@@ -9,7 +9,7 @@ type BlogPostItemQuery = {
     published: boolean | null;
   };
   fields: {
-    slug: string | null; // this can be null if the post is not published
+    slug: string; // this cannot be null because all published posts have a slug
   };
 };
 type BlogPostListItem = {
@@ -18,12 +18,18 @@ type BlogPostListItem = {
   date: string;
   labels: Array<string>;
   published: boolean;
-  slug: string | null;
+  slug: string;
 };
+/**
+ * @name useBlogPosts
+ * @description Will return an array of blogpostlistitems. Only items with the
+ * "published" key set to true will show up.
+ * be returned
+ */
 const useBlogPosts = (): Array<BlogPostListItem> => {
   const { allMarkdownRemark } = useStaticQuery(graphql`
     query {
-      allMarkdownRemark {
+      allMarkdownRemark(filter: { frontmatter: { published: { eq: true } } }) {
         nodes {
           frontmatter {
             title

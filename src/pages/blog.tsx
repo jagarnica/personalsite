@@ -10,7 +10,7 @@ import PageLabel from "components/general/pagelabel/pagelabel";
 function PageContent() {
   const blogPageAccent = useTheme().colors.blogPageAccent;
   const data = useBlogPosts();
-  console.log("data found", data);
+
   const listGenerated = data.map(post => {
     const dateObject = new Date(post.date);
     let dateString = ``;

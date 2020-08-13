@@ -25,6 +25,7 @@ module.exports = {
       options: {
         path: `${__dirname}/content/blog`,
         name: `blog`,
+        //ignore: [`**/\.*`], // ignore files starting with a dot
       },
     },
     {

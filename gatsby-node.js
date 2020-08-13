@@ -10,7 +10,6 @@ exports.createPages = async ({ graphql, actions }) => {
       {
         allMarkdownRemark(
           sort: { fields: [frontmatter___date], order: DESC }
-          filter: { frontmatter: { published: { ne: false } } }
           limit: 1000
         ) {
           edges {
@@ -34,13 +33,18 @@ exports.createPages = async ({ graphql, actions }) => {
   }
 
   // Create blog posts pages.
-  const posts = result.data.allMarkdownRemark.edges;
-
-  console.log("posts found and filtered", posts);
+  // Files that are not "published" will not get any pages created if it is a production
+  // enviroment.
+  let posts = result.data.allMarkdownRemark.edges;
+  // If we are in a development enviroment, create a page for it so
+  // we can preview it during development.
+  posts = posts.filter(
+    post =>
+      process.env.NODE_ENV === "development" || post.node.frontmatter.published
+  );
   posts.forEach((post, index) => {
     const previous = index === posts.length - 1 ? null : posts[index + 1].node;
     const next = index === 0 ? null : posts[index - 1].node;
-
     createPage({
       path: post.node.fields.slug,
       component: blogPost,
@@ -55,15 +59,11 @@ exports.createPages = async ({ graphql, actions }) => {
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
-
   if (node.internal.type === `MarkdownRemark`) {
     let value = null;
-    if (node.frontmatter.published === true) {
-      console.log("creating page...", node);
-      // we will only create that slug if it marked as 'published'
-      value = `blog` + createFilePath({ node, getNode });
-    } else {
-      console.error("Skipping this node...", node);
+    if (process.env.NODE_ENV === "development" || node.frontmatter.published) {
+      // we will only create that slug if it marked as 'published' or if we are in a development enviroment
+      value = `blog` + createFilePath({ node, getNode, basePath: `` });
     }
     createNodeField({
       name: `slug`,
