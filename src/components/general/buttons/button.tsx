@@ -1,7 +1,7 @@
 import React from "react";
 import ButtonType from "types/button";
 import styled from "styled-components";
-import { COLORS, FONT_FAMILY } from "styles/styles";
+import { COLORS } from "styles/styles";
 /**
  * @name Button This is general prestyled button that can be further customized.
  * @prop {string} margin Sets the margins around the button
@@ -49,7 +49,7 @@ const ButtonContainer = styled.button<ButtonContainerProps>`
   border-style: solid;
   width: ${props => props.width};
   border-radius: 0px;
-  font-family: ${FONT_FAMILY};
+  font-family: ${props => props.theme.baseFontFamily};
   margin: ${props => props.margin};
   background: ${props => props.mainColor};
   padding: ${props => props.padding};

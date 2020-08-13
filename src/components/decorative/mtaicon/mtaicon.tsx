@@ -51,7 +51,7 @@ const IconDiv = styled.div<{
   background: ${props => props.backgroundColor};
   width: ${props => props.size + `px`};
   height: ${props => props.size + `px`};
-  color: ${COLORS.siteBackground};
+  color: ${props => props.theme.colors.siteBackground};
   border-radius: 50%;
   text-transform: uppercase;
   display: inline-flex;
@@ -62,6 +62,6 @@ const IconDiv = styled.div<{
   align-items: center;
   padding: ${props => (props.padding ? props.padding : ``)};
   font-weight: 800;
-
+  font-family: ${props => props.theme.baseFontFamily};
   text-align: center;
 `;

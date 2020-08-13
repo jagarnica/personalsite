@@ -10,7 +10,7 @@ import { Link } from "gatsby";
 const NAV_BAR_LINKS = [
   new RoadLink("Home", globalStyles.COLORS.homePageAccent, "/"),
   new RoadLink("About", globalStyles.COLORS.aboutPageAccent, "/about/"),
-  new RoadLink("Blog", globalStyles.COLORS.blogPageAccent, "/blog/"),
+  new RoadLink("Blog", globalStyles.COLORS.blogPageAccent, "/blog/", true),
   new RoadLink("Resume", globalStyles.COLORS.resumePageAccent, "/resume/"),
 ];
 const Navbar: React.FC = () => {
@@ -22,6 +22,7 @@ const Navbar: React.FC = () => {
     return (
       <NavItem
         pathName={pathName}
+        partiallyActive={roadObj.partiallyActive}
         activeColor={activeColor}
         linkName={linkName}
         key={linkName}
@@ -60,17 +61,17 @@ const OuterContainer = styled.div`
   width: 100vw;
   max-width: 100%;
   border-bottom: 1px solid transparent;
-  color: ${globalStyles.COLORS.sevenBlack};
+  color: ${props => props.theme.colors.sevenBlack};
   background-color: rgba(255, 255, 255, 0);
   &.onScroll {
-    background-color: ${globalStyles.COLORS.siteBackground};
-    border-bottom: 1px solid ${globalStyles.COLORS.sevenBlack};
+    background-color: ${props => props.theme.colors.siteBackground};
+    border-bottom: 1px solid ${props => props.theme.colors.sevenBlack};
   }
 `;
 const NavbarContainer = styled.div`
   height: 69px;
   margin: 0 auto;
-  font-family: ${globalStyles.FONT_FAMILY};
+  font-family: ${props => props.theme.baseFontFamily};
   max-width: 960px;
   width: 100%;
   display: flex;

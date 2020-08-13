@@ -12,10 +12,17 @@ class RoadLink {
   name: string;
   activeColor: string;
   altPathName: string;
-  constructor(name: string, activeColor: string, altPathName?: string) {
+  partiallyActive: boolean;
+  constructor(
+    name: string,
+    activeColor: string,
+    altPathName?: string,
+    partiallyActive?: boolean
+  ) {
     this.name = name;
     this.activeColor = activeColor;
     this.altPathName = altPathName ? altPathName : name;
+    this.partiallyActive = partiallyActive || false;
   }
 
   getPathName(): string {
