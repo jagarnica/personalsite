@@ -6,13 +6,20 @@ interface Props {
   linkName: string; // This is the name of the link shown to the user
   activeColor: string; // This is color of the bottom of the bar when the tab is active
   pathName: string; // This is the pathname for the link
+  partiallyActive?: boolean;
 }
 /**
  * @param {string} linkName  This is the name shown to the use as the name of nav item.
  * @param {string} activeColor  This is the color shown to highlight that the tab is active
  * @param {string} pathName the path name should be different from the name, this can be set to change it.
+ * @param {string} partiallyActive Setting this true will set it to active even if the path is not exact
  */
-const NavbarItem: React.FC<Props> = ({ linkName, activeColor, pathName }) => {
+const NavbarItem: React.FC<Props> = ({
+  linkName,
+  activeColor,
+  pathName,
+  partiallyActive = false,
+}) => {
   return (
     <NavLinkDiv
       to={pathName}
@@ -22,6 +29,7 @@ const NavbarItem: React.FC<Props> = ({ linkName, activeColor, pathName }) => {
         textDecoration: `none`,
       }}
       activeClassName="page_active"
+      partiallyActive={partiallyActive}
       activeStyle={{
         background: `transparent`,
         color: activeColor,

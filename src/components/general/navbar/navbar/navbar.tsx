@@ -10,7 +10,7 @@ import { Link } from "gatsby";
 const NAV_BAR_LINKS = [
   new RoadLink("Home", globalStyles.COLORS.homePageAccent, "/"),
   new RoadLink("About", globalStyles.COLORS.aboutPageAccent, "/about/"),
-  new RoadLink("Blog", globalStyles.COLORS.blogPageAccent, "/blog/"),
+  new RoadLink("Blog", globalStyles.COLORS.blogPageAccent, "/blog/", true),
   new RoadLink("Resume", globalStyles.COLORS.resumePageAccent, "/resume/"),
 ];
 const Navbar: React.FC = () => {
@@ -22,6 +22,7 @@ const Navbar: React.FC = () => {
     return (
       <NavItem
         pathName={pathName}
+        partiallyActive={roadObj.partiallyActive}
         activeColor={activeColor}
         linkName={linkName}
         key={linkName}
