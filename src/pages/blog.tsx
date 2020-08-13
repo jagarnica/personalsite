@@ -39,7 +39,14 @@ function PageContent() {
       <PageLabel margin="0px 0px 20px 0px" accentColor={blogPageAccent}>
         Blog
       </PageLabel>
-      <BlogItemsList>{listGenerated}</BlogItemsList>
+      {listGenerated.length > 1 ? (
+        <BlogItemsList>{listGenerated}</BlogItemsList>
+      ) : (
+        <p>
+          Coming soon! Stay tuned for posts about tech, audio, hi-fi, and
+          programming.
+        </p>
+      )}
     </>
   );
 }
