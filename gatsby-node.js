@@ -10,6 +10,7 @@ exports.createPages = async ({ graphql, actions }) => {
       {
         allMarkdownRemark(
           sort: { fields: [frontmatter___date], order: DESC }
+          filter: { frontmatter: { published: { ne: false } } }
           limit: 1000
         ) {
           edges {
@@ -19,6 +20,7 @@ exports.createPages = async ({ graphql, actions }) => {
               }
               frontmatter {
                 title
+                published
               }
             }
           }
@@ -34,6 +36,7 @@ exports.createPages = async ({ graphql, actions }) => {
   // Create blog posts pages.
   const posts = result.data.allMarkdownRemark.edges;
 
+  console.log("posts found and filtered", posts);
   posts.forEach((post, index) => {
     const previous = index === posts.length - 1 ? null : posts[index + 1].node;
     const next = index === 0 ? null : posts[index - 1].node;
@@ -54,7 +57,14 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 
   if (node.internal.type === `MarkdownRemark`) {
-    const value = createFilePath({ node, getNode });
+    let value = null;
+    if (node.frontmatter.published === true) {
+      console.log("creating page...", node);
+      // we will only create that slug if it marked as 'published'
+      value = `blog` + createFilePath({ node, getNode });
+    } else {
+      console.error("Skipping this node...", node);
+    }
     createNodeField({
       name: `slug`,
       node,

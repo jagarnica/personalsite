@@ -9,7 +9,7 @@ type BlogPostItemQuery = {
     published: boolean | null;
   };
   fields: {
-    slug: string;
+    slug: string | null; // this can be null if the post is not published
   };
 };
 type BlogPostListItem = {
@@ -18,7 +18,7 @@ type BlogPostListItem = {
   date: string;
   labels: Array<string>;
   published: boolean;
-  slug: string;
+  slug: string | null;
 };
 const useBlogPosts = (): Array<BlogPostListItem> => {
   const { allMarkdownRemark } = useStaticQuery(graphql`
@@ -42,6 +42,7 @@ const useBlogPosts = (): Array<BlogPostListItem> => {
   const response: Array<BlogPostListItem> = allMarkdownRemark.nodes.map(
     (post: BlogPostItemQuery) => {
       const isPublished = post.frontmatter.published ? true : false;
+
       const BlogItem: BlogPostListItem = {
         title: post.frontmatter.title || ``,
         description: post.frontmatter.description || ``,
