@@ -20,7 +20,12 @@ function PageContent() {
       const year = dateObject.getFullYear();
       dateString = month + ` ` + day + `, ` + year;
     } else {
-      console.log("Date Generated", new Date(post.date).toJSON());
+      const testDate = new Date();
+      const day = testDate.getDate();
+      const month = getMonth(testDate.getMonth());
+      const year = testDate.getFullYear();
+      dateString = month + ` ` + day + `, ` + year;
+      console.warn("Date Auto Generated", testDate.toJSON());
     }
     return post.published ? (
       <BlogPostPreview
@@ -34,12 +39,13 @@ function PageContent() {
       />
     ) : null;
   });
+
   return (
     <>
       <PageLabel margin="0px 0px 20px 0px" accentColor={blogPageAccent}>
         Blog
       </PageLabel>
-      {listGenerated.length > 1 ? (
+      {listGenerated.length > 0 ? (
         <BlogItemsList>{listGenerated}</BlogItemsList>
       ) : (
         <p>
