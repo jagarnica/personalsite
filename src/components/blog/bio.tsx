@@ -26,13 +26,15 @@ const AboutImage = () => {
 function Bio(): React.ReactElement {
   return (
     <BioContainer>
-      <Link to="/">
+      <Link to="/about/">
         <AboutImage />
       </Link>
       <DetailsFlex>
-        <h3 style={{ fontSize: `1.1em`, marginBottom: `5px` }}>
-          Jesus Garnica
-        </h3>
+        <Link to="/about/" style={{ textDecoration: `none`, color: `inherit` }}>
+          <h3 style={{ fontSize: `1.1em`, marginBottom: `5px` }}>
+            Jesus Garnica
+          </h3>
+        </Link>
         <p>
           I am a software developer in Silicon Valley passionate about good
           engineering, great code, and amazing coffee (of course).
