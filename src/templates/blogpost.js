@@ -4,12 +4,13 @@ import Bio from "../components/blog/bio";
 import styled from "styled-components";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
+import { MDXRenderer } from "gatsby-plugin-mdx";
 import PostLabel from "../components/blog/posttag";
 const BlogPostTemplate = ({ data, pageContext, location }) => {
-  const post = data.markdownRemark;
+  const post = data.mdx;
   const siteTitle = data.site.siteMetadata.title;
   const { previous, next } = pageContext;
-  const tags = post.frontmatter.tags || [];
+  const tags = post.frontmatter.tags;
   const TagsGenerated = tags.map(tag => {
     return <PostLabel key={tag} labelName={tag} />;
   });
@@ -32,7 +33,9 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           </p>
           <TagsContainer>{TagsGenerated}</TagsContainer>
         </header>
-        <section dangerouslySetInnerHTML={{ __html: post.html }} />
+        <section>
+          <MDXRenderer>{post.body}</MDXRenderer>
+        </section>
         <hr />
         <footer>
           <span>
@@ -86,10 +89,10 @@ export const pageQuery = graphql`
         title
       }
     }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+    mdx(fields: { slug: { eq: $slug } }) {
       id
       excerpt(pruneLength: 160)
-      html
+      body
       frontmatter {
         title
         tags

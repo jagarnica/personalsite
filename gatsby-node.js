@@ -8,7 +8,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const result = await graphql(
     `
       {
-        allMarkdownRemark(
+        allMdx(
           sort: { fields: [frontmatter___date], order: DESC }
           limit: 1000
         ) {
@@ -35,7 +35,7 @@ exports.createPages = async ({ graphql, actions }) => {
   // Create blog posts pages.
   // Files that are not "published" will not get any pages created if it is a production
   // enviroment.
-  let posts = result.data.allMarkdownRemark.edges;
+  let posts = result.data.allMdx.edges;
   // If we are in a development enviroment, create a page for it so
   // we can preview it during development.
   posts = posts.filter(
@@ -59,7 +59,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
-  if (node.internal.type === `MarkdownRemark`) {
+  if (node.internal.type === `Mdx`) {
     let value = null;
     if (process.env.NODE_ENV === "development" || node.frontmatter.published) {
       // we will only create that slug if it marked as 'published' or if we are in a development enviroment
