@@ -27,9 +27,9 @@ type BlogPostListItem = {
  * be returned
  */
 const useBlogPosts = (): Array<BlogPostListItem> => {
-  const { allMarkdownRemark } = useStaticQuery(graphql`
+  const { allMdx } = useStaticQuery(graphql`
     query {
-      allMarkdownRemark(filter: { frontmatter: { published: { eq: true } } }) {
+      allMdx(filter: { frontmatter: { published: { eq: true } } }) {
         nodes {
           frontmatter {
             title
@@ -45,7 +45,7 @@ const useBlogPosts = (): Array<BlogPostListItem> => {
       }
     }
   `);
-  const response: Array<BlogPostListItem> = allMarkdownRemark.nodes.map(
+  const response: Array<BlogPostListItem> = allMdx.nodes.map(
     (post: BlogPostItemQuery) => {
       const isPublished = post.frontmatter.published ? true : false;
 
