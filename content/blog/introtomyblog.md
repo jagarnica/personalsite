@@ -1,6 +1,6 @@
 ---
 title: Intro
-labels: ["Misc"]
+tags: ["Misc"]
 date: "2020-08-13T21:36:04.471Z"
 description: "What is this blog about? What will it be covering?"
 published: true

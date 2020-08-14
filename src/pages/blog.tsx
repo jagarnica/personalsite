@@ -31,7 +31,7 @@ function PageContent() {
       <BlogPostPreview
         key={post.slug + post.title}
         postUrl={post.slug}
-        labels={post.labels}
+        tags={post.tags}
         accentColor={blogPageAccent}
         title={post.title}
         description={post.description}

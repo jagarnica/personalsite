@@ -5,7 +5,7 @@ type BlogPostItemQuery = {
     title: string | null;
     description: string | null;
     date: string | null;
-    labels: Array<string> | null;
+    tags: Array<string> | null;
     published: boolean | null;
   };
   fields: {
@@ -16,7 +16,7 @@ type BlogPostListItem = {
   title: string;
   description: string;
   date: string;
-  labels: Array<string>;
+  tags: Array<string>;
   published: boolean;
   slug: string;
 };
@@ -35,7 +35,7 @@ const useBlogPosts = (): Array<BlogPostListItem> => {
             title
             description
             date
-            labels
+            tags
             published
           }
           fields {
@@ -53,7 +53,7 @@ const useBlogPosts = (): Array<BlogPostListItem> => {
         title: post.frontmatter.title || ``,
         description: post.frontmatter.description || ``,
         date: post.frontmatter.date || ``,
-        labels: post.frontmatter.labels || [],
+        tags: post.frontmatter.tags || [],
         published: isPublished,
         slug: post.fields.slug,
       };
