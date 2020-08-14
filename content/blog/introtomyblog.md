@@ -1,6 +1,6 @@
 ---
 title: Intro
-labels: ["Misc"]
+tags: ["Misc"]
 date: "2020-08-13T21:36:04.471Z"
 description: "What is this blog about? What will it be covering?"
 published: true
@@ -8,8 +8,8 @@ published: true
 
 ### Welcome!
 
-Finally, I have my first blog post up! I do not have exactly a degree in writing but despite that, I will take the risk of creating indecipherable scribbles and post about a variety of topics. I created this blog intending to discuss code, computing, and startups. I also will be covering some less Silicon Valley-esque things I am passionate about such as Hi-fi equipment, tech restorations, and coffee as well.
+Finally, I have my first blog post up! I don’t exactly have a degree in writing, but despite that, I’m taking the plunge into creating posts and indecipherable scribbles about a variety of topics. I created this blog with the intention of discussing code, computing, and startups. I will also cover some less blatantly Silicon Valley-esque things I’m passionate about such as hi-fi equipment, vintage tech restorations, and coffee.
 
-To make it less confusing on my readers (well all two of you for now), I've added tags to each post so you can know what to expect without even reading the title or description. I will add a way to sort them later down the line as well.
+To make it less confusing for my readers (welcome to the both of you, not sure how you got here, but hello!), I’ve added subject tags to each post so you can know what to expect. I’m working on a way for you to sort by subject, so keep an eye out for that.
 
-I should have my first **real** post soon so stick around!
+I should have my first **real** post up soon, so stick around!

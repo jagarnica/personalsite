@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { navigate } from "gatsby";
-
+import PostTag from "./posttag";
 interface BlogPostPreviewProps {
   title: string;
   description?: string;
   date: string;
-  labels: Array<string>;
+  tags: Array<string>;
   accentColor: string;
   postUrl: string;
 }
@@ -16,7 +16,7 @@ interface BlogPostPreviewProps {
  * @prop {string} title
  * @prop {string} description
  * @prop {string} date
- * @prop {string[]} labels
+ * @prop {string[]} tags
  * @prop {string} postUrl
  * @prop {string} accentColor
  * @returns React.ReactElement
@@ -25,7 +25,7 @@ function BlogPostPreview({
   title,
   description = "",
   date,
-  labels,
+  tags,
   postUrl,
   accentColor,
 }: BlogPostPreviewProps): React.ReactElement {
@@ -36,26 +36,34 @@ function BlogPostPreview({
     event.stopPropagation();
     navigate(postUrl);
   }
-  const labelsGen = labels.map(labelName => {
-    return <LabelText key={labelName}>{labelName}</LabelText>;
+  const labelsGen = tags.map(tag => {
+    return <PostTag labelName={tag} key={tag} />;
   });
   return (
     <PreviewItemContainer accentColor={accentColor}>
       <AccentColorBar accentColor={accentColor} />
       <ContentContainer>
         <TitleDisplay onClick={handleUserLinkClick}>{title}</TitleDisplay>
-        <LabelsContainer>{labelsGen}</LabelsContainer>
-        <DateText>{date}</DateText>
-        <DescriptionText>{description}</DescriptionText>
+        <InnerContentContainer onClick={handleUserLinkClick}>
+          <LabelsContainer>{labelsGen}</LabelsContainer>
+          <DateText>{date}</DateText>
+          <DescriptionText>{description}</DescriptionText>
+        </InnerContentContainer>
       </ContentContainer>
     </PreviewItemContainer>
   );
 }
 export default BlogPostPreview;
+const InnerContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  cursor: pointer;
+`;
 const PreviewItemContainer = styled.div<{ accentColor: string }>`
   overflow: hidden;
   height: 100%;
-  cursor: default;
+
   border-radius: 0px;
   color: ${props =>
     props.theme.colors.primaryFontColor
@@ -86,14 +94,12 @@ const ContentContainer = styled.div`
         ? props.theme.colors.borderColor
         : `transparent`};
   border-top: 0px;
-  * {
-    padding: 10px;
-  }
 `;
 const TitleDisplay = styled.div`
   font-size: 1.3em;
   display: flex;
   cursor: pointer;
+  padding: 10px;
   background: ${props => props.theme.colors.sevenBlack};
   color: ${props => props.theme.colors.siteBackground};
   font-weight: bold;
@@ -104,24 +110,16 @@ const DescriptionText = styled.div`
 `;
 const DateText = styled.div`
   font-weight: bold;
-  padding-bottom: 0px;
+  margin-bottom: 0.45rem;
 `;
 const LabelsContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-content: center;
-  padding-bottom: 0px;
+  margin-bottom: 0.45rem;
+
   * {
-    margin-right: 5px;
+    margin-right: 0.4rem;
   }
-`;
-const LabelText = styled.div`
-  font-weight: bolder;
-  background: ${props => props.theme.colors.blogPageAccent};
-  color: ${props => props.theme.colors.siteBackground};
-  padding: 4px 8px;
-  margin-bottom: 0px;
-  text-align: center;
-  display: block;
 `;

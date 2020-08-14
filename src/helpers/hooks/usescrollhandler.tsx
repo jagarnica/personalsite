@@ -8,7 +8,7 @@ import { debounce } from "lodash";
  * @param {number} scrollThreshold This sets at which points it returns true.
  * @returns {boolean}
  */
-export default (scrollThreshold = 60): boolean => {
+export default (scrollThreshold = 10): boolean => {
   // setting initial value to true
   const [scroll, setScroll] = useState(false);
 

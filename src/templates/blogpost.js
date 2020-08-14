@@ -1,14 +1,18 @@
 import React from "react";
 import { Link, graphql } from "gatsby";
 import Bio from "../components/blog/bio";
+import styled from "styled-components";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
-
+import PostLabel from "../components/blog/posttag";
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark;
   const siteTitle = data.site.siteMetadata.title;
   const { previous, next } = pageContext;
-
+  const tags = post.frontmatter.tags || [];
+  const TagsGenerated = tags.map(tag => {
+    return <PostLabel key={tag} labelName={tag} />;
+  });
   return (
     <Layout location={location} title={siteTitle}>
       <SEO
@@ -17,23 +21,19 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
       />
       <article>
         <header>
-          <h1
-            style={{
-              marginBottom: 0,
-            }}
-          >
-            {post.frontmatter.title}
-          </h1>
+          <h1 style={{ marginBottom: `0.5rem` }}>{post.frontmatter.title}</h1>
           <p
             style={{
               display: `block`,
+              marginBottom: `0.5rem`,
             }}
           >
             {post.frontmatter.date}
           </p>
+          <TagsContainer>{TagsGenerated}</TagsContainer>
         </header>
         <section dangerouslySetInnerHTML={{ __html: post.html }} />
-        <hr style={{}} />
+        <hr />
         <footer>
           <span>
             <Bio />
@@ -72,7 +72,13 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 };
 
 export default BlogPostTemplate;
-
+const TagsContainer = styled.div`
+  display: flex;
+  margin-bottom: 1.45rem;
+  * {
+    margin-right: 0.4rem;
+  }
+`;
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!) {
     site {
@@ -86,6 +92,7 @@ export const pageQuery = graphql`
       html
       frontmatter {
         title
+        tags
         date(formatString: "MMMM DD, YYYY")
         description
       }

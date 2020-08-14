@@ -43,7 +43,7 @@ function PageContents() {
         <HeroButton
           aria-label="Go To Blog"
           mainColor={homePageAccent}
-          margin={"20px 0px"}
+          margin={"20px 0px 0px 0px"}
           onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             event.preventDefault();
             navigate("/blog/");
