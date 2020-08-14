@@ -19,7 +19,7 @@ export default function PostTag({
 }: LabelProps): React.ReactElement {
   return (
     <LabelText
-      onClick={event => {
+      onClick={(event: React.MouseEvent) => {
         event.preventDefault();
         event.stopPropagation();
         // Do nothing for now.
