@@ -37,7 +37,7 @@ function Bio(): React.ReactElement {
         </Link>
         <p>
           I am a software developer in Silicon Valley passionate about good
-          engineering, great code, and amazing coffee (of course).
+          engineering, great code, and amazing coffee.
         </p>
       </DetailsFlex>
     </BioContainer>

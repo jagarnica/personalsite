@@ -10,7 +10,8 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.mdx;
   const siteTitle = data.site.siteMetadata.title;
   const { previous, next } = pageContext;
-  const tags = post.frontmatter.tags;
+  let tags = post.frontmatter.tags;
+
   const TagsGenerated = tags.map(tag => {
     return <PostLabel key={tag} labelName={tag} />;
   });
@@ -33,9 +34,9 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           </p>
           <TagsContainer>{TagsGenerated}</TagsContainer>
         </header>
-        <section>
+        <StyledSection>
           <MDXRenderer>{post.body}</MDXRenderer>
-        </section>
+        </StyledSection>
         <hr />
         <footer>
           <span>
@@ -56,14 +57,14 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         >
           <li>
             {previous && (
-              <Link to={previous.fields.slug} rel="prev">
+              <Link to={`/` + previous.fields.slug} rel="prev">
                 ← {previous.frontmatter.title}
               </Link>
             )}
           </li>
           <li>
             {next && (
-              <Link to={next.fields.slug} rel="next">
+              <Link to={`/` + next.fields.slug} rel="next">
                 {next.frontmatter.title} →
               </Link>
             )}
@@ -75,6 +76,11 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 };
 
 export default BlogPostTemplate;
+const StyledSection = styled.section`
+  * pre {
+    margin-bottom: 1.45rem;
+  }
+`;
 const TagsContainer = styled.div`
   display: flex;
   margin-bottom: 1.45rem;
