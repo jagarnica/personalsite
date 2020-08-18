@@ -12,20 +12,16 @@ function PageContent() {
   const data = useBlogPosts();
 
   const listGenerated = data.map(post => {
-    const dateObject = new Date(post.date);
     let dateString = ``;
-    if (dateObject.toString() !== "Invalid Date") {
-      const day = dateObject.getDate();
-      const month = getMonth(dateObject.getMonth());
-      const year = dateObject.getFullYear();
-      dateString = month + ` ` + day + `, ` + year;
-    } else {
+    if (!post.date) {
       const testDate = new Date();
       const day = testDate.getDate();
       const month = getMonth(testDate.getMonth());
       const year = testDate.getFullYear();
       dateString = month + ` ` + day + `, ` + year;
       console.warn("Date Auto Generated", testDate.toJSON());
+    } else {
+      dateString = post.date;
     }
     return post.published ? (
       <BlogPostPreview

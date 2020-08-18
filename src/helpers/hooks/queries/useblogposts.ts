@@ -4,7 +4,7 @@ type BlogPostItemQuery = {
   frontmatter: {
     title: string | null;
     description: string | null;
-    date: string | null;
+    date: string | null | `Invalid date`;
     tags: Array<string> | null;
     published: boolean | null;
   };
@@ -15,7 +15,7 @@ type BlogPostItemQuery = {
 type BlogPostListItem = {
   title: string;
   description: string;
-  date: string;
+  date: string | null;
   tags: Array<string>;
   published: boolean;
   slug: string;
@@ -29,12 +29,15 @@ type BlogPostListItem = {
 const useBlogPosts = (): Array<BlogPostListItem> => {
   const { allMdx } = useStaticQuery(graphql`
     query {
-      allMdx(filter: { frontmatter: { published: { eq: true } } }) {
+      allMdx(
+        filter: { frontmatter: { published: { eq: true } } }
+        sort: { fields: frontmatter___date, order: DESC }
+      ) {
         nodes {
           frontmatter {
             title
             description
-            date
+            date(formatString: "MMMM DD, YYYY")
             tags
             published
           }
@@ -48,11 +51,14 @@ const useBlogPosts = (): Array<BlogPostListItem> => {
   const response: Array<BlogPostListItem> = allMdx.nodes.map(
     (post: BlogPostItemQuery) => {
       const isPublished = post.frontmatter.published ? true : false;
-
+      const date =
+        post.frontmatter.date && post.frontmatter.date !== `Invalid date`
+          ? post.frontmatter.date
+          : null;
       const BlogItem: BlogPostListItem = {
         title: post.frontmatter.title || ``,
         description: post.frontmatter.description || ``,
-        date: post.frontmatter.date || ``,
+        date,
         tags: post.frontmatter.tags || [],
         published: isPublished,
         slug: post.fields.slug,
