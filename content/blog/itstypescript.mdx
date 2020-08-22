@@ -86,6 +86,7 @@ Mine looks like this for reference:
     "isolatedModules": true,
     "esModuleInterop": true,
     "noUnusedLocals": false, // done due to compatibility with babel
+    "baseUrl": "./src", // done to get absolute paths working in vscode.
     "paths": {
       "_": ["types/_", "*"]
     }
@@ -128,14 +129,14 @@ tried to use TSLint at first but it is no longer maintained. You can install
 ESLint by running the following:
 
 ```bash
-npm install --save-dev gatsby-plugin-eslint
-npm install --save-dev eslint eslint-loader
+npm install --save-dev gatsby-plugin-eslint eslint eslint-loader
+npm install --save-dev prettier eslint-config-prettier eslint-plugin-prettier
 npm install --save-dev @typescript-eslint/eslint-plugin @typescript-eslint/parser
 ```
 
 Of course, you can combine that into one big wombo command, but I broke it up
-for the sake of readability. Line 1) I installed the [ESLint GatsbyJS plugin](https://www.gatsbyjs.com/plugins/gatsby-plugin-eslint/). Line 2) I installed
-ESLint and eslint-loader. Line 3) I installed the necessary types. With TypeScript,
+for the sake of readability. Line 1) I installed the [ESLint GatsbyJS plugin](https://www.gatsbyjs.com/plugins/gatsby-plugin-eslint/), ESLint, and eslint-loader. Line 2) I installed
+prettier, eslint-config-prettier, and eslint-plugin-prettier. Line 3) I installed the necessary types. With TypeScript,
 sometimes the types for a package are installed separately. Usually that is what
 is happening if your code editor is yelling something along the lines of “could
 not find a declaration file for module ‘module name’!” at you.
@@ -244,8 +245,8 @@ and `type-check:watch` to my `package.json` file:
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "type-check": "tsc --noEmit", // add this!
-    "type-check:watch": "npm run type-check -- --watch", // add this too!
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
 },
 ```
 
