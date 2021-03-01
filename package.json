@@ -35,7 +35,7 @@
     "react-dom": "^16.13.1",
     "react-helmet": "^6.0.0",
     "styled-components": "^5.1.1",
-    "three": "^0.117.0"
+    "three": "^0.125.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
