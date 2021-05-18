@@ -39,11 +39,8 @@ function PageContent() {
 
   const githubProfileLink = siteQuery.github;
   const linkedInProfileLink = siteQuery.linkedin;
-  const {
-    aboutPageAccent,
-    sevenBlack,
-    siteBackground,
-  } = useStyledTheme().colors;
+  const { aboutPageAccent, sevenBlack, siteBackground } =
+    useStyledTheme().colors;
 
   return (
     <>
