@@ -4,7 +4,6 @@ import useStyledTheme from "helpers/hooks/usestyledtheme";
 import Layout from "components/layout";
 import { useStaticQuery, graphql } from "gatsby";
 import PageLabel from "components/general/pagelabel/pagelabel";
-import Img from "gatsby-image";
 import MTAIcon from "components/decorative/mtaicon/mtaicon";
 import SocialMediaQuery from "helpers/hooks/queries/socialmedia";
 import SkillCard from "components/skillcard/skillcard";
@@ -13,24 +12,22 @@ import SEO from "components/seo";
 import SectionLabel from "components/general/sectionlabel/sectionlabel";
 import Projects from "components/landing/githubrepocards";
 import AspectRatioBox from "components/general/aspectratiobox/aspectratiobox";
+import { GatsbyImage } from "gatsby-plugin-image";
 const AboutImage = () => {
   const data = useStaticQuery(graphql`
     query {
       file(relativePath: { eq: "about_image_cropped.jpg" }) {
         childImageSharp {
-          fluid(maxWidth: 450, quality: 95) {
-            ...GatsbyImageSharpFluid
-          }
+          gatsbyImageData(placeholder: BLURRED)
         }
       }
     }
   `);
 
   return (
-    <PotraitImage
-      alt="self potrait"
-      backgroundColor={true}
-      fluid={data.file.childImageSharp.fluid}
+    <PortraitImage
+      alt="self portrait"
+      image={data.file.childImageSharp.gatsbyImageData}
     />
   );
 };
@@ -142,11 +139,11 @@ const AboutPage: React.ReactNode = () => {
         description="Hello, my name is Jesus Garnica and this is my about page!"
       />
       <FlexLayout>
-        <PotraitDiv>
+        <PortraitDiv>
           <AspectRatioBox width="100%" maxWidth="400px">
             <AboutImage />
           </AspectRatioBox>
-        </PotraitDiv>
+        </PortraitDiv>
         <PageContent />
       </FlexLayout>
     </Layout>
@@ -204,7 +201,7 @@ const StyledLink = styled.a`
   margin-right: 10px;
 `;
 
-const PotraitDiv = styled.div`
+const PortraitDiv = styled.div`
   margin: 0 auto;
   max-width: 100%;
   height: auto;
@@ -217,7 +214,7 @@ const PotraitDiv = styled.div`
   object-fit: contain;
 `;
 
-const PotraitImage = styled(Img)`
+const PortraitImage = styled(GatsbyImage)`
   border-style: solid;
   border: 1px;
   border-color: transparent;

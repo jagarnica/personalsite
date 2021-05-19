@@ -112,6 +112,7 @@ module.exports = {
         allExtensions: false,
       },
     },
+    "gatsby-plugin-image",
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
