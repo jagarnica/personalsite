@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { COLORS } from "styles/styles";
-interface MTAIconProp {
+export interface MTAIconProps {
   size?: number;
   text: string;
   margin?: string;
@@ -19,7 +19,7 @@ interface MTAIconProp {
  * @prop {string} fontSize Sets the size of the font.
  * @returns ReactNode
  */
-const MTAIcon: React.FC<MTAIconProp> = ({
+export const MTAIcon: React.FC<MTAIconProps> = ({
   size = 32,
   text = "",
   margin,
@@ -40,7 +40,6 @@ const MTAIcon: React.FC<MTAIconProp> = ({
     </IconDiv>
   );
 };
-export default MTAIcon;
 const IconDiv = styled.div<{
   backgroundColor: string;
   size: number;

@@ -5,7 +5,7 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React from "react";
+import * as React from "react";
 import { Helmet } from "react-helmet";
 import { useStaticQuery, graphql } from "gatsby";
 type nameMetaType = {
@@ -18,14 +18,14 @@ type propertyMetaType = {
   content: string;
   property: string;
 };
-interface SEOProps {
+export interface SEOProps {
   title: string;
   meta?: metaType[];
   description?: string;
   lang?: string;
 }
 type metaType = nameMetaType | propertyMetaType;
-function SEO({
+export function SEO({
   title,
   meta = [],
   description = ``,
@@ -91,4 +91,3 @@ function SEO({
     />
   );
 }
-export default SEO;

@@ -26,7 +26,7 @@ type BlogPostListItem = {
  * "published" key set to true will show up.
  * be returned
  */
-const useBlogPosts = (): Array<BlogPostListItem> => {
+export function useBlogPosts(): Array<BlogPostListItem> {
   const { allMdx } = useStaticQuery(graphql`
     query {
       allMdx(
@@ -68,5 +68,4 @@ const useBlogPosts = (): Array<BlogPostListItem> => {
   );
 
   return response;
-};
-export default useBlogPosts;
+}

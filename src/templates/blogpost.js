@@ -1,11 +1,10 @@
 import React from "react";
 import { Link, graphql } from "gatsby";
-import Bio from "../components/blog/bio";
+import { MiniBio as Bio, PostTag as PostLabel } from "../components/blog/";
 import styled from "styled-components";
-import Layout from "../components/layout";
-import SEO from "../components/seo";
+import { Layout } from "../components/layout";
+import { SEO } from "../components/seo";
 import { MDXRenderer } from "gatsby-plugin-mdx";
-import PostLabel from "../components/blog/posttag";
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.mdx;
   const siteTitle = data.site.siteMetadata.title;

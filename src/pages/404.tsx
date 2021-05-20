@@ -1,7 +1,7 @@
-import React from "react";
-import Layout from "../components/layout";
-import PageLabel from "components/general/pagelabel/pagelabel";
-import SEO from "../components/seo";
+import * as React from "react";
+import { Layout } from "../components/layout";
+import { PageLabel } from "components/general/pagelabel/";
+import { SEO } from "../components/seo/";
 import { navigate } from "gatsby";
 import { HeroButton } from "components/general/buttons/";
 import { COLORS } from "styles/styles";

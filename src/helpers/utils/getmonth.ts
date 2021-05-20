@@ -5,7 +5,7 @@
  * @param {number} monthNum
  * @return string | null
  */
-export default (monthNum: number): string | null => {
+export function getMonth(monthNum: number): string | null {
   switch (monthNum) {
     case 0:
       return "January";
@@ -34,4 +34,4 @@ export default (monthNum: number): string | null => {
     default:
       return null;
   }
-};
+}

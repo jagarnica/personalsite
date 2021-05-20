@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { debounce } from "lodash";
+import { throttle } from "lodash";
 
 /**
  * @name userScrollHandler
@@ -14,7 +14,7 @@ export default (scrollThreshold = 10): boolean => {
 
   // running on mount
   useEffect(() => {
-    const onScroll = debounce(() => {
+    const onScroll = throttle(() => {
       const scrollCheck = window.scrollY > scrollThreshold;
       if (scrollCheck !== scroll) {
         setScroll(scrollCheck);

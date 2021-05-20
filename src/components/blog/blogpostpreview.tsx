@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { navigate } from "gatsby";
-import PostTag from "./posttag";
-interface BlogPostPreviewProps {
+import { PostTag } from "./posttag";
+export interface BlogPostPreviewProps {
   title: string;
   description?: string;
   date: string;
@@ -21,7 +21,7 @@ interface BlogPostPreviewProps {
  * @prop {string} accentColor
  * @returns React.ReactElement
  */
-function BlogPostPreview({
+export function BlogPostPreview({
   title,
   description = "",
   date,
@@ -53,7 +53,7 @@ function BlogPostPreview({
     </PreviewItemContainer>
   );
 }
-export default BlogPostPreview;
+
 const InnerContentContainer = styled.div`
   display: flex;
   flex-direction: column;

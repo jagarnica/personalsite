@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { FONT_FAMILY } from "styles/styles";
-interface PageLabelProps {
+export interface PageLabelProps {
   accentColor: string;
   margin?: string;
 }
@@ -10,14 +10,17 @@ interface PageLabelProps {
  * @prop {string} accentColor Sets the accent color for the borders on the top and the bottom
  * @prop {ReactNode} children This sets the content inside of the block.
  */
-const Label: React.FC<PageLabelProps> = ({ children, accentColor, margin }) => {
+export const PageLabel: React.FC<PageLabelProps> = ({
+  children,
+  accentColor,
+  margin,
+}) => {
   return (
     <Container margin={margin} color={accentColor}>
       {children}
     </Container>
   );
 };
-export default Label;
 const Container = styled.div<{ color: string; margin?: string }>`
   flex: 1;
   display: flex;
