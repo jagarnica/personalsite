@@ -23,10 +23,11 @@ function PageContent() {
     } else {
       dateString = post.date;
     }
+
     return post.published ? (
       <BlogPostPreview
         key={post.slug + post.title}
-        postUrl={post.slug}
+        postUrl={`/${post.slug}`}
         tags={post.tags}
         accentColor={blogPageAccent}
         title={post.title}

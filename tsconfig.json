@@ -6,7 +6,7 @@
     "lib": ["dom", "esnext"],
     "strict": true,
     "noEmit": true,
-    "types": ["react"], // done to pass type check
+    "types": ["node","react"], // done to pass type check
     "isolatedModules": true,
     "esModuleInterop": true,
     "noUnusedLocals": false, // done due to compat with babel
