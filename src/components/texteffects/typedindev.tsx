@@ -13,7 +13,11 @@ interface Props {
  * @param {number} speed This a the number in terms of seconds between letters showing up.
  * @returns React Element
  */
-const TypedInDev: React.FC<Props> = ({ message, speed, cursorColor }) => {
+export const TypedInDev: React.FC<Props> = ({
+  message,
+  speed,
+  cursorColor,
+}) => {
   const [visibleCharacters, setVisibleCharacters] = useState(0);
   const speedFactor = speed * 1000; // we want to do this in terms of seconds
   const amountOfCharacters = message.split("").length;
@@ -49,7 +53,7 @@ TypedInDev.defaultProps = {
   speed: 0.1,
   cursorColor: `black`,
 };
-export default TypedInDev;
+
 const AppearAnimation = keyframes`
 0% { 
   opacity:0;

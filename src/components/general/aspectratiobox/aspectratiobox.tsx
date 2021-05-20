@@ -3,7 +3,7 @@ import styled from "styled-components";
 const aspectRatioPaddingNumber = function (x: number): number {
   return Math.fround((1 / x) * 100);
 };
-interface AspectRatioProps {
+export interface AspectRatioProps {
   width?: string;
   maxWidth?: string;
   className?: string;
@@ -22,7 +22,7 @@ interface AspectRatioProps {
  * @prop {React.ReactNode} children These are the items that will actually be displayed.
  * @prop {string} backgroundColor This set the background color for the container, the default is transparent
  */
-const AspectRatioBox: React.FC<AspectRatioProps> = ({
+export const AspectRatioBox: React.FC<AspectRatioProps> = ({
   width,
   maxWidth,
   aspectRatio = 1,
@@ -88,4 +88,3 @@ const ViewPortSizing = styled.div`
   align-content: center;
   align-items: center;
 `;
-export default AspectRatioBox;

@@ -3,7 +3,7 @@ import { SocialMedia } from "types/sitequery";
 /**
  * @name SocialMediaLinks Return the site metadata with social media links.
  */
-const SocialMediaLinks = (): SocialMedia => {
+export function useSocialMediaLinks(): SocialMedia {
   const { site } = useStaticQuery(graphql`
     query {
       site {
@@ -25,5 +25,4 @@ const SocialMediaLinks = (): SocialMedia => {
     github: githublink,
   };
   return response;
-};
-export default SocialMediaLinks;
+}

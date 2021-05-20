@@ -1,12 +1,12 @@
-import React from "react";
+import * as React from "react";
 import styled from "styled-components";
-import useBlogPosts from "helpers/hooks/queries/useblogposts";
-import Layout from "../components/layout";
-import getMonth from "helpers/utils/getmonth";
-import SEO from "../components/seo";
+import { useBlogPosts } from "helpers/hooks/queries/";
+import { Layout } from "../components/layout";
+import { getMonth } from "helpers/utils/";
+import { SEO } from "../components/seo/";
 import useTheme from "helpers/hooks/usestyledtheme";
-import BlogPostPreview from "components/blog/blogpostpreview";
-import PageLabel from "components/general/pagelabel/pagelabel";
+import { BlogPostPreview } from "components/blog/";
+import { PageLabel } from "components/general/pagelabel/";
 function PageContent() {
   const blogPageAccent = useTheme().colors.blogPageAccent;
   const data = useBlogPosts();

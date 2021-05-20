@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { COLORS } from "styles/styles";
-import MTAIcon from "components/decorative/mtaicon/mtaicon";
-import useGithubRepoData from "helpers/hooks/queries/githubrepos";
-interface GitHubRepoProps {
+import { MTAIcon } from "components/decorative/mtaicon/";
+import { useGitHubRepositories } from "helpers/hooks/queries/";
+export interface GitHubRepoProps {
   margin?: string; // this should be typed in like a regular margin css property
   textColor?: string;
   backgroundColor?: string;
@@ -90,13 +90,13 @@ const SwitchRepoName = function (
       return name ? name : ``;
   }
 };
-function GithubRepoCards({
+export function GithubRepoCards({
   margin,
   textColor = "white",
   accentColor,
   backgroundColor = "black",
 }: GitHubRepoProps): React.ReactElement | null {
-  const data = useGithubRepoData();
+  const data = useGitHubRepositories();
 
   if (!data) {
     return null;
@@ -143,7 +143,6 @@ function GithubRepoCards({
   }
   return null;
 }
-export default GithubRepoCards;
 
 const ProjectCard = styled.div<GitHubRepoProps>`
   overflow: hidden;

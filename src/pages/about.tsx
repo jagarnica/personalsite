@@ -1,17 +1,17 @@
-import React from "react";
+import * as React from "react";
 import styled from "styled-components";
 import useStyledTheme from "helpers/hooks/usestyledtheme";
-import Layout from "components/layout";
+import { Layout } from "components/layout";
 import { useStaticQuery, graphql } from "gatsby";
-import PageLabel from "components/general/pagelabel/pagelabel";
-import MTAIcon from "components/decorative/mtaicon/mtaicon";
-import SocialMediaQuery from "helpers/hooks/queries/socialmedia";
-import SkillCard from "components/skillcard/skillcard";
+import { PageLabel } from "components/general/pagelabel/";
+import { MTAIcon } from "components/decorative/mtaicon/";
+import { useSocialMediaLinks } from "helpers/hooks/queries/";
+import { SkillCard } from "components/skillcard/";
 import { COLORS } from "styles/styles";
-import SEO from "components/seo";
+import { SEO } from "components/seo/";
 import SectionLabel from "components/general/sectionlabel/sectionlabel";
-import Projects from "components/landing/githubrepocards";
-import AspectRatioBox from "components/general/aspectratiobox/aspectratiobox";
+import { GithubRepoCards } from "components/landing/githubrepocards";
+import { AspectRatioBox } from "components/general/aspectratiobox/";
 import { GatsbyImage } from "gatsby-plugin-image";
 const AboutImage = () => {
   const data = useStaticQuery(graphql`
@@ -32,7 +32,7 @@ const AboutImage = () => {
   );
 };
 function PageContent() {
-  const siteQuery = SocialMediaQuery();
+  const siteQuery = useSocialMediaLinks();
 
   const githubProfileLink = siteQuery.github;
   const linkedInProfileLink = siteQuery.linkedin;
@@ -96,7 +96,7 @@ function PageContent() {
       </SectionLabel>
 
       <ReposContainer>
-        <Projects
+        <GithubRepoCards
           textColor={sevenBlack}
           backgroundColor={siteBackground}
           accentColor={aboutPageAccent}

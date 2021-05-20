@@ -1,6 +1,6 @@
-import React from "react";
+import * as React from "react";
 import styled from "styled-components";
-interface LabelProps {
+export interface PostTagProps {
   labelName: string;
   labelColor?: string;
   textColor?: string;
@@ -12,11 +12,11 @@ interface LabelProps {
  * @prop {string} labelColor
  * @prop {string} textColor
  */
-export default function PostTag({
+export function PostTag({
   labelName,
   textColor,
   labelColor,
-}: LabelProps): React.ReactElement {
+}: PostTagProps): React.ReactElement {
   return (
     <LabelText
       onClick={(event: React.MouseEvent) => {

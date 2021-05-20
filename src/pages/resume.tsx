@@ -1,8 +1,8 @@
-import React from "react";
-import Layout from "../components/layout";
-import SEO from "../components/seo";
+import * as React from "react";
+import { Layout } from "../components/layout";
+import { SEO } from "../components/seo/";
 import { HeroButton } from "components/general/buttons/";
-import PageLabel from "components/general/pagelabel/pagelabel";
+import { PageLabel } from "components/general/pagelabel/";
 import { graphql, useStaticQuery } from "gatsby";
 import useTheme from "helpers/hooks/usestyledtheme";
 const resumeFile = () => {

@@ -1,12 +1,12 @@
-import React from "react";
+import * as React from "react";
 import { navigate } from "gatsby";
 import useTheme from "helpers/hooks/usestyledtheme";
 import styled from "styled-components";
-import TypedInEffect from "components/texteffects/typedindev";
-import Layout from "components/layout";
+import { TypedInDev } from "components/texteffects/";
+import { Layout } from "components/layout";
 import HeroButton from "../components/general/buttons/herobutton";
-import SEO from "components/seo";
-import PageLabel from "components/general/pagelabel/pagelabel";
+import { SEO } from "components/seo/";
+import { PageLabel } from "components/general/pagelabel/";
 function PageContents() {
   const homePageAccent = useTheme().colors.homePageAccent;
   return (
@@ -14,7 +14,7 @@ function PageContents() {
       <PageLabel accentColor={homePageAccent}>Hello and Welcome</PageLabel>
       <DetailsTextDiv>
         <TypeEffectText>
-          <TypedInEffect
+          <TypedInDev
             cursorColor={homePageAccent}
             speed={0.04}
             message="Developer For Hire."

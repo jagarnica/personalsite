@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-interface HeroContainerProps {
+export interface HeroContainerProps {
   minHeight?: number;
   heroBackground: React.ReactNode;
 }
 
-const HeroContainer: React.FC<HeroContainerProps> = ({
+export const HeroContainer: React.FC<HeroContainerProps> = ({
   children,
   minHeight,
   heroBackground,
@@ -20,8 +20,6 @@ const HeroContainer: React.FC<HeroContainerProps> = ({
     </>
   );
 };
-
-export default HeroContainer;
 
 const TextDiv = styled.div`
   position: relative;

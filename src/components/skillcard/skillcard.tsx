@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { COLORS } from "styles/styles";
-interface skillCardProps {
+export interface SkillCardProps {
   skill?: string;
   details?: string;
   margin?: string; // this should be typed in like a regular margin css property
@@ -17,12 +17,12 @@ interface skillCardProps {
  * @param {string} backgroundColor
  * @param {string} textColor
  */
-const SkillCard: React.FC<skillCardProps> = ({
-  skill,
-  details,
+export const SkillCard: React.FC<SkillCardProps> = ({
+  skill = "",
+  details = "",
   margin,
-  backgroundColor,
-  textColor,
+  backgroundColor = "black",
+  textColor = "white",
   accentColor,
 }) => {
   return (
@@ -37,15 +37,8 @@ const SkillCard: React.FC<skillCardProps> = ({
     </CardContainer>
   );
 };
-export default SkillCard;
-SkillCard.defaultProps = {
-  backgroundColor: `black`,
-  textColor: `white`,
-  skill: ``,
-  details: ``,
-};
 
-const CardContainer = styled.div<skillCardProps>`
+const CardContainer = styled.div<SkillCardProps>`
   height: auto;
   overflow: hidden;
   border: 1px solid ${COLORS.sevenBlack};

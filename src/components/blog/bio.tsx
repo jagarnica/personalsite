@@ -1,5 +1,5 @@
-import React from "react";
-import Img from "gatsby-image";
+import * as React from "react";
+import { GatsbyImage as Img } from "gatsby-plugin-image";
 import { useStaticQuery, graphql, Link } from "gatsby";
 import styled from "styled-components";
 const AboutImage = () => {
@@ -7,23 +7,24 @@ const AboutImage = () => {
     query {
       file(relativePath: { eq: "about_image_cropped.jpg" }) {
         childImageSharp {
-          fluid(maxWidth: 250, quality: 95) {
-            ...GatsbyImageSharpFluid
-          }
+          gatsbyImageData(width: 250, placeholder: BLURRED, quality: 95)
         }
       }
     }
   `);
 
   return (
-    <PotraitImage
-      alt="self potrait"
-      backgroundColor={true}
-      fluid={data.file.childImageSharp.fluid}
+    <PortraitImage
+      alt="self portrait"
+      image={data.file.childImageSharp.gatsbyImageData}
     />
   );
 };
-function Bio(): React.ReactElement {
+/**
+ * @description Displays a miniature bio with my portrait and blurb.
+ * @returns
+ */
+export function MiniBio(): React.ReactElement {
   return (
     <BioContainer>
       <Link to="/about/">
@@ -43,8 +44,7 @@ function Bio(): React.ReactElement {
     </BioContainer>
   );
 }
-export default Bio;
-const PotraitImage = styled(Img)`
+const PortraitImage = styled(Img)`
   border-style: solid;
   border: 1px;
   border-color: transparent;

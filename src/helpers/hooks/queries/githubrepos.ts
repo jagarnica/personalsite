@@ -11,7 +11,7 @@ type githubRepoQuery = {
  * @name githubrepos This returns an array with the repos from github, they contain the name and url. This is a query so it could be
  * undefined if something goes wrong.
  */
-const GetRepoData = (): [GitHubRepo] => {
+export function useGitHubRepositories(): [GitHubRepo] {
   const { github } = useStaticQuery(
     graphql`
       {
@@ -59,5 +59,4 @@ const GetRepoData = (): [GitHubRepo] => {
     }
   );
   return response;
-};
-export default GetRepoData;
+}

@@ -1,11 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Navbar from "./general/navbar";
+import * as React from "react";
+import Navbar from "../general/navbar";
 import styled, { ThemeProvider } from "styled-components";
 import BaseSiteTheme from "styles/basesitetheme";
 import "./layout.css";
 
-const Layout: React.FC = ({ children }) => {
+export const Layout: React.FC = ({ children }) => {
   return (
     <>
       <ThemeProvider theme={BaseSiteTheme}>
@@ -18,12 +17,6 @@ const Layout: React.FC = ({ children }) => {
     </>
   );
 };
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-export default Layout;
 
 const PageContainerDiv = styled.div`
   margin: 0 auto;
