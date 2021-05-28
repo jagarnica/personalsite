@@ -1,9 +1,13 @@
 ---
 title: It's Beauty, It's Grace, It's a TypeScript Codebase
-tags: ["Code", "Typescript", "GatbsyJS"]
-date: "2020-08-17T23:53:51.316Z"
-description: "I've spent my shelter in place learning to use TypeScript for my 
-GatsbyJS projects. Join the opulent TypeScript lifestyle and never look back."
+tags:
+  - Code
+  - Typescript
+  - GatbsyJS
+date: 2020-08-17T23:53:55.247Z
+description: I've spent my shelter in place learning to use TypeScript for
+  my  GatsbyJS projects. Join the opulent TypeScript lifestyle and never look
+  back.
 published: true
 ---
 
@@ -253,7 +257,7 @@ and `type-check:watch` to my `package.json` file:
 If you run `npm run type-check` it will let you know of any type errors you should fix.
 Running `npm run type-check` will continuously type check and listen for any file changes.
 
-![npm run type-check example](../assets/itstypescript/typecheckexample.png)
+![npm run type-check example](static/img/typecheckexample.png)
 
 That is all the setup needed! Now, ESLint will warn you of linter errors while
 running `gatsby develop` and `npm run type-check` does the type checking for you.
@@ -271,7 +275,7 @@ case where time spent is time saved. I did have my initial stumbles and had to
 learn how to use interfaces, types, and declaration files, but I wish that I had
 learned it earlier.
 
-![typescript prop checking](../assets/itstypescript/seotypescripterror.png)
+![typescript prop checking](static/img/seotypescripterror.png)
 
 Now, when working with React and TypeScript, I get these handy-dandy errors
 whenever I am missing a prop or have assigned the incorrect types in VSCode. I
