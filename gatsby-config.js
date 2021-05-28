@@ -113,6 +113,7 @@ module.exports = {
       },
     },
     "gatsby-plugin-image",
+    `gatsby-plugin-netlify-cms`,
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
