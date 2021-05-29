@@ -12,29 +12,23 @@ function PageContent() {
   const data = useBlogPosts();
 
   const listGenerated = data.map(post => {
-    let dateString = ``;
-    if (!post.date) {
-      const testDate = new Date();
-      const day = testDate.getDate();
-      const month = getMonth(testDate.getMonth());
-      const year = testDate.getFullYear();
-      dateString = month + ` ` + day + `, ` + year;
-      console.warn("Date Auto Generated", testDate.toJSON());
-    } else {
-      dateString = post.date;
-    }
-
-    return post.published ? (
+    if (!post || !post.published) return null;
+    const date = formatPostDate(post.date);
+    const { title, slug, description, tags } = post;
+    const bPostItem = {
+      postUrl: slug,
+      title,
+      description,
+      date,
+      tags,
+    };
+    return (
       <BlogPostPreview
-        key={post.slug + post.title}
-        postUrl={`/${post.slug}`}
-        tags={post.tags}
+        key={slug}
         accentColor={blogPageAccent}
-        title={post.title}
-        description={post.description}
-        date={dateString}
+        blogPost={bPostItem}
       />
-    ) : null;
+    );
   });
 
   return (
