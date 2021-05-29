@@ -7,15 +7,18 @@ backend:
 media_folder: static/img
 public_folder: /img
 site_url: http://localhost:8000/
+publish_mode: editorial_workflow
 
 collections:
-  - name: "Jesus Garnica's Blog"
+  - name: "PersonalSite"
     label: "Post"
     folder: "content/blog"
     create: true
     media_folder: ""
     public_folder: ""
+    slug: "index"
     path: "{{year}}-{{month}}-{{day}}/{{title}}"
+    preview_path: "blog/{{year}}-{{month}}-{{day}}/{{title}}"
     editor:
       preview: true
     fields:
