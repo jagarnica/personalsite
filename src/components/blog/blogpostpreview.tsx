@@ -6,7 +6,7 @@ type BlogPostDetails = {
   title: string;
   description?: string;
   tags: Array<string>;
-  postUrl: string;
+  slug: string;
   date: string;
 };
 
@@ -26,14 +26,15 @@ export function BlogPostPreview({
   accentColor = "#000",
   blogPost,
 }: BlogPostPreviewProps): React.ReactElement {
-  const { title, date, description, tags, postUrl } = blogPost;
+  const { title, date, description, tags, slug } = blogPost;
 
   function handleUserLinkClick(
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) {
+    console.log("navigating to", slug);
     event.preventDefault();
     event.stopPropagation();
-    navigate(postUrl);
+    navigate(`/${slug}`);
   }
 
   const labelsGen = tags.map(tag => {

@@ -2,7 +2,6 @@ import * as React from "react";
 import styled from "styled-components";
 import { useBlogPosts } from "helpers/hooks/queries/";
 import { Layout } from "../components/layout";
-import { getMonth } from "helpers/utils/";
 import { SEO } from "../components/seo/";
 import useTheme from "helpers/hooks/usestyledtheme";
 import { BlogPostPreview } from "components/blog/";
@@ -13,13 +12,13 @@ function PageContent() {
 
   const listGenerated = data.map(post => {
     if (!post || !post.published) return null;
-    const date = formatPostDate(post.date);
-    const { title, slug, description, tags } = post;
+
+    const { title, slug, description, tags, date: postDate } = post;
     const bPostItem = {
-      postUrl: slug,
+      slug,
       title,
       description,
-      date,
+      date: postDate || "",
       tags,
     };
     return (
