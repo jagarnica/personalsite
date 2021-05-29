@@ -1,5 +1,8 @@
 module.exports = {
   parser: "@typescript-eslint/parser", // Specifies the ESLint parser
+  globals: {
+    __PATH_PREFIX__: true,
+  },
   extends: [
     "eslint:recommended",
     "plugin:react/recommended",
