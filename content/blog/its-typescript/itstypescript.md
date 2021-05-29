@@ -10,7 +10,6 @@ description: I've spent my shelter in place learning to use TypeScript for
   back.
 published: true
 ---
-
 ### JavaScript: "11" + 1 = 111 and "11" - 1 = 10
 
 I have been working with GatsbyJS for a while now, utilizing it to quickly create
@@ -36,16 +35,16 @@ so we stuck to JS.
 For some of our team members, these web development projects were their first time using a split up codebase. Inexperience with collaborative development lead to libraries of React components with sparse documentation, causing constant back and forth debates about what a certain component was called or how it was supposed to be used:
 
 > "Where are the types?!"
-
+>
 > "What am I supposed to pass in to this component?"
-
+>
 > "Why is it crashing, does it need props?"
 
-This was my introduction to working with JS and React, and it was _chaos_. To make
+This was my introduction to working with JS and React, and it was *chaos*. To make
 sense of the madness, I learned to be strict about documenting every step, using
 type guards, creating warnings for incorrect parameter types, setting defaults
 everywhere, and implementing lots of try-catches. However, the human
-capacity for making truly _innovative_ type errors is unparalleled (especially when programming
+capacity for making truly *innovative* type errors is unparalleled (especially when programming
 at 3 AM with the fourth cup of coffee).
 
 Fast forward to this April, I figured that now was the time to take some time to
@@ -99,8 +98,6 @@ Mine looks like this for reference:
 }
 ```
 
-###
-
 ### Adding a TypeScript plugin to GatsbyJS
 
 To get started with TypeScript and GatsbyJS, a must-have plugin is
@@ -123,8 +120,6 @@ Then you can add the plugin to your `gatsby-config.js` file in the array of plug
   },
 },
 ```
-
-###
 
 ### Setting up the linter
 
@@ -257,7 +252,7 @@ and `type-check:watch` to my `package.json` file:
 If you run `npm run type-check` it will let you know of any type errors you should fix.
 Running `npm run type-check` will continuously type check and listen for any file changes.
 
-![npm run type-check example](static/img/typecheckexample.png)
+![npm run type-check example](typecheckexample.png)
 
 That is all the setup needed! Now, ESLint will warn you of linter errors while
 running `gatsby develop` and `npm run type-check` does the type checking for you.
@@ -275,7 +270,7 @@ case where time spent is time saved. I did have my initial stumbles and had to
 learn how to use interfaces, types, and declaration files, but I wish that I had
 learned it earlier.
 
-![typescript prop checking](static/img/seotypescripterror.png)
+![typescript prop checking](seotypescripterror.png)
 
 Now, when working with React and TypeScript, I get these handy-dandy errors
 whenever I am missing a prop or have assigned the incorrect types in VSCode. I
