@@ -13,7 +13,6 @@ collections:
     label: "Post"
     folder: "content/blog"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}/{{title}}"
     media_folder: ""
     public_folder: ""
     path: "{{year}}-{{month}}-{{day}}/{{title}}"
@@ -22,7 +21,12 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Tags", name: "tags", widget: "list", default: [] }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - {
+          label: "Publish Date",
+          name: "date",
+          widget: "datetime",
+          picker_utc: true,
+        }
       - { label: "Description", name: "description", widget: "string" }
       - { label: "Body", name: "body", widget: "markdown" }
       - { label: "Published", name: "published", widget: "boolean", false }
