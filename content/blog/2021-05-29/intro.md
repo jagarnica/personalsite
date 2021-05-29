@@ -2,7 +2,7 @@
 title: Intro
 tags:
   - Misc
-date: 2020-08-14T01:44:19.885Z
+date: 2020-08-13T01:44:19.885Z
 description: What is this blog about? What will it be covering?
 published: true
 ---
