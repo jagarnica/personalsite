@@ -1,12 +1,12 @@
 backend:
   name: github
   repo: jagarnica/personalsite
-  site_domain: cms.netlify.com
+  site_domain: www.jesusgarnica.com
   branch: master # Branch to update (optional; defaults to master)
 
 media_folder: static/img
 public_folder: /img
-site_url: http://localhost:8000/
+site_url: https://www.jesusgarnica.com/
 publish_mode: editorial_workflow
 
 collections:
