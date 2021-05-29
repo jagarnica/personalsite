@@ -2,12 +2,10 @@ import React from "react";
 import { Link, graphql } from "gatsby";
 import { MiniBio as Bio, PostTag as PostLabel } from "../components/blog/";
 import styled from "styled-components";
-import { Layout } from "../components/layout";
 import { SEO } from "../components/seo";
 import { MDXRenderer } from "gatsby-plugin-mdx";
-const BlogPostTemplate = ({ data, pageContext, location }) => {
+const BlogPostTemplate = ({ data, pageContext }) => {
   const post = data.mdx;
-  const siteTitle = data.site.siteMetadata.title;
   const { previous, next } = pageContext;
   let tags = post.frontmatter.tags;
 
@@ -15,7 +13,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
     return <PostLabel key={tag} labelName={tag} />;
   });
   return (
-    <Layout location={location} title={siteTitle}>
+    <>
       <SEO
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
@@ -70,7 +68,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           </li>
         </ul>
       </nav>
-    </Layout>
+    </>
   );
 };
 

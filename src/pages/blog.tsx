@@ -1,12 +1,11 @@
 import * as React from "react";
 import styled from "styled-components";
 import { useBlogPosts } from "helpers/hooks/queries/";
-import { Layout } from "../components/layout";
 import { SEO } from "../components/seo/";
 import useTheme from "helpers/hooks/usestyledtheme";
 import { BlogPostPreview } from "components/blog/";
 import { PageLabel } from "components/general/pagelabel/";
-function PageContent() {
+function BlogPageContent(): JSX.Element {
   const blogPageAccent = useTheme().colors.blogPageAccent;
   const data = useBlogPosts();
 
@@ -32,6 +31,10 @@ function PageContent() {
 
   return (
     <>
+      <SEO
+        title="Tech Blog"
+        description="The unfocused tech posts from Jesus Garnica"
+      />
       <PageLabel margin="0px 0px 20px 0px" accentColor={blogPageAccent}>
         Blog
       </PageLabel>
@@ -46,18 +49,10 @@ function PageContent() {
     </>
   );
 }
-const ComingSoonPage: React.ReactNode = () => (
-  <Layout>
-    <SEO
-      title="Tech Blog"
-      description="The unfocused tech posts from Jesus Garnica"
-    />
-    <PageContent />
-  </Layout>
-);
+
 const BlogItemsList = styled.div`
   display: grid;
   grid-gap: 20px 0px;
 `;
 
-export default ComingSoonPage;
+export default BlogPageContent;

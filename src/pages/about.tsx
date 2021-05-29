@@ -1,7 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
 import useStyledTheme from "helpers/hooks/usestyledtheme";
-import { Layout } from "components/layout";
 import { useStaticQuery, graphql } from "gatsby";
 import { PageLabel } from "components/general/pagelabel/";
 import { MTAIcon } from "components/decorative/mtaicon/";
@@ -133,7 +132,7 @@ function PageContent() {
 }
 const AboutPage: React.ReactNode = () => {
   return (
-    <Layout>
+    <>
       <SEO
         title="About"
         description="Hello, my name is Jesus Garnica and this is my about page!"
@@ -146,7 +145,7 @@ const AboutPage: React.ReactNode = () => {
         </PortraitDiv>
         <PageContent />
       </FlexLayout>
-    </Layout>
+    </>
   );
 };
 

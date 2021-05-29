@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Layout } from "../components/layout";
 import { SEO } from "../components/seo/";
 import { HeroButton } from "components/general/buttons/";
 import { PageLabel } from "components/general/pagelabel/";
@@ -16,12 +15,16 @@ const resumeFile = () => {
   `);
   return data;
 };
-function PageContent() {
+function ResumePageContent(): JSX.Element {
   const themeFound = useTheme();
   const resumePageAccent = themeFound.colors.resumePageAccent;
   const resumeLink = resumeFile().file.publicURL;
   return (
     <>
+      <SEO
+        title="Resume"
+        description="Download an easy to print version of my resume!"
+      />
       <PageLabel margin="0px 0px 20px 0px" accentColor={resumePageAccent}>
         Resume
       </PageLabel>
@@ -35,16 +38,5 @@ function PageContent() {
     </>
   );
 }
-const ResumePage: React.ReactNode = () => {
-  return (
-    <Layout>
-      <SEO
-        title="Resume"
-        description="Download an easy to print version of my resume!"
-      />
-      <PageContent />
-    </Layout>
-  );
-};
 
-export default ResumePage;
+export default ResumePageContent;

@@ -31,7 +31,6 @@ export function BlogPostPreview({
   function handleUserLinkClick(
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) {
-    console.log("navigating to", slug);
     event.preventDefault();
     event.stopPropagation();
     navigate(`/${slug}`);
