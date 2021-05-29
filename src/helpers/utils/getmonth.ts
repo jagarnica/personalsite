@@ -1,3 +1,6 @@
+interface IMonth {
+  [key: number]: string | undefined;
+}
 /**
  * @name getMonth
  * @description Returns the month as a string. Return null if the index is invalid.
@@ -6,32 +9,19 @@
  * @return string | null
  */
 export function getMonth(monthNum: number): string | null {
-  switch (monthNum) {
-    case 0:
-      return "January";
-    case 1:
-      return "February";
-    case 2:
-      return "March";
-    case 3:
-      return "April";
-    case 4:
-      return "May";
-    case 5:
-      return "June";
-    case 6:
-      return "July";
-    case 7:
-      return "August";
-    case 8:
-      return "September";
-    case 9:
-      return "October";
-    case 10:
-      return "November";
-    case 11:
-      return "December";
-    default:
-      return null;
-  }
+  const months: IMonth = {
+    0: "January",
+    1: "February",
+    2: "March",
+    3: "April",
+    4: "May",
+    5: "June",
+    6: "July",
+    7: "August",
+    8: "September",
+    9: "October",
+    10: "November",
+    11: "December",
+  };
+  return months[monthNum as keyof IMonth] || null;
 }
