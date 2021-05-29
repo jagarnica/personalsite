@@ -1,34 +1,33 @@
-import React from "react";
+import * as React from "react";
 import styled from "styled-components";
 import { navigate } from "gatsby";
 import { PostTag } from "./posttag";
-export interface BlogPostPreviewProps {
+type BlogPostDetails = {
   title: string;
   description?: string;
-  date: string;
   tags: Array<string>;
-  accentColor: string;
   postUrl: string;
+  date: string;
+};
+
+export interface BlogPostPreviewProps {
+  accentColor?: string;
+  blogPost: BlogPostDetails;
 }
 /**
  * @name BlogPostPreview
  * @description Displays a card preview of a blog post. All props are REQUIRED expect for the description.
- * @prop {string} title
- * @prop {string} description
- * @prop {string} date
- * @prop {string[]} tags
- * @prop {string} postUrl
- * @prop {string} accentColor
+ * @prop {string} accentColor Sets the color of the top border
+ * @prop {object} blogPost This is the object used to set the details, should have the
+ * following properties: title, description, date, tags, postUrl, accentColor
  * @returns React.ReactElement
  */
 export function BlogPostPreview({
-  title,
-  description = "",
-  date,
-  tags,
-  postUrl,
-  accentColor,
+  accentColor = "#000",
+  blogPost,
 }: BlogPostPreviewProps): React.ReactElement {
+  const { title, date, description, tags, postUrl } = blogPost;
+
   function handleUserLinkClick(
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) {
@@ -36,6 +35,7 @@ export function BlogPostPreview({
     event.stopPropagation();
     navigate(postUrl);
   }
+
   const labelsGen = tags.map(tag => {
     return <PostTag labelName={tag} key={tag} />;
   });
@@ -47,7 +47,7 @@ export function BlogPostPreview({
         <InnerContentContainer onClick={handleUserLinkClick}>
           <LabelsContainer>{labelsGen}</LabelsContainer>
           <DateText>{date}</DateText>
-          <DescriptionText>{description}</DescriptionText>
+          <DescriptionText>{description || ``}</DescriptionText>
         </InnerContentContainer>
       </ContentContainer>
     </PreviewItemContainer>
@@ -59,6 +59,9 @@ const InnerContentContainer = styled.div`
   flex-direction: column;
   padding: 10px;
   cursor: pointer;
+  &.loading {
+    cursor: default;
+  }
 `;
 const PreviewItemContainer = styled.div<{ accentColor: string }>`
   overflow: hidden;
@@ -103,6 +106,9 @@ const TitleDisplay = styled.div`
   background: ${props => props.theme.colors.sevenBlack};
   color: ${props => props.theme.colors.siteBackground};
   font-weight: bold;
+  &.loading {
+    cursor: default;
+  }
 `;
 const DescriptionText = styled.div`
   font-size: 0.9em;
