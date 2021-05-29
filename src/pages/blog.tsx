@@ -1,44 +1,40 @@
 import * as React from "react";
 import styled from "styled-components";
 import { useBlogPosts } from "helpers/hooks/queries/";
-import { Layout } from "../components/layout";
-import { getMonth } from "helpers/utils/";
 import { SEO } from "../components/seo/";
 import useTheme from "helpers/hooks/usestyledtheme";
 import { BlogPostPreview } from "components/blog/";
 import { PageLabel } from "components/general/pagelabel/";
-function PageContent() {
+function BlogPageContent(): JSX.Element {
   const blogPageAccent = useTheme().colors.blogPageAccent;
   const data = useBlogPosts();
 
   const listGenerated = data.map(post => {
-    let dateString = ``;
-    if (!post.date) {
-      const testDate = new Date();
-      const day = testDate.getDate();
-      const month = getMonth(testDate.getMonth());
-      const year = testDate.getFullYear();
-      dateString = month + ` ` + day + `, ` + year;
-      console.warn("Date Auto Generated", testDate.toJSON());
-    } else {
-      dateString = post.date;
-    }
+    if (!post || !post.published) return null;
 
-    return post.published ? (
+    const { title, slug, description, tags, date: postDate } = post;
+    const bPostItem = {
+      slug,
+      title,
+      description,
+      date: postDate || "",
+      tags,
+    };
+    return (
       <BlogPostPreview
-        key={post.slug + post.title}
-        postUrl={`/${post.slug}`}
-        tags={post.tags}
+        key={slug}
         accentColor={blogPageAccent}
-        title={post.title}
-        description={post.description}
-        date={dateString}
+        blogPost={bPostItem}
       />
-    ) : null;
+    );
   });
 
   return (
     <>
+      <SEO
+        title="Tech Blog"
+        description="The unfocused tech posts from Jesus Garnica"
+      />
       <PageLabel margin="0px 0px 20px 0px" accentColor={blogPageAccent}>
         Blog
       </PageLabel>
@@ -53,18 +49,10 @@ function PageContent() {
     </>
   );
 }
-const ComingSoonPage: React.ReactNode = () => (
-  <Layout>
-    <SEO
-      title="Tech Blog"
-      description="The unfocused tech posts from Jesus Garnica"
-    />
-    <PageContent />
-  </Layout>
-);
+
 const BlogItemsList = styled.div`
   display: grid;
   grid-gap: 20px 0px;
 `;
 
-export default ComingSoonPage;
+export default BlogPageContent;
