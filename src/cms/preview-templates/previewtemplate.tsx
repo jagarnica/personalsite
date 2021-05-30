@@ -1,21 +1,22 @@
 import * as React from "react";
-import { PostTag } from "../../components/blog/posttag";
-import { PreviewTemplateComponentProps } from "netlify-cms-core";
+import { PostTag } from "../../components/blog/posttag../components/blogemplateComponentProps } f../components/seoe";
 import styled, { ThemeProvider, StyleSheetManager } from "styled-components";
-import baseTheme from "../../styles/basesitetheme";
-type BlogPostTemplateProps = PreviewTemplateComponentProps;
+
+import baseTheme from "../styles/basesitetheme";
+
+export type BlogPostTemplateProps = PreviewTemplateComponentProps;
 const BlogPostTemplate = ({
   entry,
   widgetFor,
-}: BlogPostTemplateProps): JSX.Element => {
+}: PreviewTemplateComponentProps): JSX.Element => {
   // Get the post title
-  const title: string | undefined = entry.getIn(["data", "title"]);
+  const title = entry.getIn(["data", "title"]);
 
   // Get if article is published
-  const published: boolean | undefined = entry.getIn(["data", "published"]);
+  const published: boolean = entry.getIn(["data", "published"]);
 
   // Get the post date
-  const date: Date | undefined = entry.getIn(["data", "date"]);
+  const date: Date = entry.getIn(["data", "date"]);
 
   // Get the post tags
   const tagMap: Map<string, string> = entry.getIn(["data", "tags"]);
@@ -28,7 +29,9 @@ const BlogPostTemplate = ({
   const RenderedBody = widgetFor("body");
 
   // Inject Styled Components CSS
-  const iframe = document.getElementById("preview-pane") as HTMLIFrameElement;
+  const iframe: HTMLIFrameElement | null = document.getElementById(
+    "preview-pane"
+  ) as HTMLIFrameElement;
   const iframeHeadElem = iframe?.contentDocument?.head;
 
   return (
