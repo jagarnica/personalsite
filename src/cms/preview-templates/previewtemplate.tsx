@@ -1,8 +1,8 @@
 import * as React from "react";
-import { PostTag } from "../../components/blog/posttag../components/blogemplateComponentProps } f../components/seoe";
+import { PostTag } from "../../components/blog/posttag";
 import styled, { ThemeProvider, StyleSheetManager } from "styled-components";
-
-import baseTheme from "../styles/basesitetheme";
+import { PreviewTemplateComponentProps } from "netlify-cms-core";
+import baseTheme from "../../styles/basesitetheme";
 
 export type BlogPostTemplateProps = PreviewTemplateComponentProps;
 const BlogPostTemplate = ({
@@ -10,10 +10,10 @@ const BlogPostTemplate = ({
   widgetFor,
 }: PreviewTemplateComponentProps): JSX.Element => {
   // Get the post title
-  const title = entry.getIn(["data", "title"]);
+  const title: string | undefined = entry.getIn(["data", "title"]);
 
   // Get if article is published
-  const published: boolean = entry.getIn(["data", "published"]);
+  const published: boolean | undefined = entry.getIn(["data", "published"]);
 
   // Get the post date
   const date: Date = entry.getIn(["data", "date"]);
