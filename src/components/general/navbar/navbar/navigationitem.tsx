@@ -1,8 +1,8 @@
-import React from "react";
+import * as React from "react";
 import styled from "styled-components";
 import { Link } from "gatsby";
 
-interface Props {
+interface NavbarItemProps {
   linkName: string; // This is the name of the link shown to the user
   activeColor: string; // This is color of the bottom of the bar when the tab is active
   pathName: string; // This is the pathname for the link
@@ -14,12 +14,12 @@ interface Props {
  * @param {string} pathName the path name should be different from the name, this can be set to change it.
  * @param {string} partiallyActive Setting this true will set it to active even if the path is not exact
  */
-const NavbarItem: React.FC<Props> = ({
+const NavbarItem = ({
   linkName,
   activeColor,
   pathName,
   partiallyActive = false,
-}) => {
+}: NavbarItemProps): JSX.Element => {
   return (
     <NavLinkDiv
       to={pathName}
