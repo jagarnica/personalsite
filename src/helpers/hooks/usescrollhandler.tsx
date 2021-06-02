@@ -4,31 +4,28 @@ import { throttle } from "lodash";
 /**
  * @name userScrollHandler
  * @description Return true if the user scrolls past a certain threshold set by the prop
- * or by the default of 60.
+ * or by the default of 10.
  * @param {number} scrollThreshold This sets at which points it returns true.
  * @returns {boolean}
  */
 export default (scrollThreshold = 10): boolean => {
   // setting initial value to true
   const [scroll, setScroll] = useState(false);
-
-  // running on mount
+  useEffect(() => {
+    setScroll(window?.scrollY > scrollThreshold);
+  });
   useEffect(() => {
     const onScroll = throttle(() => {
-      const scrollCheck = window.scrollY > scrollThreshold;
+      const scrollCheck = window?.scrollY > scrollThreshold;
       if (scrollCheck !== scroll) {
         setScroll(scrollCheck);
       }
-    }, 30);
-
-    // setting the event handler from web API
+    }, 60);
     document.addEventListener("scroll", onScroll);
-
-    // cleaning up from the web API
     return () => {
       document.removeEventListener("scroll", onScroll);
     };
-  }, [scroll, setScroll]);
+  }, [scroll]);
 
   return scroll;
 };

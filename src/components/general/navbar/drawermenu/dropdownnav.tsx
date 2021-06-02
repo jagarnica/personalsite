@@ -1,175 +1,112 @@
-import React, { ReactNode } from "react";
+import * as React from "react";
 import ReactDOM from "react-dom";
 import styled, { keyframes } from "styled-components";
 import ExitButton from "./exitbutton";
-interface DropDownNavProps {
-  isVisible: boolean;
+export interface DropDownMenuProps {
+  isVisible?: boolean;
   width?: string;
   backgroundColor?: string;
   onRequestOpen?: () => void;
   onRequestClose?: () => void;
   exitButtonColor?: string;
+  children?: React.ReactNode;
 }
-interface DropDownNavState {
-  inDOM: boolean;
-}
-/**
- * @name DropDownNav
- * @description Presents a simple drawer that comes in from the
- * top.
- * @prop {boolean} isVisible Determines if the drawer is visible
- * @prop {string} backgroundColor This sets the background color of the dropdown drawer. Defaults to white.
- * @prop {string} width Sets the width of the drawer
- * @prop {function} onRequestClose Sets the actions when the mask or outside is clicked.
- * @prop {function} onRequestOpen This will be called whenever the drawer is opening.
- * @prop {string} exitButtonColor This sets the color for the exit button.
- */
-class DropDownNav extends React.Component<DropDownNavProps, DropDownNavState> {
-  static defaultProps = {
-    isVisible: false,
-    width: `100vw`,
-    backgroundColor: `white`,
-    onRequestOpen: function (): void {
-      return;
-    },
-    onRequestClose: function (): void {
-      return;
-    },
-    exitButtonColor: "black",
-  };
-  windowOffset: number;
-  previousAttributes: string;
-  _isMounted: boolean;
-  constructor(props: DropDownNavProps) {
-    super(props);
-    this.state = {
-      inDOM: false,
-    };
-    this._isMounted = false;
-    this.windowOffset = 0;
-    this.previousAttributes = "";
-  }
-  restoreScrolling = (): void => {
-    document.body.setAttribute("style", this.previousAttributes);
-    window.scrollTo(0, this.windowOffset);
-  };
-  preventScrolling = (): void => {
-    this.windowOffset = window && window.scrollY ? window.scrollY : 0; // This extra check must be done because gatsby build will complain
-    this.previousAttributes = document.body.getAttribute("style")
-      ? String(document.body.getAttribute("style"))
-      : "";
-    document.body.setAttribute(
-      "style",
-      `position: fixed; top: -${this.windowOffset}px;;left:0;right:0;`
-    );
-  };
-  componentDidUpdate(prevProps: DropDownNavProps): void {
-    //Lets check to see if we are visible or not
-    if (this.props.isVisible !== prevProps.isVisible) {
-      //Check to see if we should do this check.
-      if (this.props.isVisible === true) {
-        if (
-          this.props.onRequestOpen &&
-          typeof this.props.onRequestOpen === "function"
-        ) {
-          this.props.onRequestOpen();
-        }
-        if (this._isMounted) {
-          this.setState({
-            inDOM: true,
-          });
-        }
 
-        //Since we are opening the modal, lets block scrolling.
-        this.preventScrolling();
-      } else {
-        this.restoreScrolling();
+export function DropDownMenu({
+  children,
+  isVisible,
+  width = "100vw",
+  backgroundColor = "#fff",
+  onRequestOpen,
+  onRequestClose,
+  exitButtonColor = "#000",
+}: DropDownMenuProps): JSX.Element | null {
+  const [showDropDown, setShowDropDownMenu] = React.useState(false);
+  const [previousAttributes, setPreviousAttributes] = React.useState("");
+
+  React.useEffect(() => {
+    // This is run only when mounting
+
+    function checkIfVisible(isVisible?: boolean) {
+      if (isVisible) {
+        setShowDropDownMenu(true);
+        onRequestOpen?.();
+        preventScrolling();
       }
     }
+    checkIfVisible(isVisible);
+    return () => {
+      restoreScrolling();
+    };
+  }, []);
+  // Handle the prop of visibility changing
+  React.useEffect(() => {
+    if (isVisible) {
+      // We want to show the menu
+      preventScrolling();
+      onRequestOpen?.();
+      // Add in the portal element
+      setShowDropDownMenu(true);
+    } else {
+      restoreScrolling();
+    }
+  }, [isVisible]);
+
+  function preventScrolling() {
+    const previousAttributes = document.body.getAttribute("style")
+      ? String(document.documentElement.getAttribute("style"))
+      : "";
+    setPreviousAttributes(previousAttributes);
+    document.documentElement.setAttribute(
+      "style",
+      `overflow:hidden;${previousAttributes}`
+    );
   }
-  onMaskClick = (event: React.MouseEvent): void => {
+  function restoreScrolling() {
+    document.documentElement.setAttribute("style", previousAttributes);
+  }
+  function onMaskClick(event: React.MouseEvent) {
     event.preventDefault();
     event.stopPropagation();
     //Undo the scrolling event blocking now that the modal is closed.
-    this.restoreScrolling();
-    if (this.props.onRequestClose) {
-      this.props.onRequestClose();
-    }
-  };
-  componentWillUnmount(): void {
-    this._isMounted = false;
-    this.restoreScrolling();
-  }
-  componentDidMount(): void {
-    //Lets check to see if we are visible or not
-    this._isMounted = true;
-    if (this.props.isVisible === true) {
-      if (
-        this.props.onRequestOpen &&
-        typeof this.props.onRequestOpen === "function"
-      ) {
-        this.props.onRequestOpen();
-      }
-      if (this._isMounted) {
-        this.setState({
-          inDOM: true,
-        });
-      }
-
-      //If we are already visible, lets block scrolling.
-      this.preventScrolling();
-    }
+    restoreScrolling();
+    onRequestClose?.();
   }
   /**
    * @function handleAnimationEnd When the animation is over, we will update our state, causing a rerender to remove it from the DOM.
    * @param event
    */
-  handleAnimationEnd = (event?: React.AnimationEvent): void => {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    if (!this.props.isVisible && this._isMounted) {
-      this.setState({
-        inDOM: false,
-      });
-    }
-  };
-
-  render(): ReactNode {
-    try {
-      const drawerClassName = this.props.isVisible ? "show" : "hide";
-      return this.state.inDOM
-        ? ReactDOM.createPortal(
-            <ModelMask className={drawerClassName}>
-              <ModalWrapper onClick={this.onMaskClick}>
-                <ModalContainer
-                  onAnimationEnd={this.handleAnimationEnd}
-                  className={drawerClassName}
-                  backgroundColor={this.props.backgroundColor}
-                  onClick={this.onMaskClick}
-                  style={{ width: this.props.width }}
-                >
-                  <ExitButtonContainer tabIndex={2} onClick={this.onMaskClick}>
-                    <ExitButton fillColor={this.props.exitButtonColor} />
-                  </ExitButtonContainer>
-                  {this.props.children}
-                </ModalContainer>
-              </ModalWrapper>
-            </ModelMask>,
-            document.body
-          )
-        : null;
-    } catch (e) {
-      if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
-        console.log(e);
-      }
-      return null;
+  function handleAnimationEnd(event: React.AnimationEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!isVisible) {
+      setShowDropDownMenu(false);
     }
   }
-}
 
-export default DropDownNav;
+  const drawerClassName = isVisible ? "show" : "hide";
+  return showDropDown
+    ? ReactDOM.createPortal(
+        <ModelMask className={drawerClassName}>
+          <ModalWrapper onClick={onMaskClick}>
+            <ModalContainer
+              onAnimationEnd={handleAnimationEnd}
+              className={drawerClassName}
+              backgroundColor={backgroundColor}
+              onClick={onMaskClick}
+              style={{ width: width }}
+            >
+              <ExitButtonContainer tabIndex={2} onClick={onMaskClick}>
+                <ExitButton fillColor={exitButtonColor} />
+              </ExitButtonContainer>
+              {children}
+            </ModalContainer>
+          </ModalWrapper>
+        </ModelMask>,
+        document.body
+      )
+    : null;
+}
 
 const ButtonSpin = keyframes`
 from {
@@ -225,23 +162,7 @@ to{
     transform: translateY(-100%);
 }
 `;
-const FadeIn = keyframes`
-from{
-    opacity:0;
-}
-to{
-    opacity:1;
-}
-`;
-const FadeOut = keyframes`
-from{
-    opacity: 1;
-}
-to{
-    opacity: 0;
-}
 
-`;
 const ModelMask = styled.div<{ width?: string; height?: string }>`
   position: fixed;
   z-index: 20;
@@ -256,10 +177,7 @@ const ModelMask = styled.div<{ width?: string; height?: string }>`
   opacity: 0;
   transition: opacity 0.3s ease;
   &.show {
-    animation: ${FadeIn} 0s ease forwards;
-  }
-  &.hide {
-    animation: ${FadeOut} 0s ease forwards;
+    opacity: 1;
   }
 `;
 /* This styling is for the corner buttons containing the content */
@@ -291,13 +209,11 @@ const ModalContainer = styled.div<{
   transform: translate3d(0, 0, 0);
   &.hide {
     animation: ${NavigationExit} forwards;
-    transform: translate3d(0, 0, 0);
     animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
     animation-duration: 0.4s;
   }
   &.show {
     animation: ${NavigationEnter} forwards;
-    transform: translate3d(0, 0, 0);
     animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
     animation-duration: 0.4s;
   }

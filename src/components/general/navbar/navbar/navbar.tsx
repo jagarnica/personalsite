@@ -15,6 +15,7 @@ const NAV_BAR_LINKS = [
 ];
 const Navbar: React.FC = () => {
   const isScrolled = useScrollHandler(); // Get if the user scrolled down or not.
+  const { sevenBlack, siteBackground } = globalStyles.COLORS;
   const NavTabs = NAV_BAR_LINKS.map((roadObj: RoadLink) => {
     const pathName = roadObj.getPathName();
     const linkName = roadObj.name;
@@ -26,7 +27,7 @@ const Navbar: React.FC = () => {
         activeColor={activeColor}
         linkName={linkName}
         key={linkName}
-      ></NavItem>
+      />
     );
   });
 
@@ -37,9 +38,9 @@ const Navbar: React.FC = () => {
           JESUS GARNICA
         </TitleSpan>
         <DrawerMenu
-          exitButtonColor={globalStyles.COLORS.sevenBlack}
-          backgroundColor={globalStyles.COLORS.siteBackground}
-          iconColor={globalStyles.COLORS.sevenBlack}
+          exitButtonColor={sevenBlack}
+          backgroundColor={siteBackground}
+          iconColor={sevenBlack}
         >
           <TabsLayoutDiv>{NavTabs}</TabsLayoutDiv>
         </DrawerMenu>
