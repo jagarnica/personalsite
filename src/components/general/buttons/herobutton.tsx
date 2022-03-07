@@ -23,4 +23,7 @@ const HeroButton: ButtonType = ({
 export default HeroButton;
 const StyledButton = styled(Button)`
   font-weight: normal;
+  &:focus-visible {
+    box-shadow: inset 0 0 0 1px black;
+  }
 `;

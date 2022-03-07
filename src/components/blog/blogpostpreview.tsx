@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { navigate } from "gatsby";
 import { PostTag } from "./posttag";
+import { useButton } from "@react-aria/button";
 type BlogPostDetails = {
   title: string;
   description?: string;
@@ -27,14 +28,18 @@ export function BlogPostPreview({
   blogPost,
 }: BlogPostPreviewProps): React.ReactElement {
   const { title, date, description, tags, slug } = blogPost;
+  const ref = React.useRef<HTMLDivElement>(null);
 
-  function handleUserLinkClick(
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) {
-    event.preventDefault();
-    event.stopPropagation();
+  function handleUserLinkClick() {
     navigate(`/${slug}`);
   }
+  const { buttonProps } = useButton(
+    {
+      elementType: "div",
+      onPress: handleUserLinkClick,
+    },
+    ref
+  );
 
   const labelsGen = tags.map(tag => {
     return <PostTag labelName={tag} key={tag} />;
@@ -43,7 +48,9 @@ export function BlogPostPreview({
     <PreviewItemContainer accentColor={accentColor}>
       <AccentColorBar accentColor={accentColor} />
       <ContentContainer>
-        <TitleDisplay onClick={handleUserLinkClick}>{title}</TitleDisplay>
+        <TitleDisplay accentColor={accentColor} ref={ref} {...buttonProps}>
+          {title}
+        </TitleDisplay>
         <InnerContentContainer onClick={handleUserLinkClick}>
           <LabelsContainer>{labelsGen}</LabelsContainer>
           <DateText>{date}</DateText>
@@ -58,13 +65,13 @@ const InnerContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
+
   cursor: pointer;
   &.loading {
     cursor: default;
   }
 `;
 const PreviewItemContainer = styled.div<{ accentColor: string }>`
-  overflow: hidden;
   height: 100%;
 
   border-radius: 0px;
@@ -98,7 +105,7 @@ const ContentContainer = styled.div`
         : `transparent`};
   border-top: 0px;
 `;
-const TitleDisplay = styled.div`
+const TitleDisplay = styled.div<{ accentColor: string }>`
   font-size: 1.3em;
   display: flex;
   cursor: pointer;
@@ -106,8 +113,23 @@ const TitleDisplay = styled.div`
   background: ${props => props.theme.colors.sevenBlack};
   color: ${props => props.theme.colors.siteBackground};
   font-weight: bold;
+  position: relative;
   &.loading {
     cursor: default;
+  }
+  &:focus-visible {
+    outline: none;
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      content: "";
+      outline: 2px solid #008678;
+      margin: 2px;
+      box-shadow: 0 0 0 6px #00ffe5;
+    }
   }
 `;
 const DescriptionText = styled.div`
@@ -124,6 +146,7 @@ const LabelsContainer = styled.div`
   justify-content: flex-start;
   align-content: center;
   margin-bottom: 0.45rem;
+  color: white;
 
   * {
     margin-right: 0.4rem;

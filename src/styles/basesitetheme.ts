@@ -9,7 +9,7 @@ export default {
     aboutPageAccent: `#145593`,
     titleColor: `hsla(0, 0%, 100%, 0.8)`,
     homePageAccent: `#f04021`,
-    blogPageAccent: `#00a897`,
+    blogPageAccent: `#008678`,
     resumePageAccent: `#5E35B1`,
     siteBackground: `#f2efe9`,
     portfolioPageAccent: `#B388FF`,

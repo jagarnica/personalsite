@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
+import { useButton } from "@react-aria/button";
 interface NavbarButtonProps {
   width?: number;
   active: boolean;
   tabIndex?: number;
   height?: number;
-  onClick?: (arg0: React.MouseEvent) => void;
+  onClick?: () => void;
   iconColor?: string;
 }
 /**
@@ -24,9 +25,13 @@ const NavbarButton: React.FC<NavbarButtonProps> = ({
   active = false,
   height = 32,
   onClick,
-  tabIndex = 1,
   iconColor,
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { buttonProps } = useButton(
+    { onPress: onClick, elementType: "div" },
+    ref
+  );
   let barClassName = "";
   if (active) {
     barClassName += "clicked";
@@ -34,15 +39,8 @@ const NavbarButton: React.FC<NavbarButtonProps> = ({
   return (
     <>
       <Container
-        tabIndex={tabIndex}
-        role="button"
-        onClick={
-          onClick
-            ? onClick
-            : function () {
-                return;
-              }
-        } // If there is an onClick func passed in, do it!
+        {...buttonProps}
+        ref={ref}
         width={width}
         height={height}
         iconColor={iconColor}
@@ -56,6 +54,7 @@ const NavbarButton: React.FC<NavbarButtonProps> = ({
           iconColor={iconColor}
           className={"bottom " + barClassName}
         />
+        <div></div>
       </Container>
     </>
   );
@@ -86,8 +85,9 @@ const Container = styled.div<
   justify-content: center;
   align-items: center;
   outline: 1px solid transparent;
-  &:focus {
+  &:focus-visible {
     outline: 1px solid transparent;
+    box-shadow: var(--focus-box-shadow);
   }
   &:active {
     outline: 1px solid transparent;

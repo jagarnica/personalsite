@@ -21,9 +21,7 @@ function MobileNavBar({
 }: MobileNavBarProps): JSX.Element {
   const [menuVisible, setMenuVisible] = React.useState(false);
 
-  function handleOpenMenu(event: React.MouseEvent) {
-    event.preventDefault();
-    event.stopPropagation();
+  function handleOpenMenu() {
     setMenuVisible(true);
   }
   function handleMenuClosing() {

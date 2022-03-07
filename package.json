@@ -7,6 +7,10 @@
   "dependencies": {
     "@mdx-js/mdx": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
+    "@react-aria/button": "^3.4.1",
+    "@react-aria/focus": "^3.5.2",
+    "@react-aria/interactions": "^3.8.1",
+    "@react-types/button": "^3.4.3",
     "babel-plugin-styled-components": "^1.12.0",
     "dotenv": "^10.0.0",
     "gatsby": "^3.5.0",
@@ -33,12 +37,12 @@
     "gatsby-source-filesystem": "^3.5.0",
     "gatsby-source-graphql": "^3.5.0",
     "gatsby-transformer-sharp": "^3.5.0",
-    "lodash": "^4.17.21",
+    "lodash": "4.17.21",
     "netlify-cms-app": "^2.15.11",
     "prismjs": "^1.23.0",
     "prop-types": "^15.7.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
     "react-helmet": "^6.1.0",
     "styled-components": "^5.3.0"
   },
@@ -62,7 +66,7 @@
     "eslint-plugin-react": "^7.23.2",
     "eslint-webpack-plugin": "^2.5.4",
     "prettier": "^2.3.0",
-    "typescript": "^4.2.4"
+    "typescript": "4.6.2"
   },
   "keywords": [
     "gatsby"

@@ -14,7 +14,7 @@ export interface PostTagProps {
  */
 export function PostTag({
   labelName,
-  textColor,
+  textColor = "white",
   labelColor,
 }: PostTagProps): React.ReactElement {
   return (

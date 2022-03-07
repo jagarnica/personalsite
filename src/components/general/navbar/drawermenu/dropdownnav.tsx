@@ -2,6 +2,8 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import styled, { keyframes } from "styled-components";
 import ExitButton from "./exitbutton";
+import { FocusScope } from "@react-aria/focus";
+import { useButton } from "@react-aria/button";
 export interface DropDownMenuProps {
   isVisible?: boolean;
   width?: string;
@@ -23,6 +25,14 @@ export function DropDownMenu({
 }: DropDownMenuProps): JSX.Element | null {
   const [showDropDown, setShowDropDownMenu] = React.useState(false);
   const [previousAttributes, setPreviousAttributes] = React.useState("");
+  const exitButtonRef = React.useRef<HTMLDivElement>(null);
+  const { buttonProps } = useButton(
+    {
+      elementType: "div",
+      onPress: onMaskClick,
+    },
+    exitButtonRef
+  );
 
   React.useEffect(() => {
     // This is run only when mounting
@@ -62,15 +72,21 @@ export function DropDownMenu({
       `overflow:hidden;${previousAttributes}`
     );
   }
+
   function restoreScrolling() {
     document.documentElement.setAttribute("style", previousAttributes);
   }
-  function onMaskClick(event: React.MouseEvent) {
-    event.preventDefault();
-    event.stopPropagation();
+  function onMaskClick() {
     //Undo the scrolling event blocking now that the modal is closed.
     restoreScrolling();
     onRequestClose?.();
+  }
+  function handleKeyDown(event: React.KeyboardEvent) {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      event.stopPropagation();
+      onMaskClick();
+    }
   }
   /**
    * @function handleAnimationEnd When the animation is over, we will update our state, causing a rerender to remove it from the DOM.
@@ -93,13 +109,16 @@ export function DropDownMenu({
               onAnimationEnd={handleAnimationEnd}
               className={drawerClassName}
               backgroundColor={backgroundColor}
+              onKeyDown={handleKeyDown}
               onClick={onMaskClick}
               style={{ width: width }}
             >
-              <ExitButtonContainer tabIndex={2} onClick={onMaskClick}>
-                <ExitButton fillColor={exitButtonColor} />
-              </ExitButtonContainer>
-              {children}
+              <FocusScope contain autoFocus>
+                <ExitButtonContainer {...buttonProps}>
+                  <ExitButton fillColor={exitButtonColor} />
+                </ExitButtonContainer>
+                {children}
+              </FocusScope>
             </ModalContainer>
           </ModalWrapper>
         </ModelMask>,
@@ -135,8 +154,8 @@ const ExitButtonContainer = styled.div`
 
     right: 5%;
   }
-  &:focus {
-    outline: 1px solid white;
+  &:focus-visible {
+    box-shadow: var(--focus-box-shadow);
   }
   &:active {
     outline: 0;
