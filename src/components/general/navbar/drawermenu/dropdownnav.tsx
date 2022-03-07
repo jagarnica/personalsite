@@ -113,12 +113,14 @@ export function DropDownMenu({
               onClick={onMaskClick}
               style={{ width: width }}
             >
-              <FocusScope contain autoFocus>
-                <ExitButtonContainer {...buttonProps}>
-                  <ExitButton fillColor={exitButtonColor} />
-                </ExitButtonContainer>
-                {children}
-              </FocusScope>
+              {isVisible && (
+                <FocusScope contain autoFocus>
+                  <ExitButtonContainer ref={exitButtonRef} {...buttonProps}>
+                    <ExitButton fillColor={exitButtonColor} />
+                  </ExitButtonContainer>
+                  {children}
+                </FocusScope>
+              )}
             </ModalContainer>
           </ModalWrapper>
         </ModelMask>,

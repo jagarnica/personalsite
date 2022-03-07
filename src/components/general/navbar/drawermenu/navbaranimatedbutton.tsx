@@ -54,7 +54,6 @@ const NavbarButton: React.FC<NavbarButtonProps> = ({
           iconColor={iconColor}
           className={"bottom " + barClassName}
         />
-        <div></div>
       </Container>
     </>
   );
