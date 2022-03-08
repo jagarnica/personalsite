@@ -27,9 +27,14 @@ const NavbarButton: React.FC<NavbarButtonProps> = ({
   onClick,
   iconColor,
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLButtonElement>(null);
   const { buttonProps } = useButton(
-    { onPress: onClick, elementType: "div" },
+    {
+      onPress: onClick,
+      elementType: "button",
+      "aria-haspopup": true,
+      "aria-label": "Open navigation menu",
+    },
     ref
   );
   let barClassName = "";
@@ -70,7 +75,7 @@ interface BarElementProps {
   iconColor?: string;
   className?: string;
 }
-const Container = styled.div<
+const Container = styled.button<
   React.HtmlHTMLAttributes<HTMLElement> & ContainerProps
 >`
   width: ${props => props.width + `px`};
@@ -78,6 +83,8 @@ const Container = styled.div<
   padding: 4px;
   cursor: pointer;
   display: flex;
+  background: transparent;
+  border: none;
   transform: translate3d(0, 0, 0);
   transform-style: preserve-3d;
   flex-direction: column;
@@ -89,6 +96,8 @@ const Container = styled.div<
     box-shadow: var(--focus-box-shadow);
   }
   &:active {
+    border: none;
+    box-shadow: none;
     outline: 1px solid transparent;
   }
   -webkit-tap-highlight-color: transparent;

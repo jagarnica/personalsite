@@ -25,10 +25,10 @@ export function DropDownMenu({
 }: DropDownMenuProps): JSX.Element | null {
   const [showDropDown, setShowDropDownMenu] = React.useState(isVisible);
   const [previousAttributes, setPreviousAttributes] = React.useState("");
-  const exitButtonRef = React.useRef<HTMLDivElement>(null);
+  const exitButtonRef = React.useRef<HTMLButtonElement>(null);
   const { buttonProps } = useButton(
     {
-      elementType: "div",
+      elementType: "button",
       onPress: onMaskClick,
     },
     exitButtonRef
@@ -113,14 +113,12 @@ export function DropDownMenu({
               onAnimationEnd={handleAnimationEnd}
               style={{ width: width }}
             >
-              {isVisible && (
-                <FocusScope contain autoFocus>
-                  <ExitButtonContainer ref={exitButtonRef} {...buttonProps}>
-                    <ExitButton fillColor={exitButtonColor} />
-                  </ExitButtonContainer>
-                  {children}
-                </FocusScope>
-              )}
+              <FocusScope contain restoreFocus autoFocus>
+                <ExitButtonContainer ref={exitButtonRef} {...buttonProps}>
+                  <ExitButton fillColor={exitButtonColor} />
+                </ExitButtonContainer>
+                {children}
+              </FocusScope>
             </ModalContainer>
           </ModalWrapper>
         </ModelMask>,
@@ -138,11 +136,13 @@ to{
 }
 
 `;
-const ExitButtonContainer = styled.div`
+const ExitButtonContainer = styled.button`
   position: absolute;
   cursor: pointer;
   top: 50px;
+  background: transparent;
   right: 10%;
+  border: none;
   padding: 10px;
   -webkit-tap-highlight-color: transparent;
   display: flex;
@@ -163,6 +163,7 @@ const ExitButtonContainer = styled.div`
   }
   &:active {
     outline: 0;
+    box-shadow: none;
   }
   &:hover {
     animation: 0.3s ${ButtonSpin} ease;
