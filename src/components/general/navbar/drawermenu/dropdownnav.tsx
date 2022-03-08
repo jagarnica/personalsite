@@ -23,7 +23,7 @@ export function DropDownMenu({
   onRequestClose,
   exitButtonColor = "#000",
 }: DropDownMenuProps): JSX.Element | null {
-  const [showDropDown, setShowDropDownMenu] = React.useState(false);
+  const [showDropDown, setShowDropDownMenu] = React.useState(isVisible);
   const [previousAttributes, setPreviousAttributes] = React.useState("");
   const exitButtonRef = React.useRef<HTMLDivElement>(null);
   const { buttonProps } = useButton(
@@ -82,7 +82,7 @@ export function DropDownMenu({
     onRequestClose?.();
   }
   function handleKeyDown(event: React.KeyboardEvent) {
-    if (event.key === "Escape") {
+    if (event.key === "Escape" && isVisible) {
       event.preventDefault();
       event.stopPropagation();
       onMaskClick();
@@ -104,13 +104,13 @@ export function DropDownMenu({
   return showDropDown
     ? ReactDOM.createPortal(
         <ModelMask className={drawerClassName}>
-          <ModalWrapper onClick={onMaskClick}>
+          <ModalWrapper>
             <ModalContainer
-              onAnimationEnd={handleAnimationEnd}
               className={drawerClassName}
               backgroundColor={backgroundColor}
               onKeyDown={handleKeyDown}
               onClick={onMaskClick}
+              onAnimationEnd={handleAnimationEnd}
               style={{ width: width }}
             >
               {isVisible && (
@@ -157,6 +157,8 @@ const ExitButtonContainer = styled.div`
     right: 5%;
   }
   &:focus-visible {
+    border: none;
+    outline: none;
     box-shadow: var(--focus-box-shadow);
   }
   &:active {
