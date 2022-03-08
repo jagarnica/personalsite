@@ -80,12 +80,20 @@ const NavbarContainer = styled.div`
   justify-content: space-between;
   padding-left: 1.0875rem;
   padding-right: 1.0875rem;
+  @media only screen and (max-device-width: 600px) {
+    height: 3.5rem;
+  }
 `;
 const TitleSpan = styled(Link)`
   line-height: 1.2em;
   font-size: 1.2em;
   text-decoration: none;
   color: inherit;
+
+  @media only screen and (max-device-width: 600px) {
+    line-height: 1.1em;
+    font-size: 1.1em;
+  }
 `;
 
 const TabsLayoutDiv = styled.div`
