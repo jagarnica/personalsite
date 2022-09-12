@@ -145,7 +145,6 @@ export function GithubRepoCards({
 }
 
 const ProjectCard = styled.div<GitHubRepoProps>`
-  overflow: hidden;
   height: 100%;
   cursor: default;
   border-radius: 0px;
