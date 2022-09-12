@@ -157,6 +157,17 @@ const ExitButtonContainer = styled.button`
     height: 42px;
     right: 5%;
   }
+  &:hover {
+    animation: 0.3s ${ButtonSpin} ease;
+  }
+  &:focus {
+    border: none;
+    outline: none;
+    box-shadow: var(--focus-box-shadow);
+  }
+  &:focus:not(:focus-visible) {
+    box-shadow: none;
+  }
   &:focus-visible {
     border: none;
     outline: none;
@@ -165,9 +176,6 @@ const ExitButtonContainer = styled.button`
   &:active {
     outline: 0;
     box-shadow: none;
-  }
-  &:hover {
-    animation: 0.3s ${ButtonSpin} ease;
   }
 `;
 // Styling for the Modal Components **********

@@ -91,6 +91,14 @@ const Container = styled.button<
   justify-content: center;
   align-items: center;
   outline: 1px solid transparent;
+  &:focus {
+    outline: 1px solid transparent;
+    box-shadow: var(--focus-box-shadow);
+  }
+  &:focus:not(:focus-visible) {
+    outline: 0px solid transparent;
+    box-shadow: none;
+  }
   &:focus-visible {
     outline: 1px solid transparent;
     box-shadow: var(--focus-box-shadow);

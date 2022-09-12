@@ -52,7 +52,7 @@ const PortraitImage = styled(Img)`
   align-self: stretch;
   width: 64px;
   height: 64px;
-
+  overflow: hidden;
   margin-right: 16px;
 `;
 const BioContainer = styled.div`
