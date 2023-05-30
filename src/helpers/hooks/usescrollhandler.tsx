@@ -8,7 +8,7 @@ import { throttle } from "lodash";
  * @param {number} scrollThreshold This sets at which points it returns true.
  * @returns {boolean}
  */
-export default (scrollThreshold = 10): boolean => {
+export default (scrollThreshold = 10) => {
   // setting initial value to true
   const [scroll, setScroll] = useState(false);
   useEffect(() => {
@@ -20,6 +20,7 @@ export default (scrollThreshold = 10): boolean => {
       if (scrollCheck !== scroll) {
         setScroll(scrollCheck);
       }
+      console.log("calling!!");
     }, 60);
     document.addEventListener("scroll", onScroll);
     return () => {

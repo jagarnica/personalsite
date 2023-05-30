@@ -26,7 +26,7 @@ export interface BlogPostPreviewProps {
 export function BlogPostPreview({
   accentColor = "#000",
   blogPost,
-}: BlogPostPreviewProps): React.ReactElement {
+}: BlogPostPreviewProps) {
   const { title, date, description, tags, slug } = blogPost;
   const ref = React.useRef<HTMLDivElement>(null);
 

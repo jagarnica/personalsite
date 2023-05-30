@@ -95,13 +95,13 @@ export function GithubRepoCards({
   textColor = "white",
   accentColor,
   backgroundColor = "black",
-}: GitHubRepoProps): React.ReactElement | null {
+}: GitHubRepoProps) {
   const data = useGitHubRepositories();
 
   if (!data) {
     return null;
   }
-  const cards: React.ReactNode = data.map(repo => {
+  const cards = data.map(repo => {
     const languages = repo.languages.nodes;
     const url = repo.url ? repo.url : ``;
 
@@ -139,7 +139,7 @@ export function GithubRepoCards({
     );
   });
   if (cards) {
-    return cards as React.ReactElement;
+    return cards;
   }
   return null;
 }

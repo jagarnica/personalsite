@@ -8,7 +8,7 @@ export type BlogPostTemplateProps = PreviewTemplateComponentProps;
 const BlogPostTemplate = ({
   entry,
   widgetFor,
-}: PreviewTemplateComponentProps): JSX.Element => {
+}: PreviewTemplateComponentProps) => {
   // Get the post title
   const title: string | undefined = entry.getIn(["data", "title"]);
 

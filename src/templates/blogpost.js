@@ -1,17 +1,18 @@
 import React from "react";
 import { Link, graphql } from "gatsby";
-import { MiniBio as Bio, PostTag as PostLabel } from "../components/blog/";
+import { MiniBio as Bio, PostTag as PostLabel } from "../components/blog";
 import styled from "styled-components";
 import { SEO } from "../components/seo";
-import { MDXRenderer } from "gatsby-plugin-mdx";
-const BlogPostTemplate = ({ data, pageContext }) => {
-  const post = data.mdx;
+
+const BlogPostTemplate = ({ data: { mdx }, pageContext, children }) => {
+  const post = mdx;
   const { previous, next } = pageContext;
-  let tags = post.frontmatter.tags;
+  const tags = post.frontmatter.tags;
 
   const TagsGenerated = tags.map(tag => {
     return <PostLabel key={tag} labelName={tag} />;
   });
+
   return (
     <>
       <SEO
@@ -31,9 +32,8 @@ const BlogPostTemplate = ({ data, pageContext }) => {
           </p>
           <TagsContainer>{TagsGenerated}</TagsContainer>
         </header>
-        <StyledSection>
-          <MDXRenderer>{post.body}</MDXRenderer>
-        </StyledSection>
+
+        <StyledSection>{children}</StyledSection>
         <hr />
         <footer>
           <span>
@@ -96,6 +96,9 @@ export const pageQuery = graphql`
       id
       excerpt(pruneLength: 160)
       body
+      internal {
+        contentFilePath
+      }
       frontmatter {
         title
         tags

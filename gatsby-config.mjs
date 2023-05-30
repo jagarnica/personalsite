@@ -1,9 +1,13 @@
-const path = require("path");
-
-require("dotenv").config({
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
+import dotenv from "dotenv";
+dotenv.config({
   path: `.env.${process.env.NODE_ENV}`,
 });
-module.exports = {
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const config = {
   siteMetadata: {
     title: `Jesus Garnica`,
     github: `https://github.com/jagarnica`,
@@ -33,7 +37,7 @@ module.exports = {
       options: {
         name: `static`,
         path: `${__dirname}/static/`,
-        ignore: [`**/\.*`], // ignore files starting with a dot
+        ignore: [`**/.*`], // ignore files starting with a dot
       },
     },
     {
@@ -162,3 +166,5 @@ module.exports = {
     // `gatsby-plugin-offline`,
   ],
 };
+
+export default config;

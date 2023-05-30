@@ -35,7 +35,7 @@ export const TypedInDev: React.FC<Props> = ({
   }, [visibleCharacters]);
   // These are the letters that are generated
   const lettersGenerated = message
-    .substr(0, visibleCharacters)
+    .substring(0, visibleCharacters)
     .split("")
     .map((letter, index) => {
       return <SingleLetter key={index}>{letter}</SingleLetter>;

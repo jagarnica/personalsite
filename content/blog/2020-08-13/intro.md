@@ -6,6 +6,7 @@ date: 2020-08-13T01:44:19.885Z
 description: What is this blog about? What will it be covering?
 published: true
 ---
+
 ### Welcome!
 
 Finally, I have my first blog post up! I don’t exactly have a degree in writing, but despite that, I’m taking the plunge into creating posts and indecipherable scribbles about a variety of topics. I created this blog with the intention of discussing code, computing, and startups. I will also cover some less blatantly Silicon Valley-esque things I’m passionate about such as hi-fi equipment, vintage tech restorations, and coffee.
