@@ -130,7 +130,7 @@ function PageContent() {
     </>
   );
 }
-const AboutPage: React.ReactNode = () => {
+const AboutPage = () => {
   return (
     <>
       <SEO

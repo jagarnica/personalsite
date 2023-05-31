@@ -9,6 +9,7 @@ export interface AspectRatioProps {
   className?: string;
   backgroundColor?: string;
   aspectRatio?: number;
+  children?: React.ReactNode;
 }
 /**
  * @name AspectRatioBox

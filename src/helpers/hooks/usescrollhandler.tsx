@@ -20,7 +20,6 @@ export default (scrollThreshold = 10) => {
       if (scrollCheck !== scroll) {
         setScroll(scrollCheck);
       }
-      console.log("calling!!");
     }, 60);
     document.addEventListener("scroll", onScroll);
     return () => {
