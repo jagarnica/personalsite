@@ -111,16 +111,6 @@ const config = {
     },
     "gatsby-plugin-image",
     {
-      resolve: `gatsby-plugin-netlify-cms`,
-      options: {
-        /**
-         * One convention is to place your Netlify CMS customization code in a
-         * `src/cms` directory.
-         */
-        modulePath: `${__dirname}/src/cms/cms.ts`,
-      },
-    },
-    {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.md`, `.mdx`],
