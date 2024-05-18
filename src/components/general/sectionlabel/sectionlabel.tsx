@@ -3,6 +3,7 @@ import styled from "styled-components";
 interface SectionLabelProps {
   accentColor?: string;
   margin?: string;
+  children?: React.ReactNode;
 }
 const SectionLabel: React.FC<SectionLabelProps> = ({
   children,

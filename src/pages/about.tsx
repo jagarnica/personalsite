@@ -110,27 +110,17 @@ function PageContent() {
         on GitHub!
       </p>
       <div>
-        <StyledLink
-          title="LinkedIn"
-          href={linkedInProfileLink}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <StyledLink title="LinkedIn" href={linkedInProfileLink}>
           <MTAIcon size={40} text="LI" />
         </StyledLink>
-        <StyledLink
-          title="GitHub"
-          href={githubProfileLink}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <StyledLink title="GitHub" href={githubProfileLink}>
           <MTAIcon size={40} text="GH" />
         </StyledLink>
       </div>
     </>
   );
 }
-const AboutPage: React.ReactNode = () => {
+const AboutPage = () => {
   return (
     <>
       <SEO

@@ -24,7 +24,7 @@ const AboutImage = () => {
  * @description Displays a miniature bio with my portrait and blurb.
  * @returns
  */
-export function MiniBio(): React.ReactElement {
+export function MiniBio() {
   return (
     <BioContainer>
       <Link to="/about/">

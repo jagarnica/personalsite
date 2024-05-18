@@ -1,6 +1,5 @@
 import * as React from "react";
 import { SEO } from "../components/seo/";
-import { HeroButton } from "components/general/buttons/";
 import { PageLabel } from "components/general/pagelabel/";
 import { graphql, useStaticQuery } from "gatsby";
 import useTheme from "helpers/hooks/usestyledtheme";
@@ -10,6 +9,7 @@ const resumeFile = () => {
       file(relativePath: { eq: "jesusgarnicaresume.pdf" }) {
         publicURL
         name
+        prettySize
       }
     }
   `);
@@ -19,6 +19,8 @@ function ResumePageContent(): JSX.Element {
   const themeFound = useTheme();
   const resumePageAccent = themeFound.colors.resumePageAccent;
   const resumeLink = resumeFile().file.publicURL;
+  const resumeFileSize = resumeFile().file.prettySize;
+  console.log("resumeFileSize", resumeFileSize);
   return (
     <>
       <SEO
@@ -32,8 +34,8 @@ function ResumePageContent(): JSX.Element {
         Need a printer-friendly summary of my professional history? My resume is
         just a click away.
       </p>
-      <a href={resumeLink} target="_blank" rel="noreferrer" download>
-        <HeroButton mainColor={resumePageAccent}>Get My Resume</HeroButton>
+      <a href={resumeLink} type="application/pdf" download>
+        Download my resume (PDF {resumeFileSize})
       </a>
     </>
   );

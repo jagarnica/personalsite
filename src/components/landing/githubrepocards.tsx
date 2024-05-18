@@ -3,29 +3,29 @@ import styled from "styled-components";
 import { COLORS } from "styles/styles";
 import { MTAIcon } from "components/decorative/mtaicon/";
 import { useGitHubRepositories } from "helpers/hooks/queries/";
+
 export interface GitHubRepoProps {
   margin?: string; // this should be typed in like a regular margin css property
   textColor?: string;
   backgroundColor?: string;
   accentColor?: string;
 }
+
 type GitLanguageObj = {
   id: string;
   name: string;
   color: string;
 };
-const ProgrammingLanguageLogo: React.FC<{
-  lang?: string;
-}> = ({ lang = "" }) => {
-  let _langLowercase = "";
-  try {
-    _langLowercase = lang.toLocaleLowerCase();
-  } catch (e) {
-    return <span></span>;
-  }
+
+const ProgrammingLanguageLogo = ({ lang = "" }: { lang?: string }) => {
+  let langLowercase = "";
+
+  langLowercase = lang.toLocaleLowerCase();
+
   let iconText = "";
   let textSize = "";
-  switch (_langLowercase) {
+
+  switch (langLowercase) {
     case "react":
       iconText = "react";
       break;
@@ -64,6 +64,7 @@ const ProgrammingLanguageLogo: React.FC<{
       iconText = "java";
       break;
   }
+
   return (
     <MTAIcon
       fontSize={textSize}
@@ -87,61 +88,48 @@ const SwitchRepoName = function (
     case "MDEwOlJlcG9zaXRvcnkyNjY0NDM3NTE=":
       return "PersonalSite";
     default:
-      return name ? name : ``;
+      return name || ``;
   }
 };
+
 export function GithubRepoCards({
   margin,
   textColor = "white",
   accentColor,
   backgroundColor = "black",
-}: GitHubRepoProps): React.ReactElement | null {
+}: GitHubRepoProps) {
   const data = useGitHubRepositories();
 
-  if (!data) {
-    return null;
-  }
-  const cards: React.ReactNode = data.map(repo => {
-    const languages = repo.languages.nodes;
-    const url = repo.url ? repo.url : ``;
+  const cards = data?.map(repo => {
+    const languages: GitLanguageObj[] = repo.languages.nodes;
+    const url = repo.url || ``;
 
-    const languagesText = languages.map((lang: GitLanguageObj) => {
-      const languageName: string = lang.name;
-      const LogoFound = (
-        <ProgrammingLanguageLogo key={lang.name} lang={languageName} />
-      );
+    const languagesText = languages.map((lang: GitLanguageObj) => (
+      <ProgrammingLanguageLogo key={lang.name} lang={lang.name} />
+    ));
 
-      return LogoFound;
-    });
     const nameToDisplay = SwitchRepoName(repo.id, repo.name);
-    const keyName: string = repo.name ? repo.name : url;
+
     return (
       <ProjectCard
         accentColor={accentColor}
         textColor={textColor}
         backgroundColor={backgroundColor}
         margin={margin}
-        key={keyName}
+        key={repo.name || url}
       >
         <Title>
-          <RepoLink href={url} target="_blank" rel="noopener">
-            {nameToDisplay}
-          </RepoLink>
+          <RepoLink href={url}>{nameToDisplay}</RepoLink>
         </Title>
-
-        <LangaugesContainer>{languagesText}</LangaugesContainer>
-        {repo.description ? (
+        <LanguagesContainer>{languagesText}</LanguagesContainer>
+        {repo.description && repo.description?.length > 0 && (
           <DescriptionText>{repo.description}</DescriptionText>
-        ) : (
-          <></>
         )}
       </ProjectCard>
     );
   });
-  if (cards) {
-    return cards as React.ReactElement;
-  }
-  return null;
+
+  return <>{cards}</>;
 }
 
 const ProjectCard = styled.div<GitHubRepoProps>`
@@ -180,7 +168,7 @@ const DescriptionText = styled.span`
   font-weight: normal;
   padding: 10px;
 `;
-const LangaugesContainer = styled.div`
+const LanguagesContainer = styled.div`
   display: flex;
   padding: 10px;
   justify-content: flex-start;

@@ -1,9 +1,9 @@
-const path = require(`path`);
-const { createFilePath } = require(`gatsby-source-filesystem`);
-exports.createPages = async ({ graphql, actions }) => {
+import path from "path";
+import { createFilePath } from "gatsby-source-filesystem";
+export const createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
-  const blogPost = path.resolve(`./src/templates/blogpost.js`);
+  const postTemplate = path.resolve(`./src/templates/blogpost.js`);
   const result = await graphql(
     `
       {
@@ -20,6 +20,9 @@ exports.createPages = async ({ graphql, actions }) => {
                 title
                 published
               }
+              internal {
+                contentFilePath
+              }
             }
           }
         }
@@ -35,7 +38,8 @@ exports.createPages = async ({ graphql, actions }) => {
   // Files that are not "published" will not get any pages created if it is a production
   // enviroment.
   let posts = result.data.allMdx.edges;
-  // If we are in a development enviroment, create a page for it so
+
+  // If we are in a development environment, create a page for it so
   // we can preview it during development.
   posts = posts.filter(
     post =>
@@ -47,7 +51,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
     createPage({
       path: post.node.fields.slug,
-      component: blogPost,
+      component: `${postTemplate}?__contentFilePath=${post.node.internal.contentFilePath}`,
       context: {
         slug: post.node.fields.slug,
         previous,
@@ -57,7 +61,7 @@ exports.createPages = async ({ graphql, actions }) => {
   });
 };
 
-exports.onCreateNode = ({ node, actions, getNode }) => {
+export const onCreateNode = ({ node, actions, getNode }) => {
   /**
    * Create blog page slugs
    */

@@ -46,6 +46,12 @@ module.exports = {
       },
     },
     {
+      files: ["*.tsx"],
+      rules: {
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+      },
+    },
+    {
       files: ["*.jsx"],
       rules: {
         "@typescript-eslint/no-var-requires": "off", //

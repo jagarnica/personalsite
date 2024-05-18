@@ -9,6 +9,7 @@ description: I've spent my shelter in place learning to use TypeScript for my
   GatsbyJS projects. Join the opulent TypeScript lifestyle and never look back.
 published: true
 ---
+
 ### JavaScript: "11" + 1 = 111 and "11" - 1 = 10
 
 I have been working with GatsbyJS for a while now, utilizing it to quickly create
@@ -39,11 +40,11 @@ For some of our team members, these web development projects were their first ti
 >
 > "Why is it crashing, does it need props?"
 
-This was my introduction to working with JS and React, and it was *chaos*. To make
+This was my introduction to working with JS and React, and it was _chaos_. To make
 sense of the madness, I learned to be strict about documenting every step, using
 type guards, creating warnings for incorrect parameter types, setting defaults
 everywhere, and implementing lots of try-catches. However, the human
-capacity for making truly *innovative* type errors is unparalleled (especially when programming
+capacity for making truly _innovative_ type errors is unparalleled (especially when programming
 at 3 AM with the fourth cup of coffee).
 
 Fast forward to this April, I figured that now was the time to take some time to

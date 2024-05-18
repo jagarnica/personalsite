@@ -16,7 +16,7 @@ export function PostTag({
   labelName,
   textColor = "white",
   labelColor,
-}: PostTagProps): React.ReactElement {
+}: PostTagProps) {
   return (
     <LabelText
       onClick={(event: React.MouseEvent) => {
