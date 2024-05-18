@@ -1,8 +1,9 @@
 import * as React from "react";
 import styled from "styled-components";
-import { navigate } from "gatsby";
+import { Link } from "gatsby";
 import { PostTag } from "./posttag";
-import { useButton } from "@react-aria/button";
+import { useMemo } from "react";
+
 type BlogPostDetails = {
   title: string;
   description?: string;
@@ -28,31 +29,24 @@ export function BlogPostPreview({
   blogPost,
 }: BlogPostPreviewProps) {
   const { title, date, description, tags, slug } = blogPost;
-  const ref = React.useRef<HTMLDivElement>(null);
 
-  function handleUserLinkClick() {
-    navigate(`/${slug}`);
-  }
-  const { buttonProps } = useButton(
-    {
-      elementType: "div",
-      onPress: handleUserLinkClick,
-    },
-    ref
+  const labels = useMemo(
+    () =>
+      tags.map(tag => {
+        return <PostTag labelName={tag} key={tag} />;
+      }),
+    [tags]
   );
 
-  const labelsGen = tags.map(tag => {
-    return <PostTag labelName={tag} key={tag} />;
-  });
   return (
     <PreviewItemContainer accentColor={accentColor}>
       <AccentColorBar accentColor={accentColor} />
       <ContentContainer>
-        <TitleDisplay accentColor={accentColor} ref={ref} {...buttonProps}>
-          {title}
+        <TitleDisplay accentColor={accentColor}>
+          <StyledLink to={"/" + slug}>{title}</StyledLink>
         </TitleDisplay>
-        <InnerContentContainer onClick={handleUserLinkClick}>
-          <LabelsContainer>{labelsGen}</LabelsContainer>
+        <InnerContentContainer>
+          <LabelsContainer>{labels}</LabelsContainer>
           <DateText>{date}</DateText>
           <DescriptionText>{description || ``}</DescriptionText>
         </InnerContentContainer>
@@ -61,17 +55,24 @@ export function BlogPostPreview({
   );
 }
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+  &:visited {
+    text-decoration: none;
+  }
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 const InnerContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
-
-  cursor: pointer;
-  &.loading {
-    cursor: default;
-  }
 `;
-const PreviewItemContainer = styled.div<{ accentColor: string }>`
+
+const PreviewItemContainer = styled.article<{ accentColor: string }>`
   height: 100%;
 
   border-radius: 0px;
