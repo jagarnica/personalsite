@@ -46,32 +46,38 @@ function PageContent() {
         </PageLabel>
         <h3>Hello, my name is Jesús.</h3>
         <p>
-          I was born and raised in Silicon Valley, a literal rock’s throw from
+          {`I was born and raised in Silicon Valley, a literal rock’s throw from
           Facebook HQ and right in the thick of the 2000s tech boom. That
-          certainly made an impression, as I am now a recent graduate of San
-          Francisco State University where I earned a B.S. in Computer Science.
+          certainly made an impression, as I am now a graduate of San
+          Francisco State University where I earned a B.S. in Computer Science.`}
         </p>
         <p>
           {` During my time in university, I worked with a wide variety of
           technologies: I used Swift and Google's Places API to create Dónde, an
           iOS app; utilized React to create an E-commerce website for SFSU
           students to resell their old (absurdly-priced) textbooks; and created
-          a progressive web app built with ChessJS, GatsbyJS, NodeJS, AWS, and
+          a progressive web app built with ChessJS, GatsbyJS, Node.js, AWS, and
           MongoDB. `}
         </p>
         <p>
           After graduating, I interned at the creative video-sharing start-up,
-          Trueclap, where I leveraged React and GatsbyJs to create beautiful UI
-          elements for the modern web. Currently, I spend most of my time
-          programming with Typescript and Python and learning Rust (in order to
-          create a bot to play vinyl records for my friends over Discord).
+          Trueclap, where I leveraged React and GatsbyJS to create beautiful UI
+          elements for the modern web.
+        </p>
+        <p>
+          At LaunchDarkly, I focused on UI testing and maintaining front end
+          code quality. This ranged from writing custom tooling for Storybook,
+          implementing monitoring for performance, to overhauling existing
+          components to leverage modern code practices. I also worked with a
+          team to rapidly iterate and address accessibility requirements across
+          the entire product.
         </p>
         <p>
           When I am not programming, I am usually busy restoring hi-fi receivers
           or other electronics. I have spent a lot of my free time bringing an
-          old Marantz 2230 back from the grave, making a La Pavoni espresso
-          machine shinier than ever, maintaining my vintage computers, and
-          building boards to add modern features to old tech.
+          old Marantz 2230 back from the grave, rescuing a La Pavoni from the
+          side of the road, maintaining my vintage computers, and restoring
+          vintage Bang & Olufsen gear.
         </p>
         <p>
           Want to build something great together? Feel free to contact me at{" "}
@@ -142,20 +148,22 @@ const AboutPage = () => {
 export default AboutPage;
 const GenerateSkillCards = (cardMargin?: string) => {
   const displayMargins = cardMargin ? cardMargin : "";
+
   const skills = [
-    { skill: "C++", details: "Software Development" },
+    { skill: "Design Systems", details: "Software Development" },
     { skill: "CSS", details: "Front End Web Development" },
-    { skill: "ReactJS", details: "Front End Web Development" },
-    { skill: "Apollo GraphQl", details: "Database Query" },
-    { skill: "Swift", details: "Software Development" },
+    { skill: "React", details: "Front End Web Development" },
+    { skill: "NextJS", details: "Front End Web Development" },
+    { skill: "React Query", details: "Front End Web Development" },
+    { skill: "Storybook", details: "Front End Web Development" },
     { skill: "Typescript", details: "Software Development" },
-    { skill: "Selenium", details: "Testing" },
-    { skill: "Jest", details: "Testing" },
+    { skill: "Cypress", details: "E2E Testing" },
+    { skill: "Jest", details: "Unit Testing" },
     { skill: "Python", details: "Software Development" },
-    { skill: "Javascript", details: "Web Development" },
-    { skill: "ThreeJS", details: "Web Animation and Graphics" },
+    { skill: "Node.js", details: "Web Development" },
     { skill: "Java", details: "Software Development" },
   ];
+
   return skills.map(currentSkill => {
     return (
       <SkillCard

@@ -1,7 +1,6 @@
 import * as React from "react";
 import { PageLabel } from "components/general/pagelabel/";
 import { SEO } from "../components/seo/";
-import { navigate } from "gatsby";
 import { HeroButton } from "components/general/buttons/";
 import { COLORS } from "styles/styles";
 const NotFoundPage = (): React.ReactNode => (
@@ -13,10 +12,8 @@ const NotFoundPage = (): React.ReactNode => (
 
     <p>Sorry that page does not exist!</p>
     <HeroButton
-      onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event.preventDefault();
-        navigate("/");
-      }}
+      isLink
+      to="/"
       accentColor={COLORS.sevenBlack}
       mainColor={COLORS.sevenBlack}
     >
